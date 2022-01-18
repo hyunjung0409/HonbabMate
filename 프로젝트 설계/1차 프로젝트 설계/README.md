@@ -1,16 +1,22 @@
 # 1차 프로젝트 설계
+
+## 피드백
+1. ERD에 매칭에 대한 테이블/데이터 필요
+2. UI에 매칭 대기 중 페이지 추가
+3. 웹 페이지에 검색 가능한 키워드를 포함하고 있지 않음
+
 ## ERD 다이어그램
-![ERD_Diagram_1](/uploads/8aecf72528bc64462dadf54c7c555fd1/ERD_Diagram_1.jpg)
+![ERD_Diagram_1](/프로젝트 설계/1차 프로젝트 설계/img/ERD Diagram_1.jpg)
 
 ## Flow chart
-![Flow_chart_1](/uploads/d0929711d3b46b68faca84e5b0e83ee8/Flow_chart_1.jpg)
+![Flow_chart_1](/프로젝트 설계/1차 프로젝트 설계/img/Flow chart_1.jpg)
 
 ## UI 설계
-![UI_설계](/uploads/448075d9ab2300297202ff68ce5b84ca/UI_설계.jpg)
-![UI_설계__1_](/uploads/aa4ad6fa93118c07bb5beedb97e6766a/UI_설계__1_.jpg)
-![UI_설계__2_](/uploads/42c4bbc73171a7806fe1c3bcc9347dac/UI_설계__2_.jpg)
-![UI_설계__3_](/uploads/f297d851e7ab887343109430bf145d69/UI_설계__3_.jpg)
-![UI_설계__4_](/uploads/c0406b7e7acf22794e969ea9aa3f6d62/UI_설계__4_.jpg)
-![UI_설계__5_](/uploads/d31d2c5041aec5f73ce9138ae5e3f030/UI_설계__5_.jpg)
-![UI_설계__6_](/uploads/28e955e3ff3535f9c648ca85dff884c6/UI_설계__6_.jpg)
-![UI_설계__7_](/uploads/317e2b6bb48901370e14e8f03c6b5979/UI_설계__7_.jpg)
+![UI_설계_1](/프로젝트 설계/1차 프로젝트 설계/img/UI 설계_1.jpg)
+![UI_설계_2](/프로젝트 설계/1차 프로젝트 설계/img/UI 설계_2.jpg)
+![UI_설계_3](/프로젝트 설계/1차 프로젝트 설계/img/UI 설계_3.jpg)
+![UI_설계_4](/프로젝트 설계/1차 프로젝트 설계/img/UI 설계_4.jpg)
+![UI_설계_5](/프로젝트 설계/1차 프로젝트 설계/img/UI 설계_5.jpg)
+![UI_설계_6](/프로젝트 설계/1차 프로젝트 설계/img/UI 설계_6.jpg)
+![UI_설계_7](/프로젝트 설계/1차 프로젝트 설계/img/UI 설계_7.jpg)
+![UI_설계_8](/프로젝트 설계/1차 프로젝트 설계/img/UI 설계_8.jpg)
