@@ -21,3 +21,14 @@
 
 
 `git merge <branch이름>` 현재의 branch에 <branch이름> 작업대를 병합한다.
+
+
+
+
+
+주차 넘어갈때 기존 git 불러오기
+
+1. git clone --bare [원본 저장소 경로]
+2. cd [원본저장소이름].git
+3. git remote set-url --push origin [이동할 저장소 경로]
+4. git push --mirror
