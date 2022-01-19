@@ -12,7 +12,6 @@
 - `Gutter` : Column 사이 간격
 - `Margin` : 좌우 여백
 
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/2b9a3e10-ce37-4cd2-9179-21f3fca1cbc8/Untitled.png)
 
 # Vuetify - Grid System
 
@@ -109,9 +108,6 @@
         </v-card>
     ```
     
-- 아래와 같이 나타남
-
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/37e04714-d2e8-46cd-8811-edce129760c2/Untitled.png)
 
 - `align` : v-row 속성으로 자식 컴포넌트를 수직 정렬
 - `align-self` : v-col 속성으로 자기 자신을 수직 정렬
@@ -144,9 +140,7 @@
         </v-card>
     ```
     
-- 아래와 같이 나타남
 
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/fda4b19b-f9a2-4869-94a1-28bbf9a313bc/Untitled.png)
 
 ### Breakpoint
 
@@ -203,9 +197,7 @@
         </v-card>
     ```
     
-- 아래와 같이 나타남
 
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/78819140-0e32-4f59-b34b-b81b1ceeadb0/Untitled.png)
 
 ### flexbox 가이드
 
