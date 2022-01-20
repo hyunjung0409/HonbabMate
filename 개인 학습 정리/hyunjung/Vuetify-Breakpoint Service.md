@@ -1,10 +1,9 @@
 # Breakpoint Service
-컴포넌트 내에서 뷰포트(어플리케이션 화면 크기) 정보에 접근하는 프로그래밍 방식이다.
-
-`$vuetify` 오브젝트에는 뷰포트 크기에 따라 어플리케이션 화면을 제어하는 데 사용하는 여러 속성이 있다.
-
+컴포넌트 내에서 뷰포트(어플리케이션 화면 크기) 정보에 접근하는 프로그래밍 방식이다.<br>
+`$vuetify` 오브젝트에는 뷰포트 크기에 따라 어플리케이션 화면을 제어하는 데 사용하는 여러 속성이 있다.<br>
 https://vuetifyjs.com/en/features/breakpoints/
 
+```
 <!-- Vue Component -->
 <!-- breakpoint 마다 v-card의 height를 변경하는 예시 --> 
 <template>
@@ -28,11 +27,12 @@ https://vuetifyjs.com/en/features/breakpoints/
     },
   }
 </script>
+```
 
+### Breakpoint Service를 활용한 실습 
 
-Breakpoint Service를 활용한 실습 
 - 뷰포트 크기에 따라 모바일 사이즈일 때는 다이얼로그가 전체화면으로, 모바일 사이즈 이상일 때는 팝업으로 뜨도록 구현해보는 실습
-
+```
 <!-- Vue Component -->
 <template>
   <v-container>
@@ -103,10 +103,10 @@ export default {
 };
 </script>
 <style lang=""></style>
-
+```
 
 - mobile breakpoint 기준(default: xs, sm)을 변경하고 싶다면 vuetify.js 에서 아래와 같이 설정한다.
-
+```
 import Vue from "vue";
 import Vuetify from "vuetify/lib/framework";
 
@@ -118,13 +118,10 @@ export default new Vuetify({
     mobileBreakpoint: "xs",
   },
 });
-
+```
 
 
 [참고]
-
-Vuetify 강의 Ep10 - Breakpoint Service | Vuetify를 시작하기 전에 꼭 봐야 하는 영상 | Vuetify Admin Template 만들기
-
-짐코딩의 CODING GYM
-
+Vuetify 강의 Ep10 - Breakpoint Service | Vuetify를 시작하기 전에 꼭 봐야 하는 영상 | Vuetify Admin Template 만들기<br>
+짐코딩의 CODING GYM<br>
 https://youtu.be/7sKpBB-pC2w
