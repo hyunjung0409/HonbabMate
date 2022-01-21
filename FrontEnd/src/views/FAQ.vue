@@ -1,12 +1,12 @@
 <template>
-  <div class="home">
-    <h1>혼밥메이트란????</h1>
+  <div class="faq">
+    <h1>자주 질문하는 내용</h1>
   </div>
 </template>
 
 <script>
 export default {
-  name: "Home",
+  name: "FAQ",
 
   components: {},
 };
