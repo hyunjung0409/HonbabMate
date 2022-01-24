@@ -1,6 +1,7 @@
 <template>
   <v-app-bar app color="orange accent-1" flat height="80">
-    <v-tab class="m1-n8" :to="{ name: 'Home' }"> HONBAB MATE</v-tab>
+    <!-- <v-tab class="m1-n8" :to="{ name: 'Home' }"> HONBAB MATE</v-tab> -->
+    <v-tab class="m1-n8" :to="{ name: 'ChatOption' }"> HONBAB MATE</v-tab>
 
     <v-avatar
       :color="$vuetify.breakpoint.smAndDown ? 'grey darken-1' : 'transparent'"
@@ -13,20 +14,19 @@
       </v-tab>
     </v-tabs>
 
-    <v-avatar class="hidden-sm-and-down" color="grey darken-1 shrink" size="36">
-    </v-avatar>
+    <v-avatar class="hidden-sm-and-down" color="grey darken-1 shrink" size="36"> </v-avatar>
   </v-app-bar>
 </template>
 
 <script>
 export default {
-  name: "AppBar",
+  name: 'AppBar',
 
   data: () => ({
     links: [
-      { name: "About", route: `/about` },
-      { name: "Manual", route: `/manual` },
-      { name: "FAQ", route: `/FAQ` },
+      { name: 'About', route: `/about` },
+      { name: 'Manual', route: `/manual` },
+      { name: 'FAQ', route: `/FAQ` },
     ],
   }),
 };
