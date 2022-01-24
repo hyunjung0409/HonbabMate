@@ -66,7 +66,7 @@
 
 <script>
 export default {
-  name: "Home",
+  name: "Chatroom",
   components: {},
 };
 </script>
