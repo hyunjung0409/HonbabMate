@@ -1,7 +1,7 @@
 <template>
   <!-- <v-app id="chat-option"> -->
   <v-app>
-    <v-content fluid>
+    <v-main fluid>
       <v-container>
         <!-- <v-row>
           <v-card>
@@ -18,7 +18,7 @@
         </v-row>
         <router-view />
       </v-container>
-    </v-content>
+    </v-main>
   </v-app>
 </template>
 

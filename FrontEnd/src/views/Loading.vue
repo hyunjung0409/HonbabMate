@@ -2,9 +2,7 @@
   <v-container fluid>
     <v-row>
       <v-col align="center">
-        <span class="pl-3">
-          당신과 함께 밥을 먹을 혼밥메이트를 찾고 있어요!
-        </span>
+        <span class="pl-3"> 당신과 함께 밥을 먹을 혼밥메이트를 찾고 있어요! </span>
       </v-col>
     </v-row>
 
@@ -25,14 +23,12 @@
 
     <v-row>
       <v-col align="center">
-        <span class="pl-3">
-          새로고침, 뒤로가기, 재접속을 하시면 대기시간이 더 길어집니다.
-        </span>
+        <span class="pl-3"> 새로고침, 뒤로가기, 재접속을 하시면 대기시간이 더 길어집니다. </span>
         <v-btn
           :disabled="loading"
           class="ml-3"
           color="grey darken-3"
-          :to="{ name: 'Home' }"
+          :to="{ name: 'ChatOption' }"
           plain
         >
           뒤로가기
@@ -44,7 +40,7 @@
 
 <script>
 export default {
-  name: "Loading",
+  name: 'Loading',
 
   data: () => ({
     value: 0,
@@ -74,8 +70,9 @@ export default {
         this.interval = setInterval(() => {
           if (this.value === 100) {
             clearInterval(this.interval);
-            console.log("여기서 넘어가는거?", this.value);
-            this.router.push({ path: "Home" });
+            console.log('여기서 넘어가는거?', this.value);
+            // this.$router.push({ path: 'Chatroom' });
+            this.$router.replace({ path: 'chatroom/two' });
             this.show = false;
             return setTimeout(this.queryAndIndeterminate, 2000);
           }

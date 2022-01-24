@@ -6,7 +6,11 @@ import Manual from '../views/Manual.vue';
 import FAQ from '../views/FAQ.vue';
 import About from '../views/About.vue';
 import Loading from '../views/Loading.vue';
-import Chatroom from '../views/Chatroom.vue';
+
+// import Chatroom from '../views/Chatroom.vue';
+import Chatroom from '@/views/Chatroom.vue';
+import TwoPeople from '@/components/chat_room/TwoPeople.vue';
+import FivePeople from '@/components/chat_room/FivePeople.vue';
 
 import ChatOption from '@/views/ChatOption.vue';
 import SilenceOrTalk from '@/components/chat_option/SilenceOrTalk.vue';
@@ -45,6 +49,18 @@ const routes = [
     path: '/chatroom',
     name: 'Chatroom',
     component: Chatroom,
+    children: [
+      {
+        path: 'two',
+        name: 'TwoPeople',
+        component: TwoPeople,
+      },
+      {
+        path: 'five',
+        name: 'FivePeople',
+        component: FivePeople,
+      },
+    ],
   },
   {
     // path: '/chat-option',
