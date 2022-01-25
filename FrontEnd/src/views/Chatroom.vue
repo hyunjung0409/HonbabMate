@@ -20,19 +20,28 @@
             <span class="mx-3">남은 시간 45:30</span>
           </v-col>
           <v-col cols="3" align="end">
-            <v-btn class="mx-3">나가기</v-btn>
+            <router-link :to="{ name: 'NumberOfPeople' }">
+              <v-btn class="mx-3">나가기</v-btn>
+            </router-link>
           </v-col>
         </v-row>
-        <router-view />
+
+        <v-row>
+          <video-chat />
+        </v-row>
       </v-container>
     </v-main>
   </v-app>
 </template>
 
 <script>
-import '@/assets/SCSS/common.scss';
+import "@/assets/SCSS/common.scss";
+import VideoChat from "@/views/VideoChat.vue";
 
 export default {
-  name: 'Chatroom',
+  name: "Chatroom",
+  components: {
+    VideoChat,
+  },
 };
 </script>
