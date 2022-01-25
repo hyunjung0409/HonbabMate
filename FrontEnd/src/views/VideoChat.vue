@@ -3,30 +3,25 @@
     <div>
       <input v-model="roomId" placeholder="Enter room id" />
       <button @click="toggleRoom">
-        {{ hasJoined ? "Leave Room" : "Join Room" }}
+        {{ hasJoined ? 'Leave Room' : 'Join Room' }}
       </button>
       <!-- <button @click="screenShare" v-if="hasJoined">Screen Share</button> -->
     </div>
 
     <div>
-      <vue-webrtc
-        width="100%"
-        :roomId="roomId"
-        ref="webrtc"
-        :cameraHeight="cameraHeight"
-      />
+      <vue-webrtc width="100%" :roomId="roomId" ref="webrtc" :cameraHeight="cameraHeight" />
     </div>
   </v-container>
 </template>
 
 <script>
 export default {
-  name: "VideoChat",
+  name: 'VideoChat',
   data() {
     return {
-      roomId: "roomId",
+      roomId: 'roomId',
       hasJoined: false,
-      userid: "",
+      userid: '',
       muted: true,
       cameraHeight: 300,
     };
@@ -44,8 +39,8 @@ export default {
         this.$refs.webrtc.join();
         console.log(this.$refs);
         this.hasJoined = true;
-        console.log("webrtc", this.$refs.webrtc.$props.cameraHeight);
-        console.log("roomId : ", this.roomId);
+        console.log('webrtc', this.$refs.webrtc.$props.cameraHeight);
+        console.log('roomId : ', this.roomId);
       }
     },
     screenShare() {

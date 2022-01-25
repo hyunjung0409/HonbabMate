@@ -25,6 +25,8 @@
             </router-link>
           </v-col>
         </v-row>
+        <!-- <router-view /> -->
+        <two-people></two-people>
 
         <v-row>
           <video-chat />
@@ -35,13 +37,26 @@
 </template>
 
 <script>
-import "@/assets/SCSS/common.scss";
-import VideoChat from "@/views/VideoChat.vue";
+import '@/assets/SCSS/common.scss';
+import VideoChat from '@/views/VideoChat.vue';
+import TwoPeople from '@/components/chat_room/TwoPeople.vue';
+import FivePeople from '@/components/chat_room/FivePeople.vue';
 
 export default {
-  name: "Chatroom",
+  name: 'Chatroom',
   components: {
     VideoChat,
+    TwoPeople,
+    FivePeople,
+  },
+
+  data: () => ({
+    //
+  }),
+  created() {
+    console.dir(this.$router);
+    console.dir(this.$route);
+    console.log(this.$route.path);
   },
 };
 </script>

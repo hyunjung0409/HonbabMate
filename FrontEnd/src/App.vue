@@ -2,17 +2,17 @@
   <v-app>
     <navbar />
 
-    <v-content>
+    <v-main>
       <router-view></router-view>
-    </v-content>
+    </v-main>
   </v-app>
 </template>
 
 <script>
 export default {
-  name: "App",
+  name: 'App',
   components: {
-    Navbar: () => import("@/components/Navbar"),
+    Navbar: () => import('@/components/Navbar'),
   },
 
   data: () => ({
