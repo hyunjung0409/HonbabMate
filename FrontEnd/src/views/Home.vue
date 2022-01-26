@@ -20,7 +20,12 @@
           <span class="mr-3 pa-3">
             2인 방 선택! 아래 옵션을 선택해주세요!
           </span>
-          <v-btn :disabled="loading" class="ml-3" color="grey darken-3" plain>
+          <v-btn
+            :disabled="loading"
+            class="ml-3"
+            color="grey darken-3"
+            plain
+          >
             뒤로가기
           </v-btn>
         </v-col>

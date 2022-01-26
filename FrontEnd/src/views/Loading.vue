@@ -18,7 +18,7 @@
         :active="show"
         :indeterminate="query"
         :query="true"
-      ></v-progress-linear>
+      />
     </v-row>
 
     <v-row>

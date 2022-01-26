@@ -8,7 +8,12 @@
           2인 방 선택! 아래 옵션을 선택해주세요!　
         </span>
         <router-link :to="{ name: 'NumberOfPeople' }">
-          <v-btn :disabled="loading" class="ml-3" color="grey darken-3" plain>
+          <v-btn
+            :disabled="loading"
+            class="ml-3"
+            color="grey darken-3"
+            plain
+          >
             뒤로가기
           </v-btn>
         </router-link>

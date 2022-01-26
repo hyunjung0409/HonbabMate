@@ -2,8 +2,12 @@
   <v-container fluid>
     <v-row>
       <v-col>
-        <div class="pl-3">같이 밥 먹을 친구가 필요하다면?</div>
-        <div class="pl-3">이제 온라인으로 새로운 사람과 식사하며 소통해요!</div>
+        <div class="pl-3">
+          같이 밥 먹을 친구가 필요하다면?
+        </div>
+        <div class="pl-3">
+          이제 온라인으로 새로운 사람과 식사하며 소통해요!
+        </div>
       </v-col>
     </v-row>
     <v-row>
@@ -14,10 +18,22 @@
     <v-row>
       <v-col align="center">
         <router-link :to="{ name: 'SilenceOrTalk' }">
-          <v-btn class="mr-3" depressed color="orange accent-1" height="100" width="200">
+          <v-btn
+            class="mr-3"
+            depressed
+            color="orange accent-1"
+            height="100"
+            width="200"
+          >
             2인
           </v-btn>
-          <v-btn class="ml-3" depressed color="orange accent-1" height="100" width="200">
+          <v-btn
+            class="ml-3"
+            depressed
+            color="orange accent-1"
+            height="100"
+            width="200"
+          >
             5인
           </v-btn>
         </router-link>
