@@ -12,10 +12,10 @@
 </template>
 
 <script>
-import VideoChat from '@/views/VideoChat.vue';
+import VideoChat from "@/views/VideoChat.vue";
 
 export default {
-  name: 'TwoPeople',
+  name: "TwoPeople",
   components: {
     VideoChat,
   },

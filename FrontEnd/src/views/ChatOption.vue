@@ -23,10 +23,10 @@
 </template>
 
 <script>
-import '@/assets/SCSS/common.scss';
+import "@/assets/SCSS/common.scss";
 
 export default {
-  name: 'ChatOption',
+  name: "ChatOption",
 };
 </script>
 
