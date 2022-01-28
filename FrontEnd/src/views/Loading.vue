@@ -1,45 +1,43 @@
 <template>
-  <v-container fluid>
-    <v-row>
-      <v-col align="center">
-        <span class="pl-3">
-          당신과 함께 밥을 먹을 혼밥메이트를 찾고 있어요!
-        </span>
-      </v-col>
-    </v-row>
+  <v-main>
+    <v-container>
+      <v-row>
+        <v-col align="center">
+          <span class="pl-3">
+            당신과 함께 밥을 먹을 혼밥메이트를 찾고 있어요!
+          </span>
+        </v-col>
+      </v-row>
 
-    <v-row>
-      <v-col align="center">
-        <span>잠시만 기다려주세요!</span>
-      </v-col>
-    </v-row>
+      <v-row>
+        <v-col align="center">
+          <span>잠시만 기다려주세요!</span>
+        </v-col>
+      </v-row>
 
-    <v-row>
-      <v-progress-linear
-        color="yellow darken-2"
-        :active="show"
-        :indeterminate="query"
-        :query="true"
-      />
-    </v-row>
+      <v-row>
+        <v-col cols="4" />
+        <v-col cols="4">
+          <v-progress-linear
+            color="orange accent-1"
+            indeterminate
+            rounded
+            height="6"
+          />
+        </v-col>
+        <v-col cols="4" />
+      </v-row>
 
-    <v-row>
-      <v-col align="center">
-        <span class="pl-3">
-          새로고침, 뒤로가기, 재접속을 하시면 대기시간이 더 길어집니다.
-        </span>
-        <v-btn
-          :disabled="loading"
-          class="ml-3"
-          color="grey darken-3"
-          :to="{ name: 'ChatOption' }"
-          plain
-        >
-          뒤로가기
-        </v-btn>
-      </v-col>
-    </v-row>
-  </v-container>
+      <v-row>
+        <v-col align="center">
+          <span class="pl-3">
+            새로고침, 뒤로가기, 재접속을 하시면 대기시간이 더 길어집니다.
+          </span>
+          <v-btn class="ml-3" color="grey darken-4" plain> 뒤로가기 </v-btn>
+        </v-col>
+      </v-row>
+    </v-container>
+  </v-main>
 </template>
 
 <script>

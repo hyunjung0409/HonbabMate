@@ -2,84 +2,46 @@
   <!-- <v-app id="chat-option"> -->
   <v-app>
     <v-main>
-      <v-container>
-        <v-row align="center" class="grey lighten-1">
-          <v-col cols="6" align="start">
-            <span class="mx-3">Chat Room - 206</span>
+      <v-container v-if="session" id="session">
+        <v-row id="session-header" align="center" class="grey lighten-1">
+          <v-col cols="3" align="start">
+            <span id="session-title" class="mx-3">{{ mySessionId }}</span>
+          </v-col>
+          <v-col cols="3" align="start">
             <span class="mx-3">2인👩🏻‍🤝‍🧑🏻 조용히 식사하는 방🍜 </span>
           </v-col>
           <v-col cols="3" align="start">
-            <span class="mx-3">남은 시간 45:30</span>
+            <!-- <span class="mx-3">남은 시간 {{ time }}</span> -->
+            <timer />
           </v-col>
           <v-col cols="3" align="end">
-            <v-btn xclass="mx-3" @click="exitPage"> 나가기 </v-btn>
+            <v-btn
+              id="buttonLeaveSession"
+              class="mx-3"
+              plain
+              @click="leaveSession"
+            >
+              나가기
+            </v-btn>
           </v-col>
         </v-row>
-        <v-row class="grey lighten-3">
-          <v-col>
-            <!-- <div v-if="!session" id="join">
-              <div id="join-dialog" class="jumbotron vertical-center">
-                <h1>Join a video session</h1>
-                <div class="form-group">
-                  <p>
-                    <label>Participant</label>
-                    <input
-                      v-model="myUserName"
-                      class="form-control"
-                      type="text"
-                      required
-                    />
-                  </p>
-                  <p>
-                    <label>Session</label>
-                    <input
-                      v-model="mySessionId"
-                      class="form-control"
-                      type="text"
-                      required
-                    />
-                  </p>
-                  <p class="text-center">
-                    <button
-                      class="btn btn-lg btn-success"
-                      @click="joinSession()"
-                    >
-                      Join!
-                    </button>
-                  </p>
-                </div>
-              </div>
-            </div> -->
-
-            <div v-if="session" id="session">
-              <div id="session-header">
-                <h1 id="session-title">
-                  {{ mySessionId }}
-                </h1>
-                <input
-                  id="buttonLeaveSession"
-                  class="btn btn-large btn-danger"
-                  type="button"
-                  value="Leave session"
-                  @click="leaveSession"
-                />
-              </div>
-              <!-- <div id="main-video" class="col-md-6">
+        <!-- <div id="main-video" class="col-md-6">
                 <user-video :stream-manager="mainStreamManager" />
               </div> -->
-              <div id="video-container" class="col-md-6">
-                <user-video
-                  :stream-manager="publisher"
-                  @click.native="updateMainVideoStreamManager(publisher)"
-                />
-                <user-video
-                  v-for="sub in subscribers"
-                  :key="sub.stream.connection.connectionId"
-                  :stream-manager="sub"
-                  @click.native="updateMainVideoStreamManager(sub)"
-                />
-              </div>
-            </div>
+        <v-row id="video-container" class="grey lighten-3">
+          <v-col cols="6">
+            <user-video
+              :stream-manager="publisher"
+              @click.native="updateMainVideoStreamManager(publisher)"
+            />
+          </v-col>
+          <v-col cols="6">
+            <user-video
+              v-for="sub in subscribers"
+              :key="sub.stream.connection.connectionId"
+              :stream-manager="sub"
+              @click.native="updateMainVideoStreamManager(sub)"
+            />
           </v-col>
         </v-row>
       </v-container>
@@ -92,6 +54,7 @@ import "@/assets/SCSS/common.scss";
 import axios from "axios";
 import { OpenVidu } from "openvidu-browser";
 import UserVideo from "@/components/chat_room/UserVideo";
+import Timer from "@/components/Timer";
 
 axios.defaults.headers.post["Content-Type"] = "application/json";
 
@@ -102,6 +65,7 @@ export default {
   name: "Chatroom",
   components: {
     UserVideo,
+    Timer,
   },
   data() {
     return {
