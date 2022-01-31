@@ -14,11 +14,11 @@
       </v-tab>
     </v-tabs>
 
-    <v-btn color="primary" @click="kakaologin" v-if="this.userlogin == false">
+    <v-btn color="primary" @click="kakaologin" v-if="this.userlogin === false">
       Login
     </v-btn>
 
-    <v-btn color="primary" @click="kakaologout" v-if="this.userlogin == true">
+    <v-btn color="primary" @click="kakaologout" v-if="this.userlogin === true">
       Logout
     </v-btn>
 
@@ -67,11 +67,25 @@ export default {
     },
 
     kakaologout() {
-      window.Kakao.Auth.logout((response) => {
-        console.log(response);
-        alert("로그아웃");
-        this.userlogin = false;
+      window.Kakao.API.request({
+        url: "/v1/user/unlink",
+        success: function (response) {
+          console.log(response);
+          alert("로그아웃");
+          this.userlogin = false;
+          location.reload();
+        },
+        fail: function (error) {
+          console.log(error);
+        },
       });
+
+      // 자체 로그아웃
+      // window.Kakao.Auth.logout((response) => {
+      //   console.log(response);
+      //   alert("로그아웃");
+      //   this.userlogin = false;
+      // });
     },
   },
 };
