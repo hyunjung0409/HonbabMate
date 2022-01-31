@@ -1,0 +1,10 @@
+[*.{js,jsx,ts,tsx,vue,scss,sass}]
+indent_style = space
+indent_size = 2
+# 위 두줄은 들여쓰기는 스페이스 2칸으로 설정
+
+trim_trailing_whitespace = true  # 문자 앞에 공백을 제거
+
+insert_final_newline = true # 파일 저장 시, 파일의 끝은 새로운 줄로 끝냄
+
+# 회사 혹은 팀 내 컨벤션에 맞게 설정하면 됨
