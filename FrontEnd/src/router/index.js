@@ -2,6 +2,7 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 
 // import Home from '../views/Home.vue';
+import Mainhome from "../views/Mainhome.vue";
 import Manual from "../views/Manual.vue";
 import FAQ from "../views/FAQ.vue";
 import About from "../views/About.vue";
@@ -22,6 +23,12 @@ const routes = [
   //   name: 'Home',
   //   component: Home,
   // },
+  {
+    path: "/",
+    name: "Home",
+    component: Mainhome,
+  },
+
   {
     path: "/about",
     name: "About",
@@ -49,11 +56,12 @@ const routes = [
     component: Chatroom,
   },
   {
-    // path: '/chat-option',
-    path: "/",
+    path: "/chat-option",
+    // path: "/chatoption",
     name: "ChatOption",
     component: ChatOption,
-    redirect: "/people",
+    redirect: "/chat-option/people",
+
     children: [
       {
         path: "people",

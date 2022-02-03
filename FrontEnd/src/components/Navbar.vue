@@ -1,7 +1,7 @@
 <template>
   <v-app-bar app color="orange accent-1" flat height="80">
-    <!-- <v-tab class="m1-n8" :to="{ name: 'Home' }"> HONBAB MATE</v-tab> -->
-    <v-tab class="m1-n8" :to="{ name: 'ChatOption' }"> HONBAB MATE </v-tab>
+    <v-tab class="m1-n8" :to="{ name: 'Home' }"> HONBAB MATE</v-tab>
+    <!-- <v-tab class="m1-n8" :to="{ name: 'ChatOption' }"> HONBAB MATE </v-tab> -->
 
     <v-avatar
       :color="$vuetify.breakpoint.smAndDown ? 'grey darken-1' : 'transparent'"
@@ -47,7 +47,7 @@ export default {
     kakaologin() {
       console.log("click login btn");
       window.Kakao.Auth.login({
-        scope: "",
+        scope: "account_email, gender, profile_image",
         success: this.getProfile,
       });
     },
@@ -63,6 +63,18 @@ export default {
           alert("로그인성공");
           this.userlogin = true;
         },
+      });
+    },
+
+    async login(kakao_account) {
+      await this.$api("/api/login", {
+        param: [
+          {
+            email: kakao_account.email,
+            nickname: kakao_account.profile.nickname,
+            gender: kakao_account.profile.gender,
+          },
+        ],
       });
     },
 
