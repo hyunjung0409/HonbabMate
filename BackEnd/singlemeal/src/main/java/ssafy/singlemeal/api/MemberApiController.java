@@ -1,5 +1,8 @@
 package ssafy.singlemeal.api;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
@@ -13,12 +16,14 @@ import ssafy.singlemeal.domain.Room;
 import ssafy.singlemeal.service.MemberService;
 import ssafy.singlemeal.service.RoomService;
 
+@Api(tags = {"api"})
 @RestController
 @RequiredArgsConstructor
 public class MemberApiController {
     private final MemberService memberService;
     private final RoomService roomService;
 
+    @ApiOperation(value = "로그인 테스트")
     @PostMapping("/api/members/login")
     public CreateMemberResponse saveMember(@RequestBody @Validated CreateMemberRequest request){
 
@@ -29,6 +34,10 @@ public class MemberApiController {
         return new CreateMemberResponse(id);
     }
 
+    /**
+     * 임시 : 방 생성 코드 by JPA
+     * */
+    @ApiOperation(value = "방 생성")
     @GetMapping("/createRoom")
     public void createRoom(){
 
