@@ -4,7 +4,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ssafy.singlemeal.domain.Member;
+import ssafy.singlemeal.domain.Room;
 import ssafy.singlemeal.repository.MemberRepository;
+import ssafy.singlemeal.repository.RoomRepository;
 
 import java.util.List;
 
@@ -14,13 +16,24 @@ import java.util.List;
 public class MemberService {
 
     private final MemberRepository memberRepository;
+    private final RoomRepository roomRepository;
 
     @Transactional
     public Long join(Member member){
-        validateDuplicateMember(member);
+
+        Room room = roomRepository.findOne(1L);
+        member.setRoom(room);
+
+//        validateDuplicateMember(member);
+
         memberRepository.save(member);
         return member.getId();
     }
+
+//    public Long joinByOption(Member member){
+//
+//        Room room = roomRepository.findByOption(member);
+//    }
 
     private void validateDuplicateMember(Member member) {
         List<Member> findMembers = memberRepository.findByName(member.getName());
