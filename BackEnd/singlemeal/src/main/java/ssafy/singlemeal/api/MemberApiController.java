@@ -28,7 +28,9 @@ public class MemberApiController {
     public CreateMemberResponse saveMember(@RequestBody @Validated CreateMemberRequest request){
 
         Member member = new Member();
-        member.setToken(request.getToken());
+        member.setEmail(request.getEmail());
+        member.setGender(request.getGender());
+        member.setNickname(request.getNickname());
 
         Long id = memberService.join(member);
         return new CreateMemberResponse(id);
@@ -47,8 +49,9 @@ public class MemberApiController {
 
     @Data
     static class CreateMemberRequest{
-        private String token;
-
+        private String email;
+        private String nickname;
+        private String gender;
     }
 
     @Data

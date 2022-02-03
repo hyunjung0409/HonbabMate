@@ -17,9 +17,9 @@ public class Member {
     @JoinColumn(name = "room_id")
     private Room room;
 
-    private String name;
-
-    private String token;
+    private String nickname;
+    private String email;
+    private String gender;
 
     @Enumerated(EnumType.STRING)
     private MemberStatus status;

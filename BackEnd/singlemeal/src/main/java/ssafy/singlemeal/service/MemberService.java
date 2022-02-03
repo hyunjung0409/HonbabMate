@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ssafy.singlemeal.domain.Member;
+import ssafy.singlemeal.domain.MemberStatus;
 import ssafy.singlemeal.domain.Room;
 import ssafy.singlemeal.repository.MemberRepository;
 import ssafy.singlemeal.repository.RoomRepository;
@@ -23,7 +24,7 @@ public class MemberService {
 
         Room room = roomRepository.findOne(1L);
         member.setRoom(room);
-
+        member.setStatus(MemberStatus.ONLINE);
 //        validateDuplicateMember(member);
 
         memberRepository.save(member);
@@ -35,12 +36,12 @@ public class MemberService {
 //        Room room = roomRepository.findByOption(member);
 //    }
 
-    private void validateDuplicateMember(Member member) {
-        List<Member> findMembers = memberRepository.findByName(member.getName());
-        if(!findMembers.isEmpty()){
-            throw new IllegalStateException("이미 존재하는 회원입니다");
-        }
-    }
+//    private void validateDuplicateMember(Member member) {
+//        List<Member> findMembers = memberRepository.findByName(member.getName());
+//        if(!findMembers.isEmpty()){
+//            throw new IllegalStateException("이미 존재하는 회원입니다");
+//        }
+//    }
 
     public List<Member> findMembers(){
         return memberRepository.findAll();
