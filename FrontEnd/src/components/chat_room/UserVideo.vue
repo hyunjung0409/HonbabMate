@@ -6,6 +6,17 @@
           <dropdown-menu />
         </div>
 
+        <div class="bottom">
+          <div @click="toggleLike">
+            <v-btn icon color="pink">
+              <v-icon>
+                {{ this.statusLike ? "mdi-heart" : "mdi-heart-outline" }}
+              </v-icon>
+            </v-btn>
+            <span>{{ this.statusLike ? "추천완료" : "추천하기" }}</span>
+          </div>
+        </div>
+
         <ov-video :stream-manager="streamManager" />
       </div>
     </a>
@@ -30,7 +41,6 @@ export default {
 
   data: () => ({
     statusLike: false,
-    statusMore: false,
   }),
 
   computed: {
@@ -48,9 +58,6 @@ export default {
     toggleLike() {
       this.statusLike = !this.statusLike;
     },
-    toggleMore() {
-      this.statusMore = !this.statusMore;
-    },
   },
 };
 </script>
@@ -58,7 +65,7 @@ export default {
 <style>
 a .video-area {
   position: relative;
-  /* overflow: hidden; */
+  overflow: hidden;
 }
 
 a .video-area .top {
@@ -66,5 +73,16 @@ a .video-area .top {
   top: 2%;
   left: 90%;
   z-index: 2;
+}
+
+a .video-area .bottom {
+  position: absolute;
+  top: 150%;
+  z-index: 2;
+  transition: all 0.35s;
+}
+
+a:hover .bottom {
+  top: 85%;
 }
 </style>

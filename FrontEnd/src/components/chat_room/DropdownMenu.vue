@@ -13,7 +13,7 @@
         </v-btn>
       </template>
 
-      <v-card>
+      <v-card max-width="350">
         <v-list>
           <v-list-item>
             <v-list-item-avatar>
@@ -26,7 +26,8 @@
             <v-list-item-content>
               <v-list-item-title>혼밥메이트206</v-list-item-title>
               <v-list-item-subtitle>
-                좋아요 : {{ countLike }}
+                좋아요 :
+                <!-- 좋아요 : {{ countLike }} -->
               </v-list-item-subtitle>
             </v-list-item-content>
 
@@ -44,16 +45,24 @@
           <v-list-item>
             <v-list-item-title>최애음식</v-list-item-title>
           </v-list-item>
+          <div class="px-4">
+            <v-chip-group active-class="primary--text" column>
+              <v-chip v-for="food in foods" :key="food">
+                {{ food }}
+              </v-chip>
+            </v-chip-group>
+          </div>
 
           <v-list-item>
-            <!-- <v-list-item-action>
-              <v-switch
-                v-model="hints"
-                color="purple"
-              />
-            </v-list-item-action> -->
             <v-list-item-title>또 뭐있지?</v-list-item-title>
           </v-list-item>
+          <div class="px-4">
+            <v-chip-group active-class="primary--text" column>
+              <v-chip v-for="tag in tags" :key="tag">
+                {{ tag }}
+              </v-chip>
+            </v-chip-group>
+          </div>
         </v-list>
 
         <v-divider />
@@ -131,6 +140,14 @@ export default {
     menu: false,
     blockDialog: false,
     reportDialog: false,
+    foods: [
+      "평양냉면",
+      "마라로제떡볶이",
+      "파히타",
+      "레인보우샤베트",
+      "마제소바",
+    ],
+    tags: ["ESFP", "쿠킹덤", "여고추리반"],
   }),
 };
 </script>
