@@ -31,10 +31,20 @@ public class MemberService {
         return member.getId();
     }
 
-//    public Long joinByOption(Member member){
-//
-//        Room room = roomRepository.findByOption(member);
-//    }
+    @Transactional
+    public void updateOption(Long id, String option){
+        Member member = memberRepository.findOne(id);
+        member.setOption(option);
+    }
+
+    @Transactional
+    public void updateRoomId(Long memberId, Long roomId){
+        Member member = memberRepository.findOne(memberId);
+        Room room = roomRepository.findOne(roomId);
+        member.setRoom(room);
+        room.setCount(room.getCount()+1);
+    }
+
 
 //    private void validateDuplicateMember(Member member) {
 //        List<Member> findMembers = memberRepository.findByName(member.getName());

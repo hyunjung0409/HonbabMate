@@ -18,16 +18,15 @@ public class RoomService {
         roomRepository.save(room);
     }
 
-//    public Long findRoomByOptions(String option1, int option2){
-//
-//        Room roomByOptions = roomRepository.findRoomByOptions(option1, option2);
-//
-//        return roomByOptions.getId();
-//    }
+    public Long match(Long id, String option){
+
+        return roomRepository.findByOption(option);
+    }
 
     public Room findOne(Long id){
         return roomRepository.findOne(id);
     }
+
 
 
 }

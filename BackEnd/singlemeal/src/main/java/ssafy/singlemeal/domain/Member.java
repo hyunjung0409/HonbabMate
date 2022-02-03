@@ -36,6 +36,21 @@ public class Member {
         room.getMembers().add(this);
     }
 
+    public void setOption(String option){
+        switch (option){
+            case "talkable2": this.option = MemberOption.TALKABLE2;
+                break;
+            case "nontalkable2": this.option = MemberOption.NONTALKABLE2;
+                break;
+            case "talkable5": this.option = MemberOption.TALKABLE5;
+                break;
+            case "nontalkable5": this.option = MemberOption.NONTALKABLE5;
+                break;
+        }
+    }
+
+
+
     //==생성 메서드==//
 //    public static Member createMember(Room room, String token){
 //        Member member = new Member();

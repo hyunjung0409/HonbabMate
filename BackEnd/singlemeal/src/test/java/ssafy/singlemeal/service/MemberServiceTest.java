@@ -30,20 +30,11 @@ class MemberServiceTest {
         Room room = new Room();
         em.persist(room);
 
-        Member member1 = new Member();
-        member1.setToken("Token1");
-
-        Member member2 = new Member();
-        member2.setToken("Token2");
-
         // when
-        Long memberId1 = memberService.join(member1);
-        Long memberId2 = memberService.join(member2);
 
         // then
-        assertEquals(member1, memberRepository.findOne(memberId1));
-        assertEquals(member1.getToken(), memberRepository.findOne(memberId1).getToken());
-    }
+
+   }
 
     /**
      *
@@ -64,9 +55,7 @@ class MemberServiceTest {
         em.persist(room3);
 
         Member member1 = new Member();
-        member1.setToken("SOIJEOFOISEJ");
         member1.setStatus(MemberStatus.ONLINE);
-        member1.setOption(MemberOption.TALKABLE2);
 
         // when
         memberService.join(member1);
