@@ -1,0 +1,38 @@
+<template>
+  <div v-if="streamManager" align="center">
+    <ov-video :stream-manager="streamManager" />
+    <div class="mt-3" align="center">
+      <p>{{ clientData }}</p>
+    </div>
+  </div>
+</template>
+
+<script>
+import OvVideo from "@/components/chat_room/OvVideo";
+
+export default {
+  name: "UserVideo",
+
+  components: {
+    OvVideo,
+  },
+
+  props: {
+    streamManager: Object,
+  },
+
+  computed: {
+    clientData() {
+      const { clientData } = this.getConnectionData();
+      return clientData;
+    },
+  },
+
+  methods: {
+    getConnectionData() {
+      const { connection } = this.streamManager.stream;
+      return JSON.parse(connection.data);
+    },
+  },
+};
+</script>
