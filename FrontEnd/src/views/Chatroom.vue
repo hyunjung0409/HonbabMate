@@ -34,6 +34,13 @@
               :stream-manager="publisher"
               @click.native="updateMainVideoStreamManager(publisher)"
             />
+            <div>
+              <v-btn dark color="grey" @click="toggleMic">
+                <v-icon>
+                  {{ this.statusMic ? "mdi-microphone" : "mdi-microphone-off" }}
+                </v-icon>
+              </v-btn>
+            </div>
           </v-col>
           <v-col cols="6">
             <user-video
@@ -77,14 +84,20 @@ export default {
 
       mySessionId: "SessionA",
       myUserName: "Participant" + Math.floor(Math.random() * 100),
+
+      statusMic: true,
     };
   },
   mounted() {
     this.joinSession();
   },
   methods: {
-    exitPage() {
-      this.$router.push("/people");
+    // exitPage() {
+    //   this.$router.push("/people");
+    // },
+    toggleMic() {
+      this.statusMic = !this.statusMic;
+      this.publisher.publishAudio = !this.publisher.publishAudio;
     },
     joinSession() {
       // --- Get an OpenVidu object ---

@@ -5,17 +5,16 @@
         <div class="top">
           <dropdown-menu />
         </div>
-
+        <!--
         <div class="bottom">
-          <div @click="toggleLike">
-            <v-btn icon color="pink">
+          <div @click="toggleMic">
+            <v-btn fab small dark color="grey">
               <v-icon>
-                {{ this.statusLike ? "mdi-heart" : "mdi-heart-outline" }}
+                {{ this.statusMic ? "mdi-microphone" : "mdi-microphone-off" }}
               </v-icon>
             </v-btn>
-            <span>{{ this.statusLike ? "추천완료" : "추천하기" }}</span>
           </div>
-        </div>
+        </div> -->
 
         <ov-video :stream-manager="streamManager" />
       </div>
@@ -40,7 +39,7 @@ export default {
   },
 
   data: () => ({
-    statusLike: false,
+    // statusMic: false,
   }),
 
   computed: {
@@ -55,9 +54,9 @@ export default {
       const { connection } = this.streamManager.stream;
       return JSON.parse(connection.data);
     },
-    toggleLike() {
-      this.statusLike = !this.statusLike;
-    },
+    // toggleMic() {
+    //   this.statusMic = !this.statusMic;
+    // },
   },
 };
 </script>
@@ -75,7 +74,7 @@ a .video-area .top {
   z-index: 2;
 }
 
-a .video-area .bottom {
+/* a .video-area .bottom {
   position: absolute;
   top: 150%;
   z-index: 2;
@@ -84,5 +83,5 @@ a .video-area .bottom {
 
 a:hover .bottom {
   top: 85%;
-}
+} */
 </style>
