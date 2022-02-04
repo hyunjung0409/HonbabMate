@@ -14,6 +14,8 @@ import ChatOption from "@/views/ChatOption.vue";
 import SilenceOrTalk from "@/components/chat_option/SilenceOrTalk.vue";
 import NumberOfPeople from "@/components/chat_option/NumberOfPeople.vue";
 
+import Profile from "@/views/Profile.vue";
+
 Vue.use(VueRouter);
 
 const routes = [
@@ -66,6 +68,11 @@ const routes = [
         component: SilenceOrTalk,
       },
     ],
+  },
+  {
+    path: "/profile",
+    name: "Profile",
+    component: Profile,
   },
 ];
 
