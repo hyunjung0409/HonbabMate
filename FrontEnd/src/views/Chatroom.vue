@@ -4,10 +4,10 @@
     <v-main>
       <v-container v-if="session" id="session">
         <v-row id="session-header" align="center" class="grey lighten-1">
-          <v-col cols="2" align="start">
+          <v-col cols="3" align="start">
             <span id="session-title" class="mx-3">{{ mySessionId }}</span>
           </v-col>
-          <v-col cols="4" align="start">
+          <v-col cols="3" align="start">
             <span class="mx-3">2인👩🏻‍🤝‍🧑🏻 조용히 식사하는 방🍜 </span>
           </v-col>
           <v-col cols="3" align="start">
