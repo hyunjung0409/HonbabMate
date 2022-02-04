@@ -4,10 +4,10 @@
     <v-main>
       <v-container v-if="session" id="session">
         <v-row id="session-header" align="center" class="grey lighten-1">
-          <v-col cols="3" align="start">
+          <v-col cols="2" align="start">
             <span id="session-title" class="mx-3">{{ mySessionId }}</span>
           </v-col>
-          <v-col cols="3" align="start">
+          <v-col cols="4" align="start">
             <span class="mx-3">2인👩🏻‍🤝‍🧑🏻 조용히 식사하는 방🍜 </span>
           </v-col>
           <v-col cols="3" align="start">
@@ -34,6 +34,13 @@
               :stream-manager="publisher"
               @click.native="updateMainVideoStreamManager(publisher)"
             />
+            <div>
+              <v-btn dark color="grey" @click="toggleMic">
+                <v-icon>
+                  {{ this.statusMic ? "mdi-microphone" : "mdi-microphone-off" }}
+                </v-icon>
+              </v-btn>
+            </div>
           </v-col>
           <v-col cols="6">
             <user-video
@@ -77,14 +84,20 @@ export default {
 
       mySessionId: "SessionA",
       myUserName: "Participant" + Math.floor(Math.random() * 100),
+
+      statusMic: true,
     };
   },
   mounted() {
     this.joinSession();
   },
   methods: {
-    exitPage() {
-      this.$router.push("/people");
+    // exitPage() {
+    //   this.$router.push("/people");
+    // },
+    toggleMic() {
+      this.statusMic = !this.statusMic;
+      this.publisher.publishAudio = !this.publisher.publishAudio;
     },
     joinSession() {
       // --- Get an OpenVidu object ---
