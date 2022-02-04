@@ -31,6 +31,7 @@
 </template>
 
 <script>
+import axios from "axios";
 export default {
   name: "AppBar",
 
@@ -67,14 +68,10 @@ export default {
     },
 
     async login(kakao_account) {
-      await this.$api("/api/login", {
-        param: [
-          {
-            email: kakao_account.email,
-            nickname: kakao_account.profile.nickname,
-            gender: kakao_account.profile.gender,
-          },
-        ],
+      await axios.post("members/login", {
+        email: kakao_account.email,
+        nickname: kakao_account.profile.nickname,
+        gender: kakao_account.profile.gender,
       });
     },
 
