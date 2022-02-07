@@ -20,6 +20,7 @@
             color="orange accent-1"
             height="100"
             width="200"
+            @click="num2"
           >
             2인
           </v-btn>
@@ -29,6 +30,7 @@
             color="orange accent-1"
             height="100"
             width="200"
+            @click="num5"
           >
             5인
           </v-btn>
@@ -41,6 +43,26 @@
 <script>
 export default {
   name: "NumberOfPeople",
+
+  computed: {
+    useroption() {
+      return this.$store.state.useroption;
+    },
+  },
+
+  methods: {
+    num2() {
+      const num = 2;
+      this.$store.commit("numberopiton", 2);
+      console.log("useroption : ", this.useroption);
+    },
+
+    num5() {
+      const num = 5;
+      this.$store.commit("numberopiton", 5);
+      console.log("useroption : ", this.useroption);
+    },
+  },
 };
 </script>
 
