@@ -31,7 +31,8 @@
 </template>
 
 <script>
-import axios from "axios";
+import rest from "../api/index.js";
+
 export default {
   name: "AppBar",
 
@@ -44,11 +45,16 @@ export default {
     userlogin: false,
   }),
 
+  computed: {
+    user() {
+      return this.$store.state.user;
+    },
+  },
+
   methods: {
     kakaologin() {
-      console.log("click login btn");
       window.Kakao.Auth.login({
-        scope: "account_email, gender, profile_image",
+        scope: "account_email, gender, profile_nickname, profile_image",
         success: this.getProfile,
       });
     },
@@ -61,18 +67,35 @@ export default {
         success: (res) => {
           const kakao_account = res.kakao_account;
           console.log(kakao_account);
+          // this.login(kakao_account);
           alert("로그인성공");
           this.userlogin = true;
+          this.$store.commit("user", kakao_account);
         },
       });
     },
 
     async login(kakao_account) {
-      await axios.post("members/login", {
-        email: kakao_account.email,
-        nickname: kakao_account.profile.nickname,
-        gender: kakao_account.profile.gender,
-      });
+      await rest
+        .axios({
+          method: "post",
+          url: "/members/login",
+          data: {
+            email: kakao_account.email,
+            nickname: kakao_account.profile.nickname,
+            gender: kakao_account.profile.gender,
+          },
+        })
+        .then((res) => {
+          localStorage.setItem("nickname", res.data.nickname);
+          console.log("스토리지", res.data);
+          this.userlogin = true;
+
+          // this.$store.commit("user", kakao_account);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     },
 
     kakaologout() {
@@ -81,6 +104,9 @@ export default {
         success: function (response) {
           console.log(response);
           alert("로그아웃");
+
+          // this.$store.commit("user", {});
+
           this.userlogin = false;
           location.reload();
         },

@@ -21,6 +21,7 @@
             color="orange accent-1"
             height="100"
             width="200"
+            @click="silence"
           >
             조용히 먹고 싶어요
           </v-btn>
@@ -31,6 +32,7 @@
             color="orange accent-1"
             height="100"
             width="200"
+            @click="smalltalk"
           >
             스몰토크 나누고 싶어요
           </v-btn>
@@ -43,6 +45,25 @@
 <script>
 export default {
   name: "SilenceOrTalk",
+
+  computed: {
+    useroption() {
+      return this.$store.state.useroption;
+    },
+  },
+
+  methods: {
+    silence() {
+      this.$store.commit("soundoption", false);
+      console.log("useroption : ", this.useroption);
+    },
+
+    smalltalk() {
+      const num = 5;
+      this.$store.commit("soundoption", true);
+      console.log("useroption : ", this.useroption);
+    },
+  },
 };
 </script>
 
