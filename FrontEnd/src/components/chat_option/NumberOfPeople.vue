@@ -66,4 +66,8 @@ export default {
 };
 </script>
 
-<style lang=""></style>
+<style>
+/* .area {
+  padding-top: 100px;
+} */
+</style>
