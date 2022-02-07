@@ -1,13 +1,21 @@
 <template>
+<<<<<<< HEAD:FrontEnd/src/components/Navbar.vue
   <v-app-bar app color="orange accent-1" flat height="80">
     <v-tab class="m1-n8" :to="{ name: 'Home' }"> HONBAB MATE</v-tab>
     <!-- <v-tab class="m1-n8" :to="{ name: 'ChatOption' }"> HONBAB MATE </v-tab> -->
+=======
+  <v-app-bar app color="grey lighten-3" flat height="80">
+    <router-link :to="{ path: '/' }" class="pa-5">
+      <v-icon size="40px" color="amber darken-1"> mdi-alpha-h-circle </v-icon>
+    </router-link>
+>>>>>>> feature_profile:FrontEnd/src/components/layout/Navbar.vue
 
-    <v-avatar
+    <!-- <v-avatar
       :color="$vuetify.breakpoint.smAndDown ? 'grey darken-1' : 'transparent'"
       size="32"
-    />
+    /> -->
 
+<<<<<<< HEAD:FrontEnd/src/components/Navbar.vue
     <v-tabs centered class="ml-n9" color="grey darken-1">
       <v-tab v-for="link in links" :key="link.name" :to="link.route">
         {{ link.name }}
@@ -15,10 +23,21 @@
     </v-tabs>
 
     <v-btn color="primary" @click="kakaologin" v-if="this.userlogin === false">
+=======
+    <v-tabs centered class="ml-n9" color="amber darken-1">
+      <v-tab v-for="link in links" :key="link.name" :to="link.route">
+        <h3>
+          {{ link.title }}
+        </h3>
+      </v-tab>
+    </v-tabs>
+
+    <v-btn v-if="this.userlogin === false" color="primary" @click="kakaologin">
+>>>>>>> feature_profile:FrontEnd/src/components/layout/Navbar.vue
       Login
     </v-btn>
 
-    <v-btn color="primary" @click="kakaologout" v-if="this.userlogin === true">
+    <v-btn v-if="this.userlogin === true" color="primary" @click="kakaologout">
       Logout
     </v-btn>
 
@@ -31,16 +50,20 @@
 </template>
 
 <script>
+<<<<<<< HEAD:FrontEnd/src/components/Navbar.vue
 import rest from "../api/index.js";
+=======
+import axios from "axios";
+>>>>>>> feature_profile:FrontEnd/src/components/layout/Navbar.vue
 
 export default {
   name: "AppBar",
 
   data: () => ({
     links: [
-      { name: "About", route: `/about` },
-      { name: "Manual", route: `/manual` },
-      { name: "FAQ", route: `/FAQ` },
+      { title: "혼밥메이트", name: "Home", route: `/` },
+      { title: "사이트 사용법", name: "Manual", route: `/manual` },
+      { title: "자주하는 질문", name: "FAQ", route: `/FAQ` },
     ],
     userlogin: false,
   }),

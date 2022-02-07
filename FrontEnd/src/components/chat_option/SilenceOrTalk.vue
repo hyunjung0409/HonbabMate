@@ -1,45 +1,50 @@
 <template>
-  <v-container fluid>
-    <v-row>
-      <v-col align="center">
+  <div style="padding-top: 50px">
+    <v-row class="text-h6" algi>
+      <v-col>
         <!-- 이전 인원 선택 페이지에서 선택한 옵션 데이터 받아서
             아래 문구에 바인딩해야 함. (2인/5인)  -->
-        <span class="mr-3 pa-3">
-          2인 방 선택! 아래 옵션을 선택해주세요!　
-        </span>
-        <router-link :to="{ name: 'NumberOfPeople' }">
-          <v-btn class="ml-3" plain> 뒤로가기 </v-btn>
-        </router-link>
+        <div>
+          2인 방 선택! <b>마이크 옵션</b>을 선택해주세요!
+          <v-btn plain x-small :to="{ name: 'NumberOfPeople' }">
+            뒤로가기
+          </v-btn>
+        </div>
       </v-col>
     </v-row>
-    <v-row>
-      <v-col align="center">
+
+    <v-row class="mt-n3">
+      <v-col>
         <router-link :to="{ name: 'Loading' }">
           <v-btn
-            class="mr-3"
+            class="text-h6 mr-3"
             depressed
-            color="orange accent-1"
-            height="100"
-            width="200"
+            rounded
+            color="amber darken-1"
+            dark
+            x-large
+            width="160px"
             @click="silence"
           >
-            조용히 먹고 싶어요
+            마이크 On
           </v-btn>
 
           <v-btn
-            class="ml-3"
+            class="text-h6 ml-3"
             depressed
-            color="orange accent-1"
-            height="100"
-            width="200"
+            rounded
+            color="amber darken-1"
+            dark
+            x-large
+            width="160px"
             @click="smalltalk"
           >
-            스몰토크 나누고 싶어요
+            마이크 Off
           </v-btn>
         </router-link>
       </v-col>
     </v-row>
-  </v-container>
+  </div>
 </template>
 
 <script>

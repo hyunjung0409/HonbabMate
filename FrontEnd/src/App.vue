@@ -1,18 +1,17 @@
 <template>
   <v-app>
     <navbar />
-
-    <v-main>
+    <v-content style="background-color: #eeeeee">
       <router-view></router-view>
-    </v-main>
+    </v-content>
   </v-app>
 </template>
 
 <script>
 export default {
-  name: 'App',
+  name: "App",
   components: {
-    Navbar: () => import('@/components/Navbar'),
+    Navbar: () => import("@/components/layout/Navbar"),
   },
 
   data: () => ({
