@@ -4,6 +4,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.Arrays;
+import java.util.List;
 
 @Entity
 @Getter @Setter
@@ -17,9 +19,16 @@ public class Member {
     @JoinColumn(name = "room_id")
     private Room room;
 
-    private String nickname;
+    private String nickName;
     private String email;
     private String gender;
+    private Long cntOfLikes = 0L;
+
+    @Embedded
+    private MemberFood food;
+
+    @Embedded
+    private MemberEtc etc;
 
     @Enumerated(EnumType.STRING)
     private MemberStatus status;
@@ -27,13 +36,14 @@ public class Member {
     @Enumerated(EnumType.STRING)
     private MemberOption option;
 
-//    @Embedded
-//    private MemberProfile memberProfile;
-
     //==연관관계 메서드==//
     public void setRoom(Room room){
         this.room = room;
         room.getMembers().add(this);
+    }
+
+    public void setNickname(String nickName){
+        this.nickName = nickName;
     }
 
     public void setOption(String option){
@@ -49,7 +59,26 @@ public class Member {
         }
     }
 
+    public void setFoods(List<String> foods){
+        this.food = new MemberFood(foods.get(0),foods.get(1),foods.get(2));
+    }
 
+    public void setEtc(List<String> etc){
+        this.etc = new MemberEtc(etc.get(0), etc.get(1), etc.get(2));
+    }
+
+    public List<String> getFoods(){
+
+        List<String> foods = Arrays.asList(this.food.getFood1(), this.food.getFood2(), this.food.getFood3());
+
+        return foods;
+    }
+
+    public List<String> getEtc(){
+
+        List<String> etc = Arrays.asList(this.etc.getEtc1(), this.etc.getEtc2(), this.etc.getEtc3());
+        return etc;
+    }
 
     //==생성 메서드==//
 //    public static Member createMember(Room room, String token){
