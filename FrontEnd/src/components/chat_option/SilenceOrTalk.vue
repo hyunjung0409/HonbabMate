@@ -24,7 +24,7 @@
             dark
             x-large
             width="160px"
-            @click="silence"
+            @click="smalltalk"
           >
             마이크 On
           </v-btn>
@@ -37,7 +37,7 @@
             dark
             x-large
             width="160px"
-            @click="smalltalk"
+            @click="silence"
           >
             마이크 Off
           </v-btn>

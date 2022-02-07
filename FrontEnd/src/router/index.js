@@ -1,13 +1,8 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 
-<<<<<<< HEAD
-// import Home from '../views/Home.vue';
-import Mainhome from "../views/Mainhome.vue";
-=======
 import Home from "../views/Home.vue";
 // import Mainhome from "../views/Mainhome.vue";
->>>>>>> feature_profile
 import Manual from "../views/Manual.vue";
 import FAQ from "../views/FAQ.vue";
 
@@ -25,14 +20,6 @@ import Profile from "@/views/Profile.vue";
 Vue.use(VueRouter);
 
 const routes = [
-<<<<<<< HEAD
-  // {
-  //   path: '/',
-  //   name: 'Home',
-  //   component: Home,
-  // },
-=======
->>>>>>> feature_profile
   {
     path: "/FAQ",
     name: "FAQ",
@@ -61,14 +48,6 @@ const routes = [
   //   component: Mainhome,
   // },
 
-<<<<<<< HEAD
-  {
-    path: "/about",
-    name: "About",
-    component: About,
-  },
-=======
->>>>>>> feature_profile
   {
     path: "/manual",
     name: "Manual",
@@ -109,14 +88,11 @@ const routes = [
         component: SilenceOrTalk,
       },
     ],
-<<<<<<< HEAD
-=======
   },
   {
     path: "/login",
     name: "Login",
     component: Login,
->>>>>>> feature_profile
   },
   {
     path: "/profile",
