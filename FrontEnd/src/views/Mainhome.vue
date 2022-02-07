@@ -1,6 +1,6 @@
 <template>
   <v-main>
-    <v-container fluid>
+    <v-container>
       <!-- <v-row>
           <v-card>
             <v-card-title>
@@ -9,34 +9,26 @@
           </v-card>
         </v-row> -->
 
-      <v-row>
+      <v-row class="text-h6">
         <v-col>
-          <h1 class="pl-3">혼밥메이트</h1>
+          <h1>혼밥메이트</h1>
         </v-col>
       </v-row>
-      <v-row>
+
+      <v-row class="content">
         <v-col>
-          <span class="pl-3">
+          <div>
             혼밥 하고는 싶지만 실제로 만나서 식사하시는 건 부담스러우신가요?
-          </span>
-        </v-col>
-      </v-row>
-      <v-row>
-        <v-col>
-          <span class="pl-3">
-            혼자 밥 먹기도 지친 외로운 혼밥러들을 위한 랜덤 매칭 서비스
-          </span>
-        </v-col>
-      </v-row>
-      <v-row>
-        <v-col>
-          <span class="pl-3">
+          </div>
+          <div>혼자 밥 먹기도 지친 외로운 혼밥러들을 위한 랜덤 매칭 서비스</div>
+          <div>
             '혼밥메이트'를 사용해 온라인으로 함께 식사하며 랜선 친목을
             다져보아요!
-          </span>
+          </div>
         </v-col>
       </v-row>
-      <v-row>
+
+      <v-row class="start">
         <v-col>
           <v-btn
             depressed
@@ -64,5 +56,3 @@ export default {
   },
 };
 </script>
-
-<style scoped></style>
