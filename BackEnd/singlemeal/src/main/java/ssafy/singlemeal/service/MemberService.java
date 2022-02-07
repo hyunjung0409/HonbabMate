@@ -45,6 +45,15 @@ public class MemberService {
         room.setCount(room.getCount()+1);
     }
 
+    @Transactional
+    public void updateProfile(Long id, String nickname, List<String> foods, List<String> etc) {
+
+        Member member = memberRepository.findOne(id);
+        member.setNickname(nickname);
+        member.setFoods(foods);
+        member.setEtc(etc);
+    }
+
 
 //    private void validateDuplicateMember(Member member) {
 //        List<Member> findMembers = memberRepository.findByName(member.getName());
@@ -59,5 +68,11 @@ public class MemberService {
 
     public Member findOne(Long memberId){
         return memberRepository.findOne(memberId);
+    }
+
+    @Transactional
+    public void updateLikes(Long id) {
+        Member member = memberRepository.findOne(id);
+        member.setCntOfLikes(member.getCntOfLikes()+1);
     }
 }

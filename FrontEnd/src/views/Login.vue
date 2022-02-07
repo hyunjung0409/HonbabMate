@@ -1,46 +1,25 @@
 <template>
-  <v-app-bar app color="orange accent-1" flat height="80">
-    <v-tab class="m1-n8" :to="{ name: 'Home' }"> HONBAB MATE</v-tab>
-    <!-- <v-tab class="m1-n8" :to="{ name: 'ChatOption' }"> HONBAB MATE </v-tab> -->
+  <v-main>
+    <v-container>
+      <div>로그인 페이지</div>
 
-    <v-avatar
-      :color="$vuetify.breakpoint.smAndDown ? 'grey darken-1' : 'transparent'"
-      size="32"
-    />
-
-    <v-tabs centered class="ml-n9" color="grey darken-1">
-      <v-tab v-for="link in links" :key="link.name" :to="link.route">
-        {{ link.name }}
-      </v-tab>
-    </v-tabs>
-
-    <v-btn color="primary" @click="kakaologin" v-if="this.userlogin === false">
-      Login
-    </v-btn>
-
-    <v-btn color="primary" @click="kakaologout" v-if="this.userlogin === true">
-      Logout
-    </v-btn>
-
-    <!-- <v-avatar
-      class="hidden-sm-and-down"
-      color="grey darken-1 shrink"
-      size="36"
-    /> -->
-  </v-app-bar>
+      <v-btn
+        v-if="this.userlogin === false"
+        color="primary"
+        @click="kakaologin"
+      >
+        Login
+      </v-btn>
+    </v-container>
+  </v-main>
 </template>
-
 <script>
 import axios from "axios";
+
 export default {
-  name: "AppBar",
+  name: "Login",
 
   data: () => ({
-    links: [
-      { name: "About", route: `/about` },
-      { name: "Manual", route: `/manual` },
-      { name: "FAQ", route: `/FAQ` },
-    ],
     userlogin: false,
   }),
 

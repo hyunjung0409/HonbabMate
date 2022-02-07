@@ -2,18 +2,20 @@ package ssafy.singlemeal.api;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import ssafy.singlemeal.domain.Member;
-import ssafy.singlemeal.domain.Room;
-import ssafy.singlemeal.domain.RoomOption;
-import ssafy.singlemeal.domain.RoomStatus;
+import org.springframework.web.multipart.MultipartFile;
+import ssafy.singlemeal.domain.*;
 import ssafy.singlemeal.service.MemberService;
 import ssafy.singlemeal.service.RoomService;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.List;
 
 @Api(tags = {"api"})
 @RestController
@@ -40,19 +42,74 @@ public class MemberApiController {
     @PutMapping("/api/members/match")
     public MatchMemberResponse matchMember(@RequestBody @Validated MatchMemberRequest request){
         memberService.updateOption(request.getId(), request.getOption());
-        /**
-         * 매치 로직 추가
-         * */
+
         Long roomId =  roomService.match(request.getId(), request.getOption());
         memberService.updateRoomId(request.getId(), roomId);
 
         return new MatchMemberResponse(roomId);
     }
 
-//    @GetMapping("/api/members/escapeRoom")
-//    public void escapeRoom(){
+    @ApiOperation(value = "프로필 수정 테스트")
+    @PutMapping("/api/profile")
+    public void updateProfile(@RequestBody @Validated ProfileRequest request){
+           memberService.updateProfile(request.getId(),request.getNickname(),request.getFoods(),request.getEtc());
+    }
+
+    @ApiOperation(value = "프로필 조회 테스트")
+    @GetMapping("/api/profile/{id}")
+    public CreateProfileResponse showProfile(@PathVariable("id") Long id){
+
+        Member member = memberService.findOne(id);
+        String nickName = member.getNickName();
+        Long cntOfLikes = member.getCntOfLikes();
+        List<String> foods = member.getFoods();
+        List<String> etc = member.getEtc();
+
+        return new CreateProfileResponse(member.getId(),nickName,cntOfLikes,foods,etc);
+    }
+
+    @ApiOperation(value = "좋아요 테스트")
+    @GetMapping("api/like/{id}")
+    public void recommandMember(@PathVariable("id") Long id){
+
+        memberService.updateLikes(id);
+    }
+
+//    @ApiOperation(value = "이미지 테스트")
+//    @PostMapping("api/image")
+//    public void updateImage(@ModelAttribute ItemForm form) {
+//
+//        UploadFile attachFile = fileStore.storeFile(form.attachfile);
+//
 //
 //    }
+
+    @Data
+    static class ItemForm{
+        private MultipartFile attachfile;
+    }
+
+
+    @Data
+    @AllArgsConstructor
+    static class CreateProfileResponse{
+        private Long id;
+        private String nickName;
+        private Long cntOfLikes;
+        private List<String> foods;
+        private List<String> etc;
+    }
+
+    @Data
+    static class ProfileRequest{
+
+        private Long id;
+        private String nickname;
+        private List<String> foods;
+        private List<String> etc;
+
+    }
+
 
     @Data
     static class MatchMemberRequest{

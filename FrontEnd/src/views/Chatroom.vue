@@ -1,52 +1,58 @@
 <template>
   <!-- <v-app id="chat-option"> -->
-  <v-app>
-    <v-main>
-      <v-container v-if="session" id="session">
-        <v-row id="session-header" align="center" class="grey lighten-1">
-          <v-col cols="3" align="start">
-            <span id="session-title" class="mx-3">{{ mySessionId }}</span>
-          </v-col>
-          <v-col cols="3" align="start">
-            <span class="mx-3">2인👩🏻‍🤝‍🧑🏻 조용히 식사하는 방🍜 </span>
-          </v-col>
-          <v-col cols="3" align="start">
-            <!-- <span class="mx-3">남은 시간 {{ time }}</span> -->
-            <timer />
-          </v-col>
-          <v-col cols="3" align="end">
-            <v-btn
-              id="buttonLeaveSession"
-              class="mx-3"
-              plain
-              @click="leaveSession"
-            >
-              나가기
-            </v-btn>
-          </v-col>
-        </v-row>
-        <!-- <div id="main-video" class="col-md-6">
+
+  <v-main>
+    <v-container v-if="session" id="session">
+      <v-row id="session-header" align="center" class="grey lighten-1">
+        <v-col cols="3" align="start">
+          <span id="session-title" class="mx-3">{{ mySessionId }}</span>
+        </v-col>
+        <v-col cols="3" align="start">
+          <span class="mx-3">2인👩🏻‍🤝‍🧑🏻 조용히 식사하는 방🍜 </span>
+        </v-col>
+        <v-col cols="3" align="start">
+          <!-- <span class="mx-3">남은 시간 {{ time }}</span> -->
+          <timer />
+        </v-col>
+        <v-col cols="3" align="end">
+          <v-btn
+            id="buttonLeaveSession"
+            class="mx-3"
+            plain
+            @click="leaveSession"
+          >
+            나가기
+          </v-btn>
+        </v-col>
+      </v-row>
+      <!-- <div id="main-video" class="col-md-6">
                 <user-video :stream-manager="mainStreamManager" />
               </div> -->
-        <v-row id="video-container" class="grey lighten-3">
-          <v-col cols="6">
-            <user-video
-              :stream-manager="publisher"
-              @click.native="updateMainVideoStreamManager(publisher)"
-            />
-          </v-col>
-          <v-col cols="6">
-            <user-video
-              v-for="sub in subscribers"
-              :key="sub.stream.connection.connectionId"
-              :stream-manager="sub"
-              @click.native="updateMainVideoStreamManager(sub)"
-            />
-          </v-col>
-        </v-row>
-      </v-container>
-    </v-main>
-  </v-app>
+      <v-row id="video-container" class="grey lighten-3">
+        <v-col cols="6">
+          <user-video
+            :stream-manager="publisher"
+            @click.native="updateMainVideoStreamManager(publisher)"
+          />
+          <div>
+            <v-btn dark color="grey" @click="toggleMic">
+              <v-icon>
+                {{ this.statusMic ? "mdi-microphone" : "mdi-microphone-off" }}
+              </v-icon>
+            </v-btn>
+          </div>
+        </v-col>
+        <v-col cols="6">
+          <user-video
+            v-for="sub in subscribers"
+            :key="sub.stream.connection.connectionId"
+            :stream-manager="sub"
+            @click.native="updateMainVideoStreamManager(sub)"
+          />
+        </v-col>
+      </v-row>
+    </v-container>
+  </v-main>
 </template>
 
 <script>
@@ -59,6 +65,7 @@ import Timer from "@/components/Timer";
 axios.defaults.headers.post["Content-Type"] = "application/json";
 
 const OPENVIDU_SERVER_URL = "https://" + location.hostname + ":4443";
+// const OPENVIDU_SERVER_URL = "https://i6c206.p.ssafy.io/:4443";
 const OPENVIDU_SERVER_SECRET = "MY_SECRET";
 
 export default {
@@ -77,14 +84,20 @@ export default {
 
       mySessionId: "SessionA",
       myUserName: "Participant" + Math.floor(Math.random() * 100),
+
+      statusMic: true,
     };
   },
   mounted() {
     this.joinSession();
   },
   methods: {
-    exitPage() {
-      this.$router.push("/people");
+    // exitPage() {
+    //   this.$router.push("/people");
+    // },
+    toggleMic() {
+      this.statusMic = !this.statusMic;
+      this.publisher.publishAudio = !this.publisher.publishAudio;
     },
     joinSession() {
       // --- Get an OpenVidu object ---
@@ -132,7 +145,7 @@ export default {
               resolution: "640x480", // The resolution of your video
               frameRate: 30, // The frame rate of your video
               insertMode: "APPEND", // How the video is inserted in the target element 'video-container'
-              mirror: false, // Whether to mirror your local video or not
+              mirror: true, // Whether to mirror your local video or not
             });
 
             this.mainStreamManager = publisher;
