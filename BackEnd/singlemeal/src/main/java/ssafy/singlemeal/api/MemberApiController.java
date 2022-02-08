@@ -5,24 +5,30 @@ import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Value;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import ssafy.singlemeal.domain.*;
+import ssafy.singlemeal.file.FileStore;
+import ssafy.singlemeal.file.UploadFile;
+import ssafy.singlemeal.service.FileService;
 import ssafy.singlemeal.service.MemberService;
 import ssafy.singlemeal.service.RoomService;
 
-import java.io.File;
+import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.util.List;
 
+@Slf4j
 @Api(tags = {"api"})
 @RestController
 @RequiredArgsConstructor
 public class MemberApiController {
     private final MemberService memberService;
     private final RoomService roomService;
+    private final FileService fileService;
+    private final FileStore fileStore;
 
     @ApiOperation(value = "로그인 테스트")
     @PostMapping("/api/members/login")
@@ -69,24 +75,23 @@ public class MemberApiController {
     }
 
     @ApiOperation(value = "좋아요 테스트")
-    @GetMapping("api/like/{id}")
+    @GetMapping("/api/like/{id}")
     public void recommandMember(@PathVariable("id") Long id){
 
         memberService.updateLikes(id);
     }
 
-//    @ApiOperation(value = "이미지 테스트")
-//    @PostMapping("api/image")
-//    public void updateImage(@ModelAttribute ItemForm form) {
-//
-//        UploadFile attachFile = fileStore.storeFile(form.attachfile);
-//
-//
-//    }
+    @ApiOperation(value = "이미지 업로드 테스트")
+    @PostMapping("/api/image")
+    public void updateImage(@RequestParam("file") MultipartFile file) throws IOException {
 
-    @Data
-    static class ItemForm{
-        private MultipartFile attachfile;
+        UploadFile imageFile = fileStore.storeFile(file);
+        Image image = new Image();
+
+        log.info("file={}",file);
+
+        image.setImageFile(imageFile);
+        fileService.saveImage(image);
     }
 
 
