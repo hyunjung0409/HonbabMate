@@ -53,11 +53,11 @@
 
 <script>
 export default {
-  name: "Mainhome",
+  name: "About",
   components: {},
   methods: {
     changePage() {
-      this.$router.push("/chat-option");
+      this.$router.push("/option");
     },
   },
 };

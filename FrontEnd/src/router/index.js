@@ -21,22 +21,6 @@ Vue.use(VueRouter);
 
 const routes = [
   {
-    path: "/FAQ",
-    name: "FAQ",
-    component: FAQ,
-  },
-  {
-    path: "/loading",
-    name: "Loading",
-    component: Loading,
-  },
-
-  {
-    path: "/chatroom",
-    name: "Chatroom",
-    component: Chatroom,
-  },
-  {
     // path: '/chat-option',
     path: "/",
     name: "Home",
@@ -70,21 +54,20 @@ const routes = [
     component: Chatroom,
   },
   {
-    path: "/chat-option",
-    // path: "/chatoption",
-    name: "ChatOption",
+    path: "/option",
+    name: "Option",
     component: ChatOption,
-    redirect: "/chat-option/people",
+    redirect: "/option/people",
 
     children: [
       {
         path: "people",
-        name: "NumberOfPeople",
+        name: "People",
         component: NumberOfPeople,
       },
       {
         path: "talk",
-        name: "SilenceOrTalk",
+        name: "Talk",
         component: SilenceOrTalk,
       },
     ],

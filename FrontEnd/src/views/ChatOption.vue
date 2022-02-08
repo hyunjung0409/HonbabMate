@@ -23,6 +23,6 @@
 import "@/assets/SCSS/common.scss";
 
 export default {
-  name: "ChatOption",
+  name: "Option",
 };
 </script>

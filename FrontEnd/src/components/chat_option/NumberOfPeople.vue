@@ -8,7 +8,7 @@
 
     <v-row class="mt-n3">
       <v-col>
-        <router-link :to="{ name: 'SilenceOrTalk' }">
+        <router-link :to="{ name: 'Talk' }">
           <v-btn
             class="text-h6 mr-3"
             depressed
@@ -41,7 +41,7 @@
 
 <script>
 export default {
-  name: "NumberOfPeople",
+  name: "People",
 
   computed: {
     useroption() {

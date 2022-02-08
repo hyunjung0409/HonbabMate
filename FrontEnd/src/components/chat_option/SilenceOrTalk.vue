@@ -6,9 +6,7 @@
             아래 문구에 바인딩해야 함. (2인/5인)  -->
         <div>
           2인 방 선택! <b>마이크 옵션</b>을 선택해주세요!
-          <v-btn plain x-small :to="{ name: 'NumberOfPeople' }">
-            뒤로가기
-          </v-btn>
+          <v-btn plain x-small :to="{ name: 'People' }"> 뒤로가기 </v-btn>
         </div>
       </v-col>
     </v-row>
@@ -49,7 +47,7 @@
 
 <script>
 export default {
-  name: "SilenceOrTalk",
+  name: "Talk",
 
   computed: {
     useroption() {
