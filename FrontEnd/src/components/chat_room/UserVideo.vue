@@ -2,9 +2,7 @@
   <div v-if="streamManager" align="center">
     <a style="cursor: default">
       <div class="video-area">
-        <div class="top">
-          <dropdown-menu />
-        </div>
+        <toolbar />
         <!--
         <div class="bottom">
           <div @click="toggleMic">
@@ -24,14 +22,14 @@
 
 <script>
 import OvVideo from "@/components/chat_room/OvVideo";
-import DropdownMenu from "@/components/chat_room/DropdownMenu";
+import Toolbar from "@/components/chat_room/Toolbar";
 
 export default {
   name: "UserVideo",
 
   components: {
     OvVideo,
-    DropdownMenu,
+    Toolbar,
   },
 
   props: {
@@ -65,6 +63,7 @@ export default {
 a .video-area {
   position: relative;
   overflow: hidden;
+  border: 1px solid red;
 }
 
 a .video-area .top {

@@ -1,8 +1,6 @@
 <template>
-  <!-- <v-app id="chat-option"> -->
-
-  <v-main>
-    <v-container v-if="session" id="session">
+  <div class="main-container">
+    <v-container v-if="session" id="session" style="border: 1px solid green">
       <v-row id="session-header" align="center" class="grey lighten-1">
         <v-col cols="3" align="start">
           <span id="session-title" class="mx-3">{{ mySessionId }}</span>
@@ -52,7 +50,7 @@
         </v-col>
       </v-row>
     </v-container>
-  </v-main>
+  </div>
 </template>
 
 <script>
@@ -263,3 +261,9 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+/* main-container {
+  margin-top: 120px;
+} */
+</style>
