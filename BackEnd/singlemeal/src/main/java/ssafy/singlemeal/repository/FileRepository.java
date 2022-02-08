@@ -13,6 +13,7 @@ public class FileRepository {
     private final Map<Long, Image> store = new HashMap<>();
 
     public void save(Image image){
+
         image.setId(++sequence);
         store.put(image.getId(), image);
     }

@@ -9,4 +9,5 @@ public class Image {
     private Long id;
     private UploadFile imageFile;
 
+
 }

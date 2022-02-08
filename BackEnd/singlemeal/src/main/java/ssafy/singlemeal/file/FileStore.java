@@ -22,6 +22,7 @@ public class FileStore {
     public UploadFile storeFile(MultipartFile multipartFile) throws IOException {
         if(multipartFile.isEmpty())
             return null;
+
         String originalFileName = multipartFile.getOriginalFilename();
         String storeFileName = createStoreName(originalFileName);
         multipartFile.transferTo(new File(getFullPath(storeFileName)));

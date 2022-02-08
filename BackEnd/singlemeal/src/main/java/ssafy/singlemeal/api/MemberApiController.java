@@ -85,6 +85,7 @@ public class MemberApiController {
     @PostMapping("/api/image")
     public void updateImage(@RequestParam("file") MultipartFile file) throws IOException {
 
+        log.info("file={}",file);
         UploadFile imageFile = fileStore.storeFile(file);
         Image image = new Image();
 
