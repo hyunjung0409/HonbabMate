@@ -1,16 +1,29 @@
 <template>
-  <div class="main-container">
-    <v-container v-if="session" id="session" style="border: 1px solid green">
-      <v-row id="session-header" align="center" class="grey lighten-1">
+  <v-main>
+    <v-container
+      v-if="session"
+      id="session"
+      style="border: 1px solid green"
+      fluid
+    >
+      <v-row
+        id="session-header"
+        align="center"
+        class="grey lighten-3 orange--text"
+      >
         <v-col cols="3" align="start">
-          <span id="session-title" class="mx-3">{{ mySessionId }}</span>
+          <h3 id="session-title" class="mx-3">
+            {{ mySessionId }}
+          </h3>
         </v-col>
         <v-col cols="3" align="start">
-          <span class="mx-3">2인👩🏻‍🤝‍🧑🏻 조용히 식사하는 방🍜 </span>
+          <h3 class="mx-3">2인👩🏻‍🤝‍🧑🏻 조용히 식사하는 방🍜</h3>
         </v-col>
         <v-col cols="3" align="start">
           <!-- <span class="mx-3">남은 시간 {{ time }}</span> -->
-          <timer />
+          <h3>
+            <timer />
+          </h3>
         </v-col>
         <v-col cols="3" align="end">
           <v-btn
@@ -19,38 +32,65 @@
             plain
             @click="leaveSession"
           >
-            나가기
+            <h2>나가기</h2>
           </v-btn>
         </v-col>
       </v-row>
+
       <!-- <div id="main-video" class="col-md-6">
                 <user-video :stream-manager="mainStreamManager" />
               </div> -->
+
       <v-row id="video-container" class="grey lighten-3">
-        <v-col cols="6">
-          <user-video
-            :stream-manager="publisher"
-            @click.native="updateMainVideoStreamManager(publisher)"
-          />
-          <div>
-            <v-btn dark color="grey" @click="toggleMic">
-              <v-icon>
-                {{ this.statusMic ? "mdi-microphone" : "mdi-microphone-off" }}
-              </v-icon>
-            </v-btn>
+        <a style="cursor: default">
+          <div class="video-area">
+            <div class="bottom">
+              <!-- 마이크 on/off 버튼 -->
+              <v-btn
+                v-if="this.publisher.properties.publishAudio"
+                :value="1"
+                icon
+                class="mx-1"
+                @click="toggleAudio"
+              >
+                <v-icon color="white"> mdi-microphone </v-icon>
+              </v-btn>
+              <v-btn v-else :value="2" icon class="mx-1" @click="toggleAudio">
+                <v-icon color="white"> mdi-microphone-off </v-icon>
+              </v-btn>
+
+              <!-- 카메라 on/off 버튼 -->
+              <v-btn
+                v-if="this.publisher.properties.publishVideo"
+                :value="2"
+                icon
+                @click="toggleVideo"
+              >
+                <v-icon color="white"> mdi-video </v-icon>
+              </v-btn>
+              <v-btn v-else :value="2" icon @click="toggleVideo">
+                <v-icon color="white"> mdi-video-off </v-icon>
+              </v-btn>
+            </div>
+            <user-video
+              :stream-manager="publisher"
+              @click.native="updateMainVideoStreamManager(publisher)"
+            />
           </div>
-        </v-col>
-        <v-col cols="6">
-          <user-video
-            v-for="sub in subscribers"
-            :key="sub.stream.connection.connectionId"
-            :stream-manager="sub"
-            @click.native="updateMainVideoStreamManager(sub)"
-          />
-        </v-col>
+        </a>
+
+        <a v-for="sub in subscribers" style="cursor: default">
+          <div class="video-area">
+            <user-video
+              :key="sub.stream.connection.connectionId"
+              :stream-manager="sub"
+              @click.native="updateMainVideoStreamManager(sub)"
+            />
+          </div>
+        </a>
       </v-row>
     </v-container>
-  </div>
+  </v-main>
 </template>
 
 <script>
@@ -63,7 +103,6 @@ import Timer from "@/components/Timer";
 axios.defaults.headers.post["Content-Type"] = "application/json";
 
 const OPENVIDU_SERVER_URL = "https://" + location.hostname + ":4443";
-// const OPENVIDU_SERVER_URL = "https://i6c206.p.ssafy.io/:4443";
 const OPENVIDU_SERVER_SECRET = "MY_SECRET";
 
 export default {
@@ -80,29 +119,28 @@ export default {
       publisher: undefined,
       subscribers: [],
 
-      mySessionId: "SessionA",
-      myUserName: "Participant" + Math.floor(Math.random() * 100),
-
-      statusMic: true,
+      mySessionId: "SessionA", //room number로 설정?
+      myUserName: "Participant" + Math.floor(Math.random() * 100), //닉네임으로 설정
     };
   },
   mounted() {
     this.joinSession();
   },
   methods: {
-    // exitPage() {
-    //   this.$router.push("/people");
-    // },
-    toggleMic() {
-      this.statusMic = !this.statusMic;
-      this.publisher.publishAudio = !this.publisher.publishAudio;
+    toggleAudio() {
+      this.publisher.properties.publishAudio =
+        !this.publisher.properties.publishAudio;
+      this.publisher.publishAudio(this.publisher.properties.publishAudio);
     },
-    joinSession() {
-      // --- Get an OpenVidu object ---
-      this.OV = new OpenVidu();
+    toggleVideo() {
+      this.publisher.properties.publishVideo =
+        !this.publisher.properties.publishVideo;
+      this.publisher.publishVideo(this.publisher.properties.publishVideo);
+    },
 
-      // --- Init a session ---
-      this.session = this.OV.initSession();
+    joinSession() {
+      this.OV = new OpenVidu(); // --- Get an OpenVidu object ---
+      this.session = this.OV.initSession(); // --- Init a session ---
 
       // --- Specify the actions when events take place in the session ---
 
@@ -262,8 +300,28 @@ export default {
 };
 </script>
 
-<style scoped>
-/* main-container {
-  margin-top: 120px;
-} */
+<style>
+a .video-area {
+  position: relative;
+  overflow: hidden;
+  /* width: 90%;
+  margin: 30px auto 30px auto; */
+
+  max-width: 640px;
+  width: 90%;
+  margin: 0px auto 50px auto;
+  border: 1px solid red;
+}
+
+a .video-area .bottom {
+  position: absolute;
+  top: 150%;
+  right: 47%;
+  z-index: 2;
+  transition: all 0.35s;
+}
+
+a:hover .bottom {
+  top: 90%;
+}
 </style>

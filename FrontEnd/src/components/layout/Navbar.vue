@@ -83,9 +83,9 @@ export default {
           method: "post",
           url: "/members/login",
           data: {
-            email: kakao_account.email,
-            nickname: kakao_account.profile.nickname,
-            gender: kakao_account.profile.gender,
+            email: this.kakao_account.email,
+            nickname: this.kakao_account.profile.nickname,
+            gender: this.kakao_account.profile.gender,
           },
         })
         .then((res) => {
