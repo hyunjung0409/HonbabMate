@@ -23,6 +23,7 @@ import java.util.List;
 @Slf4j
 @Api(tags = {"api"})
 @RestController
+@CrossOrigin(origins = {"*"}, maxAge = 6000)
 @RequiredArgsConstructor
 public class MemberApiController {
     private final MemberService memberService;
@@ -67,6 +68,10 @@ public class MemberApiController {
         return new MatchMemberResponse(roomId);
     }
 
+    /**
+     * Redirect 처리 추가
+     * */
+
     @ApiOperation(value="프로필 수정 테스트")
     @PutMapping("/api/profile")
     public void updateProfile(@ModelAttribute ProfileRequest request, @RequestParam("file") MultipartFile file) throws IOException {
@@ -91,6 +96,10 @@ public class MemberApiController {
         return new CreateProfileResponse(member.getId(),nickName,cntOfLikes,foods,etc,urlResource);
     }
 
+    /**
+     * @Data로 묶어서 보낼때 에러 발생 : 나중에 고치기
+     * */
+
     @ApiOperation(value = "프로필 이미지 조회 테스트")
     @GetMapping("/api/profile/image/{id}")
     public Resource getImage(@PathVariable("id") Long id) throws MalformedURLException {
@@ -112,15 +121,6 @@ public class MemberApiController {
         memberService.likeMmeber(id);
     }
 
-    /**
-     * 한 일
-     * 싫어요 기능 추가 / 프로필 수정 기능에 이미지 업로드 기능 추가 / @ElementCollection 활용해서 수정 / 로그아웃 기능 추가
-     *
-     * 모르겠음
-     * 프로필 조회 기능에 Resource를 데이터에 묶어서 보내는 방법을 모르겠음(에러남)
-     * JPA를 활용해서
-     *
-     * */
 
     @Data
     @AllArgsConstructor
