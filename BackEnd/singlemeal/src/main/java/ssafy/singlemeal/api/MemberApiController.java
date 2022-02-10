@@ -6,18 +6,18 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import ssafy.singlemeal.domain.*;
 import ssafy.singlemeal.file.FileStore;
 import ssafy.singlemeal.file.UploadFile;
-import ssafy.singlemeal.service.FileService;
 import ssafy.singlemeal.service.MemberService;
 import ssafy.singlemeal.service.RoomService;
-
-import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.util.List;
 
 @Slf4j
@@ -27,22 +27,34 @@ import java.util.List;
 public class MemberApiController {
     private final MemberService memberService;
     private final RoomService roomService;
-    private final FileService fileService;
     private final FileStore fileStore;
 
     @ApiOperation(value = "로그인 테스트")
     @PostMapping("/api/members/login")
-    public CreateMemberResponse saveMember(@RequestBody @Validated CreateMemberRequest request){
+    public Long saveMember(@RequestBody @Validated CreateMemberRequest request){
 
         Member member = new Member();
         member.setEmail(request.getEmail());
         member.setGender(request.getGender());
         member.setNickname(request.getNickname());
 
-        Long id = memberService.join(member);
-        return new CreateMemberResponse(id);
+        return memberService.join(member);
     }
 
+    @ApiOperation(value = "로그아웃 테스트")
+    @GetMapping("/api/members/logout/{id}")
+    public void logoutMember(@PathVariable("id") Long id){
+        memberService.logout(id);
+    }
+
+    /**
+     *
+     * 먹방 회원이 나갔을 때 그 빈자리에 대기방(1)에서 기다리고 있는 회원을 집어넣어줌
+     * while 문으로 가둬야하나?
+     * 탈출 조건 : 로그아웃(세션 종료) / 방 매칭 성공
+     * 방 매칭 성공시에는
+     *
+     * */
 
     @ApiOperation(value = "매치 테스트")
     @PutMapping("/api/members/match")
@@ -55,46 +67,60 @@ public class MemberApiController {
         return new MatchMemberResponse(roomId);
     }
 
-    @ApiOperation(value = "프로필 수정 테스트")
+    @ApiOperation(value="프로필 수정 테스트")
     @PutMapping("/api/profile")
-    public void updateProfile(@RequestBody @Validated ProfileRequest request){
-           memberService.updateProfile(request.getId(),request.getNickname(),request.getFoods(),request.getEtc());
+    public void updateProfile(@ModelAttribute ProfileRequest request, @RequestParam("file") MultipartFile file) throws IOException {
+
+        UploadFile imageFile = fileStore.storeFile(file);
+
+        memberService.updateProfile(request.getId(), request.getNickname(), request.getFoods(), request.getEtc(), imageFile);
     }
+
 
     @ApiOperation(value = "프로필 조회 테스트")
     @GetMapping("/api/profile/{id}")
-    public CreateProfileResponse showProfile(@PathVariable("id") Long id){
+    public CreateProfileResponse showProfile(@PathVariable("id") Long id) throws MalformedURLException {
 
         Member member = memberService.findOne(id);
         String nickName = member.getNickName();
         Long cntOfLikes = member.getCntOfLikes();
-        List<String> foods = member.getFoods();
+        List<String> foods = member.getFood();
         List<String> etc = member.getEtc();
+        UrlResource urlResource = new UrlResource("file:"+member.getImagePath());
 
-        return new CreateProfileResponse(member.getId(),nickName,cntOfLikes,foods,etc);
+        return new CreateProfileResponse(member.getId(),nickName,cntOfLikes,foods,etc,urlResource);
+    }
+
+    @ApiOperation(value = "프로필 이미지 조회 테스트")
+    @GetMapping("/api/profile/image/{id}")
+    public Resource getImage(@PathVariable("id") Long id) throws MalformedURLException {
+
+        Member member = memberService.findOne(id);
+        return new UrlResource("file:"+member.getImagePath());
+
+    }
+
+    @ApiOperation(value = "싫어요 테스트")
+    @GetMapping("/api/dislike/{id}")
+    public void dislikeMember(@PathVariable("id") Long id){
+        memberService.disLikeMember(id);
     }
 
     @ApiOperation(value = "좋아요 테스트")
     @GetMapping("/api/like/{id}")
-    public void recommandMember(@PathVariable("id") Long id){
-
-        memberService.updateLikes(id);
+    public void likeMember(@PathVariable("id") Long id){
+        memberService.likeMmeber(id);
     }
 
-    @ApiOperation(value = "이미지 업로드 테스트")
-    @PostMapping("/api/image")
-    public void updateImage(@RequestParam("file") MultipartFile file) throws IOException {
-
-        log.info("file={}",file);
-        UploadFile imageFile = fileStore.storeFile(file);
-        Image image = new Image();
-
-        log.info("file={}",file);
-
-        image.setImageFile(imageFile);
-        fileService.saveImage(image);
-    }
-
+    /**
+     * 한 일
+     * 싫어요 기능 추가 / 프로필 수정 기능에 이미지 업로드 기능 추가 / @ElementCollection 활용해서 수정 / 로그아웃 기능 추가
+     *
+     * 모르겠음
+     * 프로필 조회 기능에 Resource를 데이터에 묶어서 보내는 방법을 모르겠음(에러남)
+     * JPA를 활용해서
+     *
+     * */
 
     @Data
     @AllArgsConstructor
@@ -104,6 +130,7 @@ public class MemberApiController {
         private Long cntOfLikes;
         private List<String> foods;
         private List<String> etc;
+        private UrlResource urlResource;
     }
 
     @Data
@@ -116,7 +143,6 @@ public class MemberApiController {
 
     }
 
-
     @Data
     static class MatchMemberRequest{
         private Long id;
@@ -127,6 +153,14 @@ public class MemberApiController {
     @AllArgsConstructor
     static class MatchMemberResponse{
         private Long id;
+    }
+
+
+    @Data
+    static class CreateMemberRequest{
+        private String email;
+        private String nickname;
+        private String gender;
     }
 
     /**
@@ -161,20 +195,6 @@ public class MemberApiController {
             room.setStatus(RoomStatus.NOTFULL);
             roomService.createRoom(room);
         }
-    }
-
-    @Data
-    static class CreateMemberRequest{
-        private String email;
-        private String nickname;
-        private String gender;
-    }
-
-    @Data
-    @AllArgsConstructor
-    static class CreateMemberResponse{
-        private Long id;
-
     }
 
 
