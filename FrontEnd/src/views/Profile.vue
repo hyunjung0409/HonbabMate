@@ -21,7 +21,9 @@
         </v-col>
 
         <v-col class="mt-12" cols="2" align="center">
-          <v-btn color="grey lighten-2" rounded depressed> 수정하기 </v-btn>
+          <v-btn color="grey lighten-2" rounded depressed @click="userupdate">
+            수정하기
+          </v-btn>
         </v-col>
         <v-col cols="6" />
       </v-row>
@@ -55,6 +57,8 @@
 </template>
 
 <script>
+// import rest from "../../api/index.js";
+
 export default {
   name: "Profile",
   data: () => ({
@@ -81,6 +85,32 @@ export default {
     ],
     tags: ["ESFP", "쿠킹덤", "여고추리반"],
   }),
+
+  // 유저정보
+  computed: {
+    member() {
+      return this.$store.state.member;
+    },
+  },
+
+  created: {},
+
+  methods: {
+    async userupdate() {
+      await rest
+        .axios({
+          method: "put",
+          url: "",
+          data: {},
+        })
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+  },
 };
 </script>
 

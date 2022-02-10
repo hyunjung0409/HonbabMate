@@ -57,7 +57,21 @@ export default {
   components: {},
   methods: {
     changePage() {
+<<<<<<< HEAD
       this.$router.push("/option");
+=======
+      if (this.user.email == undefined) {
+        alert("로그인 후 사용해주세요");
+      } else {
+        this.$router.push("/chat-option");
+      }
+    },
+  },
+
+  computed: {
+    user() {
+      return this.$store.state.user;
+>>>>>>> 126c14744d1dc4010af4643c48ec639c235d7ccc
     },
   },
 };

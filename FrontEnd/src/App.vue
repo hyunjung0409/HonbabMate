@@ -3,7 +3,7 @@
     <navbar v-if="$route.name !== 'Chatroom'" />
     <v-content style="background-color: #eeeeee">
       <router-view></router-view>
-    </v-content>
+    </v-main>
   </v-app>
 </template>
 
