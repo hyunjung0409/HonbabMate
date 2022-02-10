@@ -74,7 +74,7 @@ export default {
         success: (res) => {
           const kakao_account = res.kakao_account;
           console.log(kakao_account);
-          // this.login(kakao_account);
+          this.login(kakao_account);
           alert("로그인성공");
           this.userlogin = true;
           this.$store.commit("user", kakao_account);
@@ -90,15 +90,15 @@ export default {
           data: {
             email: kakao_account.email,
             nickname: kakao_account.profile.nickname,
-            gender: kakao_account.profile.gender,
+            gender: kakao_account.gender,
           },
         })
         .then((res) => {
-          localStorage.setItem("nickname", res.data.nickname);
-          console.log("로컬저장", res.data);
+          // localStorage.setItem("nickname", res.data.nickname);
+          console.log("로컬저장", res);
           // 회원정보 가져와서 store에 넣기
           this.id = res.data.id;
-          this.$store.commit("member", res.data);
+          // this.$store.commit("member", res.data);
           this.userlogin = true;
           // this.$store.commit("user", kakao_account);
         })
