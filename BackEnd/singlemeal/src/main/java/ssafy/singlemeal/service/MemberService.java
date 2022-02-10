@@ -6,6 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 import ssafy.singlemeal.domain.Member;
 import ssafy.singlemeal.domain.MemberStatus;
 import ssafy.singlemeal.domain.Room;
+import ssafy.singlemeal.file.UploadFile;
 import ssafy.singlemeal.repository.MemberRepository;
 import ssafy.singlemeal.repository.RoomRepository;
 
@@ -22,13 +23,35 @@ public class MemberService {
     @Transactional
     public Long join(Member member){
 
+        Member findMember = findByEmail(member.getEmail());
+        if(findMember != null){
+            findMember.setStatus(MemberStatus.ONLINE);
+            return findMember.getId();
+        }
+
         Room room = roomRepository.findOne(1L);
         member.setRoom(room);
         member.setStatus(MemberStatus.ONLINE);
-//        validateDuplicateMember(member);
 
         memberRepository.save(member);
         return member.getId();
+    }
+
+    public Member findByEmail(String email){
+        List<Member> members = memberRepository.findAll();
+        for (Member member : members) {
+            if(member.getEmail() == email)
+                return member;
+        }
+
+        return null;
+    }
+
+    @Transactional
+    public void logout(Long id){
+        Member member = memberRepository.findOne(id);
+        member.setStatus(MemberStatus.OFFLINE);
+
     }
 
     @Transactional
@@ -46,21 +69,15 @@ public class MemberService {
     }
 
     @Transactional
-    public void updateProfile(Long id, String nickname, List<String> foods, List<String> etc) {
+    public void updateProfile(Long id, String nickname, List<String> foods, List<String> etc, UploadFile uploadFile) {
 
         Member member = memberRepository.findOne(id);
         member.setNickname(nickname);
-        member.setFoods(foods);
+        member.setFood(foods);
         member.setEtc(etc);
+        member.setImagePath(uploadFile.getFullPath());
     }
 
-
-//    private void validateDuplicateMember(Member member) {
-//        List<Member> findMembers = memberRepository.findByName(member.getName());
-//        if(!findMembers.isEmpty()){
-//            throw new IllegalStateException("이미 존재하는 회원입니다");
-//        }
-//    }
 
     public List<Member> findMembers(){
         return memberRepository.findAll();
@@ -71,8 +88,15 @@ public class MemberService {
     }
 
     @Transactional
-    public void updateLikes(Long id) {
+    public void likeMmeber(Long id) {
         Member member = memberRepository.findOne(id);
         member.setCntOfLikes(member.getCntOfLikes()+1);
+    }
+
+    @Transactional
+    public void disLikeMember(Long id){
+        Member member = memberRepository.findOne(id);
+        member.setCntOfLikes(member.getCntOfLikes()-1);
+
     }
 }

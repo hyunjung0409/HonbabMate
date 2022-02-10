@@ -6,7 +6,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.List;
 import java.util.UUID;
 
 @Component
@@ -25,9 +24,11 @@ public class FileStore {
 
         String originalFileName = multipartFile.getOriginalFilename();
         String storeFileName = createStoreName(originalFileName);
-        multipartFile.transferTo(new File(getFullPath(storeFileName)));
-        System.out.println(getFullPath(storeFileName));
-        return new UploadFile(originalFileName, storeFileName);
+        String fullPath = getFullPath(storeFileName);
+
+        multipartFile.transferTo(new File(fullPath));
+
+        return new UploadFile(originalFileName, storeFileName, fullPath);
     }
 
     private String createStoreName(String originalFileName) {
