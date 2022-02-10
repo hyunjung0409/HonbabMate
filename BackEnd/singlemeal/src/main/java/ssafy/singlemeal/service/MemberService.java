@@ -1,6 +1,7 @@
 package ssafy.singlemeal.service;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ssafy.singlemeal.domain.Member;
@@ -12,6 +13,7 @@ import ssafy.singlemeal.repository.RoomRepository;
 
 import java.util.List;
 
+@Slf4j
 @Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
@@ -40,7 +42,7 @@ public class MemberService {
     public Member findByEmail(String email){
         List<Member> members = memberRepository.findAll();
         for (Member member : members) {
-            if(member.getEmail() == email)
+            if(member.getEmail().equals(email))
                 return member;
         }
 
