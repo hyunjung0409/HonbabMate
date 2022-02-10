@@ -37,38 +37,11 @@ const routes = [
     component: Chatroom,
   },
   {
-    // path: '/chat-option',
     path: "/",
     name: "Home",
     component: Home,
   },
-  // {
-  //   path: "/",
-  //   name: "Home",
-  //   component: Mainhome,
-  // },
 
-  {
-    path: "/manual",
-    name: "Manual",
-    component: Manual,
-  },
-  {
-    path: "/faq",
-    name: "FAQ",
-    component: FAQ,
-  },
-  {
-    path: "/loading",
-    name: "Loading",
-    component: Loading,
-  },
-
-  {
-    path: "/chatroom",
-    name: "Chatroom",
-    component: Chatroom,
-  },
   {
     path: "/chat-option",
     // path: "/chatoption",
