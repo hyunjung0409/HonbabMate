@@ -119,10 +119,24 @@ export default {
       publisher: undefined,
       subscribers: [],
 
-      mySessionId: "SessionA", //room number로 설정?
-      myUserName: "Participant" + Math.floor(Math.random() * 100), //닉네임으로 설정
+      // mySessionId: "SessionA",
+      mySessionId: "", //room number로 설정?
+      myUserName: "", //닉네임으로 설정
+      // myUserName: "Participant" + Math.floor(Math.random() * 100),
     };
   },
+  computed: {
+    member() {
+      return this.$store.state.member;
+    },
+  },
+
+  created() {
+    this.mySessionId = this.member.sessionId;
+    this.myUserName = this.member.nickname;
+    console.log("member", this.member);
+  },
+
   mounted() {
     this.joinSession();
   },
@@ -156,6 +170,7 @@ export default {
         if (index >= 0) {
           this.subscribers.splice(index, 1);
         }
+        this.$router.push({ name: "ChatOption" });
       });
 
       // On every asynchronous exception...
@@ -181,7 +196,7 @@ export default {
               resolution: "640x480", // The resolution of your video
               frameRate: 30, // The frame rate of your video
               insertMode: "APPEND", // How the video is inserted in the target element 'video-container'
-              mirror: true, // Whether to mirror your local video or not
+              mirror: flase, // Whether to mirror your local video or not
             });
 
             this.mainStreamManager = publisher;
