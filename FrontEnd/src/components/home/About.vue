@@ -55,9 +55,16 @@
 export default {
   name: "About",
   components: {},
+
   methods: {
     changePage() {
       this.$router.push("/option");
+    },
+  },
+
+  computed: {
+    user() {
+      return this.$store.state.user;
     },
   },
 };

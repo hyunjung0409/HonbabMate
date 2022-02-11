@@ -11,25 +11,12 @@
           </v-avatar>
         </v-col>
 
-        <v-menu> </v-menu>
-
         <v-col class="mt-9" cols="3">
           <div>
-            <p>닉네임 : {{ user.profile.nickname }}</p>
+            <v-text-field label="닉네임" v-model="nickname"></v-text-field>
           </div>
-          <div>
-            <p>좋아요 받은 수 :</p>
-          </div>
-        </v-col>
-
-        <v-col class="mt-11" cols="6">
-          <v-btn rounded color="primary" dark @click="updateprofile">
-            수정하기
-          </v-btn>
         </v-col>
       </v-row>
-
-      <v-divider class="mt-11" />
 
       <v-list style="background-color: #eeeeee">
         <v-list-item>
@@ -54,13 +41,23 @@
           </v-chip-group>
         </div>
       </v-list>
+
+      <v-row>
+        <v-col class="mt-9" cols="1">
+          <v-btn rounded color="primary" dark @click="modify"> 수정하기 </v-btn>
+        </v-col>
+
+        <v-col class="mt-9" cols="1">
+          <v-btn rounded color="secondary" light @click="cancel"> 취소 </v-btn>
+        </v-col>
+      </v-row>
     </v-container>
   </v-main>
 </template>
 
 <script>
 export default {
-  name: "Profile",
+  name: "UpdateProfile",
   data: () => ({
     fav: true,
     menu: false,
@@ -74,6 +71,7 @@ export default {
       "마제소바",
     ],
     tags: ["ESFP", "쿠킹덤", "여고추리반"],
+    nickname: "nick",
   }),
 
   computed: {
@@ -85,8 +83,19 @@ export default {
   // created: {},
 
   methods: {
-    updateprofile() {
-      this.$router.push("/update");
+    async userupdate() {
+      await rest
+        .axios({
+          method: "put",
+          url: "",
+          data: {},
+        })
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     },
   },
 };
