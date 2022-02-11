@@ -99,6 +99,7 @@ export default {
             email: kakao_account.email,
             nickname: kakao_account.profile.nickname,
             gender: kakao_account.gender,
+            imageURL: kakao_account.profile.profile_image_url,
           },
         })
         .then((res) => {
