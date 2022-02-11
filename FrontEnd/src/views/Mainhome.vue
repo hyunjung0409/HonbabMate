@@ -54,6 +54,7 @@ export default {
       if (this.user.email == undefined) {
         alert("로그인 후 사용해주세요");
       } else {
+        conosle.log("넘어가기");
         this.$router.push("/chat-option");
       }
     },

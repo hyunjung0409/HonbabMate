@@ -26,11 +26,6 @@ const routes = [
     name: "Home",
     component: Home,
   },
-  // {
-  //   path: "/",
-  //   name: "Home",
-  //   component: Mainhome,
-  // },
 
   {
     path: "/manual",
@@ -54,10 +49,10 @@ const routes = [
     component: Chatroom,
   },
   {
-    path: "/option",
-    name: "Option",
+    path: "/chat-option",
+    name: "ChatOption",
     component: ChatOption,
-    redirect: "/option/people",
+    redirect: "/chat-option/people",
 
     children: [
       {

@@ -21,6 +21,10 @@
       Login
     </v-btn>
 
+    <v-btn v-if="this.userlogin === true" color="primary" @click="profile">
+      Profile
+    </v-btn>
+
     <v-btn v-if="this.userlogin === true" color="primary" @click="kakaologout">
       Logout
     </v-btn>
@@ -46,6 +50,7 @@ export default {
       { title: "자주하는 질문", name: "FAQ", route: `/FAQ` },
     ],
     userlogin: false,
+    id: "",
   }),
   computed: {
     user() {
@@ -69,7 +74,7 @@ export default {
         success: (res) => {
           const kakao_account = res.kakao_account;
           console.log(kakao_account);
-          // this.login(kakao_account);
+          this.login(kakao_account);
           alert("로그인성공");
           this.userlogin = true;
           this.$store.commit("user", kakao_account);
@@ -85,15 +90,18 @@ export default {
           data: {
             email: kakao_account.email,
             nickname: kakao_account.profile.nickname,
-            gender: kakao_account.profile.gender,
+            gender: kakao_account.gender,
           },
         })
         .then((res) => {
-          localStorage.setItem("nickname", res.data.nickname);
-          console.log("스토리지", res.data);
+          // localStorage.setItem("nickname", res.data.nickname);
+          console.log("로컬저장", res);
+          // 회원정보 가져와서 store에 넣기
+          this.id = res.data.id;
+          // this.$store.commit("member", res.data);
           this.userlogin = true;
-
           // this.$store.commit("user", kakao_account);
+          sessionStorage.setItem("userId", this.id);
         })
         .catch((err) => {
           console.log(err);
@@ -123,6 +131,30 @@ export default {
       //   alert("로그아웃");
       //   this.userlogin = false;
       // });
+    },
+
+    // profile() {
+    //   this.$router.push("/profile");
+    // },
+
+    async profile() {
+      await rest
+        .axios({
+          method: "get",
+          url: "/profile/}",
+          params: {
+            id: this.id,
+          },
+        })
+        .then((res) => {
+          //store에 member 값 저장
+
+          this.$router.push("/profile");
+          console.log(res);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     },
   },
 };
