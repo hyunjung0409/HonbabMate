@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <navbar />
+    <navbar v-if="$route.name !== 'Chatroom'" />
     <v-main style="background-color: #eeeeee">
       <router-view></router-view>
     </v-main>

@@ -55,10 +55,9 @@
 export default {
   name: "About",
   components: {},
-
   methods: {
     changePage() {
-      this.$router.push("/option");
+      this.$router.push("/chat-option");
     },
   },
 

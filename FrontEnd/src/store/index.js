@@ -5,12 +5,17 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
+    //kakao 정보
     user: {},
 
     useroption: {
       number: "",
       sound: "",
+      final: "",
     },
+
+    //memberID 기반 정보
+    member: {},
   },
 
   mutations: {
@@ -24,6 +29,14 @@ export default new Vuex.Store({
 
     soundoption(state, data) {
       state.useroption.sound = data;
+    },
+
+    finaloption(state, data) {
+      state.useroption.final = data;
+    },
+
+    member(state, data) {
+      state.member = data;
     },
   },
   actions: {},

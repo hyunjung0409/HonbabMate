@@ -8,8 +8,8 @@
       offset-y
     >
       <template v-slot:activator="{ on, attrs }">
-        <v-btn icon color="white" dark v-bind="attrs" v-on="on">
-          <v-icon> mdi-dots-horizontal-circle-outline </v-icon>
+        <v-btn :value="3" text v-bind="attrs" v-on="on">
+          <v-icon> mdi-dots-horizontal </v-icon>
         </v-btn>
       </template>
 
@@ -151,5 +151,3 @@ export default {
   }),
 };
 </script>
-
-<style></style>
