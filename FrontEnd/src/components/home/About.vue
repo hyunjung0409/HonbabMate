@@ -57,7 +57,13 @@ export default {
   components: {},
   methods: {
     changePage() {
-      this.$router.push("/option");
+      this.$router.push("/chat-option");
+    },
+  },
+
+  computed: {
+    user() {
+      return this.$store.state.user;
     },
   },
 };

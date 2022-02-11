@@ -16,6 +16,7 @@ import Chatroom from "../views/Chatroom.vue";
 
 import Login from "../views/Login.vue";
 import Profile from "@/views/Profile.vue";
+import UpdateProfile from "@/views/UpdateProfile.vue";
 
 Vue.use(VueRouter);
 
@@ -26,11 +27,6 @@ const routes = [
     name: "Home",
     component: Home,
   },
-  // {
-  //   path: "/",
-  //   name: "Home",
-  //   component: Mainhome,
-  // },
 
   {
     path: "/manual",
@@ -54,10 +50,10 @@ const routes = [
     component: Chatroom,
   },
   {
-    path: "/option",
-    name: "Option",
+    path: "/chat-option",
+    name: "ChatOption",
     component: ChatOption,
-    redirect: "/option/people",
+    redirect: "/chat-option/people",
 
     children: [
       {
@@ -81,6 +77,11 @@ const routes = [
     path: "/profile",
     name: "Profile",
     component: Profile,
+  },
+  {
+    path: "/update",
+    name: "UpdateProfile",
+    component: UpdateProfile,
   },
 ];
 

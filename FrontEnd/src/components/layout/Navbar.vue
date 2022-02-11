@@ -17,11 +17,23 @@
       </v-tab>
     </v-tabs>
 
-    <v-btn v-if="this.userlogin === false" color="primary" @click="kakaologin">
+    <v-btn
+      v-if="this.user.email == undefined"
+      color="primary"
+      @click="kakaologin"
+    >
       Login
     </v-btn>
 
-    <v-btn v-if="this.userlogin === true" color="primary" @click="kakaologout">
+    <v-btn v-if="this.user.email != undefined" color="primary" @click="profile">
+      Profile
+    </v-btn>
+
+    <v-btn
+      v-if="this.user.email != undefined"
+      color="primary"
+      @click="kakaologout"
+    >
       Logout
     </v-btn>
 
@@ -46,6 +58,7 @@ export default {
       { title: "자주하는 질문", name: "FAQ", route: `/FAQ` },
     ],
     userlogin: false,
+    id: "",
   }),
   computed: {
     user() {
@@ -69,7 +82,7 @@ export default {
         success: (res) => {
           const kakao_account = res.kakao_account;
           console.log(kakao_account);
-          // this.login(kakao_account);
+          this.login(kakao_account);
           alert("로그인성공");
           this.userlogin = true;
           this.$store.commit("user", kakao_account);
@@ -85,15 +98,20 @@ export default {
           data: {
             email: kakao_account.email,
             nickname: kakao_account.profile.nickname,
-            gender: kakao_account.profile.gender,
+            gender: kakao_account.gender,
+            imageURL: kakao_account.profile.profile_image_url,
           },
         })
         .then((res) => {
-          localStorage.setItem("nickname", res.data.nickname);
-          console.log("스토리지", res.data);
-          this.userlogin = true;
-
+          sessionStorage.setItem("nickname", kakao_account.profile.nickname);
+          sessionStorage.setItem("memberID", res.data);
+          console.log(res.data);
+          console.log("sessionStorage", sessionStorage.getItem("memberID"));
+          // 회원정보 가져와서 store에 넣기
+          this.id = res.data;
+          // this.$store.commit("member", res.data);
           // this.$store.commit("user", kakao_account);
+          sessionStorage.setItem("userId", this.id);
         })
         .catch((err) => {
           console.log(err);
@@ -101,29 +119,79 @@ export default {
     },
 
     kakaologout() {
-      window.Kakao.API.request({
-        url: "/v1/user/unlink",
-        success: function (response) {
-          console.log(response);
-          alert("로그아웃");
+      // window.Kakao.API.request({
+      //   url: "/v1/user/unlink",
+      //   success: function (response) {
+      //     console.log(response);
+      //     alert("로그아웃");
 
-          // this.$store.commit("user", {});
+      //     // this.$store.commit("user", {});
 
+      //     this.userlogin = false;
+      //     location.reload();
+      //   },
+      //   fail: function (error) {
+      //     console.log(error);
+      //   },
+      // });
+      // 자체 로그아웃
+      window.Kakao.Auth.logout((response) => {
+        console.log(response);
+        alert("로그아웃");
+        this.logout(this.id);
+        // this.userlogin = false;
+      });
+    },
+
+    async logout(id) {
+      await rest
+        .axios({
+          method: "get",
+          url: "/members/logout/" + id,
+          // params: {
+          //   id: id,
+          // },
+        })
+        .then((res) => {
+          // localStorage.removeItem("nickname");
+          // localStorage.removeItem("memberID");
+          localStorage.clear();
+          console.log(res);
+          // 회원정보 가져와서 store에 넣기
+          this.id = "";
+          this.$store.commit("user", "");
           this.userlogin = false;
           location.reload();
-        },
-        fail: function (error) {
-          console.log(error);
-        },
-      });
-
-      // 자체 로그아웃
-      // window.Kakao.Auth.logout((response) => {
-      //   console.log(response);
-      //   alert("로그아웃");
-      //   this.userlogin = false;
-      // });
+          this.$router.push({ path: "/" });
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     },
+
+    profile() {
+      this.$router.push("/profile");
+    },
+
+    // async profile() {
+    //   await rest
+    //     .axios({
+    //       method: "get",
+    //       url: "/profile/}",
+    //       params: {
+    //         id: this.id,
+    //       },
+    //     })
+    //     .then((res) => {
+    //       //store에 member 값 저장
+
+    //       this.$router.push("/profile");
+    //       console.log(res);
+    //     })
+    //     .catch((err) => {
+    //       console.log(err);
+    //     });
+    // },
   },
 };
 </script>

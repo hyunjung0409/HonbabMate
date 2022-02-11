@@ -9,7 +9,6 @@ export default {
     return { Timer: null, TimeCounter: 3600, TimerStr: "60:00" };
   },
   mounted: function () {
-    //문자발송성공시 호출
     if (this.Timer != null) {
       this.timerStop(this.Timer);
       this.Timer = null;

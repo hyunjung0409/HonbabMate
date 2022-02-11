@@ -11,58 +11,53 @@
           </v-avatar>
         </v-col>
 
-        <v-menu> </v-menu>
-
         <v-col class="mt-9" cols="3">
           <div>
-            <p>닉네임 : {{ user.profile.nickname }}</p>
-          </div>
-          <div>
-            <p>좋아요 받은 수 :</p>
+            <v-text-field label="닉네임" v-model="nickname"></v-text-field>
           </div>
         </v-col>
-
-        <v-col class="mt-11" cols="6">
-          <v-btn rounded color="primary" dark @click="updateprofile">
-            수정하기
-          </v-btn>
-        </v-col>
-        <v-col cols="6" />
       </v-row>
-
-      <v-divider class="mt-12 mb-5" />
 
       <v-list style="background-color: #eeeeee">
         <v-list-item>
-          <v-list-item-title max-width="200px"> 최애음식 </v-list-item-title>
-          <v-btn text>
-            <v-icon> mdi-plus </v-icon>
-          </v-btn>
+          <v-list-item-title>최애음식</v-list-item-title>
         </v-list-item>
         <div class="px-4">
-          <v-chip v-for="food in foods" :key="food" class="mr-2 mb-2">
-            {{ food }}
-          </v-chip>
+          <v-chip-group active-class="primary--text" column>
+            <v-chip v-for="food in foods" :key="food">
+              {{ food }}
+            </v-chip>
+          </v-chip-group>
         </div>
 
         <v-list-item>
           <v-list-item-title>또 뭐있지?</v-list-item-title>
         </v-list-item>
         <div class="px-4">
-          <v-chip v-for="tag in tags" :key="tag" class="mr-2 mb-2">
-            {{ tag }}
-          </v-chip>
+          <v-chip-group active-class="primary--text" column>
+            <v-chip v-for="tag in tags" :key="tag">
+              {{ tag }}
+            </v-chip>
+          </v-chip-group>
         </div>
       </v-list>
+
+      <v-row>
+        <v-col class="mt-9" cols="1">
+          <v-btn rounded color="primary" dark @click="modify"> 수정하기 </v-btn>
+        </v-col>
+
+        <v-col class="mt-9" cols="1">
+          <v-btn rounded color="secondary" light @click="cancel"> 취소 </v-btn>
+        </v-col>
+      </v-row>
     </v-container>
   </v-main>
 </template>
 
 <script>
-// import rest from "../../api/index.js";
-
 export default {
-  name: "Profile",
+  name: "UpdateProfile",
   data: () => ({
     fav: true,
     menu: false,
@@ -74,18 +69,9 @@ export default {
       "파히타",
       "레인보우샤베트",
       "마제소바",
-      "평양냉면",
-      "마라로제떡볶이",
-      "파히타",
-      "레인보우샤베트",
-      "마제소바",
-      "평양냉면",
-      "마라로제떡볶이",
-      "파히타",
-      "레인보우샤베트",
-      "마제소바",
     ],
     tags: ["ESFP", "쿠킹덤", "여고추리반"],
+    nickname: "nick",
   }),
 
   computed: {
@@ -97,11 +83,22 @@ export default {
   // created: {},
 
   methods: {
-    updateprofile() {
-      this.$router.push("/update");
+    async userupdate() {
+      await rest
+        .axios({
+          method: "put",
+          url: "",
+          data: {},
+        })
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     },
   },
 };
 </script>
 
-<style></style>
+<style lang=""></style>
