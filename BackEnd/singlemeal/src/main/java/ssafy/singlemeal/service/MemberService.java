@@ -78,6 +78,7 @@ public class MemberService {
         member.setFood(foods);
         member.setEtc(etc);
         member.setImagePath(uploadFile.getFullPath());
+
     }
 
 

@@ -50,7 +50,11 @@ public class Member {
     }
 
     public void setImagePath(String imagePath){
+
+
         this.imagePath = imagePath;
+
+
     }
 
     public void setOption(String option){
@@ -65,29 +69,6 @@ public class Member {
                 break;
         }
     }
-//
-//    public void setFoods(List<String> foods){
-//
-//        this.food = new MemberFood(foods.get(0),foods.get(1),foods.get(2));
-//    }
-//
-//    public void setEtc(List<String> etc){
-//        this.etc = new MemberEtc(etc.get(0), etc.get(1), etc.get(2));
-//    }
-//
-//    public List<String> getFoods(){
-//
-//        List<String> foods = Arrays.asList(this.food.getFood1(), this.food.getFood2(), this.food.getFood3());
-//
-//        return foods;
-//    }
-//
-//    public List<String> getEtc(){
-//
-//        List<String> etc = Arrays.asList(this.etc.getEtc1(), this.etc.getEtc2(), this.etc.getEtc3());
-//        return etc;
-//    }
-
 
 
 }

@@ -16,8 +16,10 @@ import ssafy.singlemeal.file.FileStore;
 import ssafy.singlemeal.file.UploadFile;
 import ssafy.singlemeal.service.MemberService;
 import ssafy.singlemeal.service.RoomService;
+
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.net.URISyntaxException;
 import java.util.List;
 
 @Slf4j
@@ -38,6 +40,9 @@ public class MemberApiController {
         member.setEmail(request.getEmail());
         member.setGender(request.getGender());
         member.setNickname(request.getNickname());
+
+        UploadFile imageFile = fileStore.storeUrltoFIle(request.getImageURL());
+        member.setImagePath(imageFile.getFullPath());
 
         return memberService.join(member);
     }
@@ -69,7 +74,10 @@ public class MemberApiController {
     }
 
     /**
+     *
      * Redirect 처리 추가
+     *
+     * 프로필 수정 : 동일한 파일일 경우에는 새롭게 파일을 추가하지 않도록 설정 하기
      * */
 
     @ApiOperation(value="프로필 수정 테스트")
@@ -81,20 +89,23 @@ public class MemberApiController {
         memberService.updateProfile(request.getId(), request.getNickname(), request.getFoods(), request.getEtc(), imageFile);
     }
 
+    /**
+     *
+     * */
 
     @ApiOperation(value = "프로필 조회 테스트")
     @GetMapping("/api/profile/{id}")
-    public CreateProfileResponse showProfile(@PathVariable("id") Long id) throws MalformedURLException {
+    public CreateProfileResponse showProfile(@PathVariable("id") Long id) throws MalformedURLException, URISyntaxException {
 
         Member member = memberService.findOne(id);
         String nickName = member.getNickName();
         Long cntOfLikes = member.getCntOfLikes();
         List<String> foods = member.getFood();
         List<String> etc = member.getEtc();
-        UrlResource urlResource = new UrlResource("file:"+member.getImagePath());
 
-        return new CreateProfileResponse(member.getId(),nickName,cntOfLikes,foods,etc,urlResource);
+        return new CreateProfileResponse(member.getId(),nickName,cntOfLikes,foods,etc);
     }
+
 
     /**
      * @Data로 묶어서 보낼때 에러 발생 : 나중에 고치기
@@ -102,12 +113,13 @@ public class MemberApiController {
 
     @ApiOperation(value = "프로필 이미지 조회 테스트")
     @GetMapping("/api/profile/image/{id}")
-    public Resource getImage(@PathVariable("id") Long id) throws MalformedURLException {
+    public UrlResource getImage(@PathVariable("id") Long id) throws MalformedURLException {
 
         Member member = memberService.findOne(id);
         return new UrlResource("file:"+member.getImagePath());
 
     }
+
 
     @ApiOperation(value = "싫어요 테스트")
     @GetMapping("/api/dislike/{id}")
@@ -130,7 +142,6 @@ public class MemberApiController {
         private Long cntOfLikes;
         private List<String> foods;
         private List<String> etc;
-        private UrlResource urlResource;
     }
 
     @Data
@@ -161,6 +172,7 @@ public class MemberApiController {
         private String email;
         private String nickname;
         private String gender;
+        private String imageURL;
     }
 
     /**
@@ -168,35 +180,32 @@ public class MemberApiController {
      * */
     @ApiOperation(value = "방 생성")
     @GetMapping("/createRoom")
-    public void createRoom(){
+    public void createRoom() {
         Room room = new Room();
         roomService.createRoom(room);
-        for(int i = 1; i<=10; i++) {
+        for (int i = 1; i <= 10; i++) {
             room = new Room();
             room.setRoomOption(RoomOption.TALKABLE2);
             room.setStatus(RoomStatus.NOTFULL);
             roomService.createRoom(room);
         }
-        for(int i = 11; i<=20; i++){
+        for (int i = 11; i <= 20; i++) {
             room = new Room();
             room.setRoomOption(RoomOption.NONTALKABLE2);
             room.setStatus(RoomStatus.NOTFULL);
             roomService.createRoom(room);
         }
-        for(int i = 21; i<=30; i++){
+        for (int i = 21; i <= 30; i++) {
             room = new Room();
             room.setRoomOption(RoomOption.TALKABLE5);
             room.setStatus(RoomStatus.NOTFULL);
             roomService.createRoom(room);
         }
-        for(int i = 31; i<=40; i++){
+        for (int i = 31; i <= 40; i++) {
             room = new Room();
             room.setRoomOption(RoomOption.NONTALKABLE5);
             room.setStatus(RoomStatus.NOTFULL);
             roomService.createRoom(room);
         }
     }
-
-
-
 }
