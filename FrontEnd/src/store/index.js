@@ -11,6 +11,7 @@ export default new Vuex.Store({
     useroption: {
       number: "",
       sound: "",
+      final: "",
     },
 
     //memberID 기반 정보
@@ -28,6 +29,10 @@ export default new Vuex.Store({
 
     soundoption(state, data) {
       state.useroption.sound = data;
+    },
+
+    finaloption(state, data) {
+      state.useroption.final = data;
     },
 
     member(state, data) {
