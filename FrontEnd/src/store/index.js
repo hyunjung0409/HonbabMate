@@ -17,6 +17,14 @@ export default new Vuex.Store({
     //memberID 기반 정보
     member: {
       id: null,
+      likes: null,
+      image: null,
+      nickname: null,
+      //정언
+      //---------------
+      //현정
+      option: null,
+      sessionId: null,
     },
   },
 
@@ -37,8 +45,12 @@ export default new Vuex.Store({
       state.useroption.final = data;
     },
 
-    member(state, data) {
+    memberId(state, data) {
       state.member.id = data;
+    },
+
+    memberSession(state, data) {
+      state.member.sessionId = data;
     },
   },
   actions: {},
