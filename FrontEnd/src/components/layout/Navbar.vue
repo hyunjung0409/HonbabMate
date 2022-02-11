@@ -1,47 +1,64 @@
 <template>
   <v-app-bar app color="grey lighten-3" flat height="80">
-    <router-link :to="{ path: '/' }" class="pa-5">
-      <v-icon size="40px" color="amber darken-1"> mdi-alpha-h-circle </v-icon>
-    </router-link>
+    <v-row class="ma-0 pa-0">
+      <v-col cols="2" class="pa-0">
+        <router-link :to="{ path: '/' }" class="pa-5">
+          <v-icon size="40px" color="amber darken-1">
+            mdi-alpha-h-circle
+          </v-icon>
+        </router-link>
+      </v-col>
 
-    <!-- <v-avatar
-      :color="$vuetify.breakpoint.smAndDown ? 'grey darken-1' : 'transparent'"
-      size="32"
-    /> -->
+      <v-col cols="8" class="pa-0" align="center">
+        <v-tabs
+          centered
+          class="ml-n9"
+          background-color="grey lighten-3"
+          color="amber darken-1"
+        >
+          <v-tab v-for="link in links" :key="link.name" :to="link.route">
+            <h3>
+              {{ link.title }}
+            </h3>
+          </v-tab>
+        </v-tabs>
+      </v-col>
 
-    <v-tabs centered class="ml-n9" color="amber darken-1">
-      <v-tab v-for="link in links" :key="link.name" :to="link.route">
-        <h3>
-          {{ link.title }}
-        </h3>
-      </v-tab>
-    </v-tabs>
+      <v-col cols="2" class="pa-0" align="end">
+        <v-btn
+          v-if="this.user.email == undefined"
+          text
+          color="grey"
+          @click="kakaologin"
+        >
+          <b>Login</b>
+        </v-btn>
 
-    <v-btn
-      v-if="this.user.email == undefined"
-      color="primary"
-      @click="kakaologin"
-    >
-      Login
-    </v-btn>
+        <v-btn
+          v-if="this.user.email != undefined"
+          text
+          color="grey"
+          @click="profile"
+        >
+          <b>Profile</b>
+        </v-btn>
 
-    <v-btn v-if="this.user.email != undefined" color="primary" @click="profile">
-      Profile
-    </v-btn>
+        <v-btn
+          v-if="this.user.email != undefined"
+          text
+          color="grey"
+          @click="kakaologout"
+        >
+          <b>Logout</b>
+        </v-btn>
+      </v-col>
 
-    <v-btn
-      v-if="this.user.email != undefined"
-      color="primary"
-      @click="kakaologout"
-    >
-      Logout
-    </v-btn>
-
-    <!-- <v-avatar
+      <!-- <v-avatar
       class="hidden-sm-and-down"
       color="grey darken-1 shrink"
       size="36"
     /> -->
+    </v-row>
   </v-app-bar>
 </template>
 
@@ -83,7 +100,8 @@ export default {
           const kakao_account = res.kakao_account;
           console.log(kakao_account);
           this.login(kakao_account);
-          alert("로그인성공");
+          // alert("로그인성공");
+
           this.userlogin = true;
           this.$store.commit("user", kakao_account);
         },
@@ -139,9 +157,10 @@ export default {
       // 자체 로그아웃
       window.Kakao.Auth.logout((response) => {
         console.log(response);
-        alert("로그아웃");
+        // alert("로그아웃");
         this.logout(this.id);
         // this.userlogin = false;
+        this.$router.push({ path: "/" });
       });
     },
 
@@ -164,7 +183,7 @@ export default {
           this.$store.commit("user", "");
           this.userlogin = false;
           location.reload();
-          this.$router.push({ path: "/" });
+          // this.$router.push({ path: "/" });
         })
         .catch((err) => {
           console.log(err);
