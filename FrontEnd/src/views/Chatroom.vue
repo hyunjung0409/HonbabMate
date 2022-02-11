@@ -131,10 +131,13 @@ export default {
     },
   },
 
-  mounted() {
+  created() {
     this.mySessionId = this.member.sessionId;
     this.myUserName = this.member.nickname;
     console.log("member", this.member);
+  },
+
+  mounted() {
     this.joinSession();
   },
   methods: {
