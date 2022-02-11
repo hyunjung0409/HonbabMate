@@ -102,4 +102,15 @@ public class MemberService {
         member.setCntOfLikes(member.getCntOfLikes()-1);
 
     }
+
+    public Long countOnlines() {
+
+        List<Member> members = memberRepository.findAll();
+        Long cnt = 0L;
+        for (Member member : members) {
+            if(member.getStatus() == MemberStatus.ONLINE)
+                cnt++;
+        }
+        return cnt;
+    }
 }

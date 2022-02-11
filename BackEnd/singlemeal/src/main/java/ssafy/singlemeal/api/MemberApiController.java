@@ -6,7 +6,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -31,6 +30,12 @@ public class MemberApiController {
     private final MemberService memberService;
     private final RoomService roomService;
     private final FileStore fileStore;
+
+    @ApiOperation(value = "온라인 카운트 테스트")
+    @GetMapping("/api/members/online")
+    public Long countOnlineMembers(){
+        return memberService.countOnlines();
+    }
 
     @ApiOperation(value = "로그인 테스트")
     @PostMapping("/api/members/login")
