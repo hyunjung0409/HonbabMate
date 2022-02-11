@@ -112,6 +112,8 @@ export default {
           // this.$store.commit("member", res.data);
           // this.$store.commit("user", kakao_account);
           sessionStorage.setItem("userId", this.id);
+          this.$store.commit("member", this.id);
+          console.log("member", this.$store.state.member.id);
         })
         .catch((err) => {
           console.log(err);

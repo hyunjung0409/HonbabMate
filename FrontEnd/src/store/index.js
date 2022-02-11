@@ -15,7 +15,9 @@ export default new Vuex.Store({
     },
 
     //memberID 기반 정보
-    member: {},
+    member: {
+      id: null,
+    },
   },
 
   mutations: {
@@ -36,7 +38,7 @@ export default new Vuex.Store({
     },
 
     member(state, data) {
-      state.member = data;
+      state.member.id = data;
     },
   },
   actions: {},
