@@ -17,10 +17,10 @@
         <v-list>
           <v-list-item>
             <v-list-item-avatar>
-              <img
+              <!-- <img
                 src="https://cdn.vuetifyjs.com/images/john.jpg"
                 alt="profile-picture"
-              />
+              /> -->
             </v-list-item-avatar>
 
             <v-list-item-content>

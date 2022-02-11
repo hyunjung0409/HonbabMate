@@ -1,14 +1,11 @@
 <template>
   <v-toolbar dense>
     <template v-if="$vuetify.breakpoint.mdAndUp">
+      <!-- <p amber--text>{{ this.$store.state.member.nickname }}</p> -->
+
       <v-spacer />
-
-      <v-btn-toggle v-model="toggle_multiple" dense group multiple>
-        <v-spacer />
-        <!-- <div class="mx-5" /> -->
-
-        <dropdown-menu />
-      </v-btn-toggle>
+      <!-- <div class="mx-5" /> -->
+      <dropdown-menu />
     </template>
   </v-toolbar>
 </template>
@@ -21,12 +18,6 @@ export default {
 
   components: {
     DropdownMenu,
-  },
-
-  data() {
-    return {
-      toggle_multiple: [],
-    };
   },
 };
 </script>

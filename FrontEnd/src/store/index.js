@@ -1,5 +1,6 @@
 import Vue from "vue";
 import Vuex from "vuex";
+// import createPersistedState from "vuex-persistedstate";
 
 Vue.use(Vuex);
 
@@ -15,7 +16,17 @@ export default new Vuex.Store({
     },
 
     //memberID 기반 정보
-    member: {},
+    member: {
+      id: null,
+      likes: null,
+      image: null,
+      nickname: null,
+      //정언
+      //---------------
+      //현정
+      option: null,
+      sessionId: null,
+    },
   },
 
   mutations: {
@@ -35,12 +46,23 @@ export default new Vuex.Store({
       state.useroption.final = data;
     },
 
-    member(state, data) {
-      state.member = data;
+    memberId(state, data) {
+      state.member.id = data;
+    },
+
+    memberSession(state, data) {
+      state.member.sessionId = data;
     },
   },
   actions: {},
   modules: {
     // memberStore,
   },
+  // plugins: [
+  //   createPersistedState(),
+  //   // {
+  //   //주목! : 여기에 쓴 모듈만 저장됩니다.
+  //   // paths: ["cart", "auth"],
+  //   // }
+  // ],
 });
