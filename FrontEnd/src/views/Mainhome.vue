@@ -51,9 +51,10 @@ export default {
   components: {},
   methods: {
     changePage() {
-      if (this.user.email == undefined) {
+      if (this.user.email === undefined) {
         alert("로그인 후 사용해주세요");
       } else {
+        console.log("email :", this.user.email);
         this.$router.push("/chat-option");
       }
     },

@@ -24,5 +24,18 @@ import "@/assets/SCSS/common.scss";
 
 export default {
   name: "Option",
+
+  computed: {
+    user() {
+      return this.$store.state.user;
+    },
+  },
+
+  mounted() {
+    if (this.user.email == undefined) {
+      alert("로그인 후 사용해주세요!");
+      this.$router.push({ path: "/" });
+    }
+  },
 };
 </script>

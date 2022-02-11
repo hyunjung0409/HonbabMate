@@ -16,6 +16,7 @@ import Chatroom from "../views/Chatroom.vue";
 
 import Login from "../views/Login.vue";
 import Profile from "@/views/Profile.vue";
+import UpdateProfile from "@/views/UpdateProfile.vue";
 
 Vue.use(VueRouter);
 
@@ -81,6 +82,11 @@ const routes = [
     path: "/profile",
     name: "Profile",
     component: Profile,
+  },
+  {
+    path: "/update",
+    name: "UpdateProfile",
+    component: UpdateProfile,
   },
 ];
 
