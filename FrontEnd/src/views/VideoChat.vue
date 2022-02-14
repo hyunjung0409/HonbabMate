@@ -1,25 +1,24 @@
 <template>
-  <v-container>
-    <div>
-      <input
-        v-model="roomId"
-        placeholder="Enter room id"
-      >
-      <button @click="toggleRoom">
-        {{ hasJoined ? "Leave Room" : "Join Room" }}
-      </button>
-      <!-- <button @click="screenShare" v-if="hasJoined">Screen Share</button> -->
-    </div>
+  <v-main>
+    <v-container>
+      <div>
+        <input v-model="roomId" placeholder="Enter room id" />
+        <button @click="toggleRoom">
+          {{ hasJoined ? "Leave Room" : "Join Room" }}
+        </button>
+        <!-- <button @click="screenShare" v-if="hasJoined">Screen Share</button> -->
+      </div>
 
-    <div>
-      <vue-webrtc
-        ref="webrtc"
-        width="100%"
-        :room-id="roomId"
-        :camera-height="cameraHeight"
-      />
-    </div>
-  </v-container>
+      <div>
+        <vue-webrtc
+          ref="webrtc"
+          width="100%"
+          :room-id="roomId"
+          :camera-height="cameraHeight"
+        />
+      </div>
+    </v-container>
+  </v-main>
 </template>
 
 <script>

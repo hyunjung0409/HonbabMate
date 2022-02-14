@@ -1,20 +1,20 @@
 <template>
   <div v-if="streamManager" align="center">
+    <toolbar />
     <ov-video :stream-manager="streamManager" />
-    <div class="mt-3" align="center">
-      <p>{{ clientData }}</p>
-    </div>
   </div>
 </template>
 
 <script>
 import OvVideo from "@/components/chat_room/OvVideo";
+import Toolbar from "@/components/chat_room/Toolbar";
 
 export default {
   name: "UserVideo",
 
   components: {
     OvVideo,
+    Toolbar,
   },
 
   props: {

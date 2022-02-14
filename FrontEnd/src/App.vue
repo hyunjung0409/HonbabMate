@@ -1,8 +1,7 @@
 <template>
   <v-app>
-    <navbar />
-
-    <v-main>
+    <navbar v-if="$route.name !== 'Chatroom'" />
+    <v-main style="background-color: #eeeeee">
       <router-view></router-view>
     </v-main>
   </v-app>
@@ -10,9 +9,9 @@
 
 <script>
 export default {
-  name: 'App',
+  name: "App",
   components: {
-    Navbar: () => import('@/components/Navbar'),
+    Navbar: () => import("@/components/layout/Navbar"),
   },
 
   data: () => ({
