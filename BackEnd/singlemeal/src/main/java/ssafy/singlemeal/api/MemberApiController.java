@@ -20,6 +20,8 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 @Slf4j
 @Api(tags = {"api"})
@@ -58,30 +60,38 @@ public class MemberApiController {
         memberService.logout(id);
     }
 
-    /**
-     *
-     * 먹방 회원이 나갔을 때 그 빈자리에 대기방(1)에서 기다리고 있는 회원을 집어넣어줌
-     * while 문으로 가둬야하나?
-     * 탈출 조건 : 로그아웃(세션 종료) / 방 매칭 성공
-     * 방 매칭 성공시에는
-     *
-     * */
-
+    static int cnt;
     @ApiOperation(value = "매치 테스트")
     @PutMapping("/api/members/match")
     public MatchMemberResponse matchMember(@RequestBody @Validated MatchMemberRequest request){
-        memberService.updateOption(request.getId(), request.getOption());
 
-        Long roomId =  roomService.match(request.getId(), request.getOption());
+//        Timer timer = new Timer();
+//        cnt = 0;
+//        TimerTask task = new TimerTask() {
+//            @Override
+//            public void run() {
+//                cnt++;
+//                Long roomId = roomService.match(request.getId(), request.getOption());
+//                if(roomId != 1L){
+//                    memberService.updateOption(request.getId(), request.getOption());
+//                    memberService.updateRoomId(request.getId(), roomId);
+//                    timer.cancel();
+//                }else if(cnt == 10){
+//                    // 1인 상태로 반환
+//                    timer.cancel();
+//                }
+//            }
+//        };
+//        timer.schedule(task, 1000, 1000);
+
+        Long roomId = roomService.match(request.getId(), request.getOption());
+        memberService.updateOption(request.getId(), request.getOption());
         memberService.updateRoomId(request.getId(), roomId);
 
-        return new MatchMemberResponse(roomId);
+        return new MatchMemberResponse(memberService.findOne(request.getId()).getRoom().getId());
     }
 
     /**
-     *
-     * Redirect 처리 추가
-     *
      * 프로필 수정 : 동일한 파일일 경우에는 새롭게 파일을 추가하지 않도록 설정 하기
      * */
 
@@ -93,10 +103,6 @@ public class MemberApiController {
 
         memberService.updateProfile(request.getId(), request.getNickname(), request.getFoods(), request.getEtc(), imageFile);
     }
-
-    /**
-     *
-     * */
 
     @ApiOperation(value = "프로필 조회 테스트")
     @GetMapping("/api/profile/{id}")
@@ -111,11 +117,6 @@ public class MemberApiController {
         return new CreateProfileResponse(member.getId(),nickName,cntOfLikes,foods,etc);
     }
 
-
-    /**
-     * @Data로 묶어서 보낼때 에러 발생 : 나중에 고치기
-     * */
-
     @ApiOperation(value = "프로필 이미지 조회 테스트")
     @GetMapping("/api/profile/image/{id}")
     public UrlResource getImage(@PathVariable("id") Long id) throws MalformedURLException {
@@ -124,7 +125,6 @@ public class MemberApiController {
         return new UrlResource("file:"+member.getImagePath());
 
     }
-
 
     @ApiOperation(value = "싫어요 테스트")
     @GetMapping("/api/dislike/{id}")
