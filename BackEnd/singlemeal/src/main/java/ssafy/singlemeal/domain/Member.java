@@ -5,7 +5,6 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 @Entity
@@ -37,7 +36,7 @@ public class Member {
 
 
     @Enumerated(EnumType.STRING)
-    private MemberOption option;
+    private MemberOption MemberOption;
 
     //==연관관계 메서드==//
     public void setRoom(Room room){
@@ -59,13 +58,13 @@ public class Member {
 
     public void setOption(String option){
         switch (option){
-            case "talkable2": this.option = MemberOption.TALKABLE2;
+            case "talkable2": this.MemberOption = MemberOption.TALKABLE2;
                 break;
-            case "nontalkable2": this.option = MemberOption.NONTALKABLE2;
+            case "nontalkable2": this.MemberOption = MemberOption.NONTALKABLE2;
                 break;
-            case "talkable5": this.option = MemberOption.TALKABLE5;
+            case "talkable5": this.MemberOption = MemberOption.TALKABLE5;
                 break;
-            case "nontalkable5": this.option = MemberOption.NONTALKABLE5;
+            case "nontalkable5": this.MemberOption = MemberOption.NONTALKABLE5;
                 break;
         }
     }

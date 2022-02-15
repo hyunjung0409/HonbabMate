@@ -5,10 +5,10 @@ spring:
     password:
     driver-class-name: org.h2.Driver
 
-<<<<<<< HEAD
+
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: create
     properties:
       hibernate:
         #        show_sql: true
@@ -22,7 +22,7 @@ spring:
       location: C:\BOJ\
       max-file-size: 100MB
       max-request-size: 100MB
-=======
+
     jpa:
         hibernate:
             ddl-auto: create
@@ -39,7 +39,7 @@ spring:
           location: C:\BOJ\
           max-file-size: 100MB
           max-request-size: 100MB
->>>>>>> a4acd1bb44fb136320898169eba58d482ca94587
+
 
 logging:
   level:
