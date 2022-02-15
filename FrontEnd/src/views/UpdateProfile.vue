@@ -3,42 +3,64 @@
     <v-container>
       <v-row>
         <v-col cols="2">
-          <v-avatar size="150">
-            <img
-              src="https://cdn.vuetifyjs.com/images/john.jpg"
-              alt="profile-picture"
-            />
+          <v-avatar size="120">
+            <img :src="memberimage.url" alt="profile-picture" />
           </v-avatar>
+
+          <v-file-input
+            :rules="rules"
+            hide-input
+            accept="image/png, image/jpeg, image/bmp"
+            placeholder="Pick an avatar"
+            prepend-icon="mdi-camera"
+            label="Avatar"
+          ></v-file-input>
         </v-col>
+
+        <!-- <v-menu> </v-menu> -->
 
         <v-col class="mt-9" cols="3">
           <div>
-            <v-text-field label="닉네임" v-model="nickname"></v-text-field>
+            <v-text-field
+              label="닉네임"
+              v-model="nickname"
+              hint="닉네임 입력은 필수입니다"
+              counter="10"
+              id="nickname"
+              required
+            >
+            </v-text-field>
+          </div>
+          <div>
+            <p>좋아요 받은 수 : {{ member.cntOfLikes }}</p>
           </div>
         </v-col>
+
+        <v-col cols="6" />
       </v-row>
+
+      <v-divider class="mt-12 mb-5" />
 
       <v-list style="background-color: #eeeeee">
         <v-list-item>
-          <v-list-item-title>최애음식</v-list-item-title>
+          <v-list-item-title max-width="200px"> 최애음식 </v-list-item-title>
+          <v-btn text>
+            <v-icon> mdi-plus </v-icon>
+          </v-btn>
         </v-list-item>
         <div class="px-4">
-          <v-chip-group active-class="primary--text" column>
-            <v-chip v-for="food in foods" :key="food">
-              {{ food }}
-            </v-chip>
-          </v-chip-group>
+          <v-chip v-for="food in member.foods" :key="food" class="mr-2 mb-2">
+            {{ food }}
+          </v-chip>
         </div>
 
         <v-list-item>
           <v-list-item-title>또 뭐있지?</v-list-item-title>
         </v-list-item>
         <div class="px-4">
-          <v-chip-group active-class="primary--text" column>
-            <v-chip v-for="tag in tags" :key="tag">
-              {{ tag }}
-            </v-chip>
-          </v-chip-group>
+          <v-chip v-for="tag in member.etc" :key="tag" class="mr-2 mb-2">
+            {{ tag }}
+          </v-chip>
         </div>
       </v-list>
 
@@ -56,6 +78,8 @@
 </template>
 
 <script>
+// import rest from "../../api/index.js";
+
 export default {
   name: "UpdateProfile",
   data: () => ({
@@ -63,42 +87,61 @@ export default {
     menu: false,
     blockDialog: false,
     reportDialog: false,
-    foods: [
-      "평양냉면",
-      "마라로제떡볶이",
-      "파히타",
-      "레인보우샤베트",
-      "마제소바",
+
+    rules: [
+      (value) =>
+        !value ||
+        value.size < 2000000 ||
+        "Avatar size should be less than 2 MB!",
     ],
-    tags: ["ESFP", "쿠킹덤", "여고추리반"],
-    nickname: "nick",
+
+    nickname: "",
+    file: "",
+    foods: [],
+    etc: [],
   }),
 
   computed: {
-    user() {
-      return this.$store.state.user;
+    member() {
+      return this.$store.state.member;
+    },
+
+    memberimage() {
+      return this.$store.state.memberimage;
     },
   },
 
-  // created: {},
+  created() {
+    if (this.member.id == null) {
+      this.$router.push({ path: "/" });
+    }
+    console.log("created : ", this.member);
+  },
 
   methods: {
-    async userupdate() {
-      await rest
-        .axios({
-          method: "put",
-          url: "",
-          data: {},
-        })
-        .then((res) => {
-          console.log(res);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+    // async modify() {
+    //   await rest
+    //   .axios({
+    //     method:"put",
+    //     url:"/profile",
+    //   })
+    //   .then((res) =>{
+    //     console.log(res)
+    //   })
+    //   .catch((err) => {
+    //     console.log(err)
+    //   })
+    // },
+
+    modify() {
+      console.log("닉네임 변경 check", this.nickname);
+    },
+
+    cancel() {
+      this.$router.push("/profile");
     },
   },
 };
 </script>
 
-<style lang=""></style>
+<style></style>

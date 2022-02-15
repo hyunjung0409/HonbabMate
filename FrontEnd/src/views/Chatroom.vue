@@ -79,13 +79,21 @@
           </div>
         </a>
 
-        <a v-for="sub in subscribers" style="cursor: default">
+        <a
+          v-for="sub in subscribers"
+          :key="sub.stream.connection.connectionId"
+          style="cursor: default"
+        >
           <div class="video-area">
             <user-video
-              :key="sub.stream.connection.connectionId"
               :stream-manager="sub"
               @click.native="updateMainVideoStreamManager(sub)"
             />
+            <!-- <user-video
+              :key="sub.stream.connection.connectionId"
+              :stream-manager="sub"
+              @click.native="updateMainVideoStreamManager(sub)"
+            /> -->
           </div>
         </a>
       </v-row>
@@ -111,6 +119,7 @@ export default {
     UserVideo,
     Timer,
   },
+
   data() {
     return {
       OV: undefined,
@@ -125,21 +134,16 @@ export default {
       myUserName: "Participant" + Math.floor(Math.random() * 100),
     };
   },
-  computed: {
-    member() {
-      return this.$store.state.member;
-    },
-  },
 
   created() {
-    this.mySessionId = this.member.sessionId;
-    this.myUserName = this.member.nickname;
-    console.log("member", this.member);
-  },
-
-  mounted() {
+    this.mySessionId = String(this.$store.state.member.sessionId);
+    this.myUserName = String(this.$store.state.member.id);
+    console.log("member", this.$store.state.member);
     this.joinSession();
   },
+
+  // mounted() {},
+
   methods: {
     toggleAudio() {
       this.publisher.properties.publishAudio =
@@ -151,10 +155,12 @@ export default {
         !this.publisher.properties.publishVideo;
       this.publisher.publishVideo(this.publisher.properties.publishVideo);
     },
-
     joinSession() {
-      this.OV = new OpenVidu(); // --- Get an OpenVidu object ---
-      this.session = this.OV.initSession(); // --- Init a session ---
+      // --- Get an OpenVidu object ---
+      this.OV = new OpenVidu();
+
+      // --- Init a session ---
+      this.session = this.OV.initSession();
 
       // --- Specify the actions when events take place in the session ---
 
@@ -170,7 +176,6 @@ export default {
         if (index >= 0) {
           this.subscribers.splice(index, 1);
         }
-        this.$router.push({ name: "ChatOption" });
       });
 
       // On every asynchronous exception...
@@ -196,7 +201,7 @@ export default {
               resolution: "640x480", // The resolution of your video
               frameRate: 30, // The frame rate of your video
               insertMode: "APPEND", // How the video is inserted in the target element 'video-container'
-              mirror: flase, // Whether to mirror your local video or not
+              mirror: false, // Whether to mirror your local video or not
             });
 
             this.mainStreamManager = publisher;
@@ -263,6 +268,7 @@ export default {
             JSON.stringify({
               customSessionId: sessionId,
             }),
+            // (sessionId = this.$store.state.member.sessionId),
             {
               auth: {
                 username: "OPENVIDUAPP",
@@ -333,7 +339,7 @@ a .video-area .bottom {
   top: 150%;
   right: 47%;
   z-index: 2;
-  transition: all 0.35s;
+  transition: all 0.32s;
 }
 
 a:hover .bottom {

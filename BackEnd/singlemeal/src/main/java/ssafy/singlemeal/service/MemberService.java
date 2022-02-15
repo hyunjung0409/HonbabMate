@@ -53,6 +53,15 @@ public class MemberService {
     public void logout(Long id){
         Member member = memberRepository.findOne(id);
         member.setStatus(MemberStatus.OFFLINE);
+        Room memberRoom = member.getRoom();
+        if(memberRoom.getId() != 1L){
+            // count + status
+            memberRoom.setCount(memberRoom.getCount() - 1);
+            member.setMemberOption(null);
+            // roomId
+            Room initRoom = roomRepository.findOne(1L);
+            member.setRoom(initRoom);
+        }
 
     }
 
