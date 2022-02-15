@@ -119,10 +119,10 @@ export default {
       publisher: undefined,
       subscribers: [],
 
-      // mySessionId: "SessionA",
-      mySessionId: "", //room number로 설정?
-      myUserName: "", //닉네임으로 설정
-      // myUserName: "Participant" + Math.floor(Math.random() * 100),
+      mySessionId: "SessionA",
+      // mySessionId: "", //room number로 설정?
+      // myUserName: "", //닉네임으로 설정
+      myUserName: "Participant" + Math.floor(Math.random() * 100),
     };
   },
   computed: {

@@ -13,7 +13,7 @@ import javax.persistence.EntityManager;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-@SpringBootTest
+//@SpringBootTest
 @Transactional
 class MemberServiceTest {
 
@@ -23,7 +23,7 @@ class MemberServiceTest {
     @Autowired RoomRepository roomRepository;
     @Autowired EntityManager em;
 
-    @Test
+    //@Test
     @Rollback(false)
     public void 회원가입() throws Exception{
         // given
@@ -40,7 +40,7 @@ class MemberServiceTest {
      *
      * */
 
-    @Test
+    //@Test
     public void 매칭() throws Exception{
         // given
         Room room1 = new Room(); // 대기방

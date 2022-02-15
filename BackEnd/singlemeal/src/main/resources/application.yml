@@ -1,14 +1,14 @@
 spring:
   datasource:
-    url: jdbc:h2:tcp://localhost/~/singlemeal
-    username: sa
-    password:
-    driver-class-name: org.h2.Driver
+    url: jdbc:mysql://localhost:3306/ssafy_web_db?useSSL=false&useUnicode=true&serverTimezone=Asia/Seoul
+    username: ssafy
+    password: 123123
+    driver-class-name: com.mysql.cj.jdbc.Driver
 
 
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: validate
     properties:
       hibernate:
         #        show_sql: true
@@ -40,6 +40,16 @@ spring:
           max-file-size: 100MB
           max-request-size: 100MB
 
+server:
+  port: 8443
+  ssl:
+    enabled: true
+    key-store-type: PKCS12
+    key-store: classpath:keystore/ssafy.p12
+    key-store-password: 123123
+    key-alias: ssafy
+    # trust-store: classpath:keystore/truststore.ts
+    # trust-store-password: 123123
 
 logging:
   level:

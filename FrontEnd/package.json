@@ -10,7 +10,7 @@
   "dependencies": {
     "axios": "^0.25.0",
     "core-js": "^3.6.5",
-    "openvidu-browser": "^2.21.0-beta1",
+    "openvidu-browser": "^2.20.0",
     "vue": "^2.6.11",
     "vue-router": "^3.2.0",
     "vue-webrtc": "^2.0.0",
