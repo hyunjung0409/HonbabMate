@@ -119,6 +119,7 @@ export default {
     UserVideo,
     Timer,
   },
+
   data() {
     return {
       OV: undefined,
@@ -127,27 +128,22 @@ export default {
       publisher: undefined,
       subscribers: [],
 
-      mySessionId: "SessionA",
-      // mySessionId: "", //room number로 설정?
-      // myUserName: "", //닉네임으로 설정
-      myUserName: "Participant" + Math.floor(Math.random() * 100),
+      // mySessionId: "SessionA",
+      mySessionId: "", //room number로 설정?
+      myUserName: "", //닉네임으로 설정
+      // myUserName: "Participant" + Math.floor(Math.random() * 100),
     };
   },
-  // computed: {
-  //   member() {
-  //     return this.$store.state.member;
-  //   },
-  // },
 
-  // created() {
-  //   this.mySessionId = this.member.sessionId;
-  //   this.myUserName = this.member.nickname;
-  //   console.log("member", this.member);
-  // },
-
-  mounted() {
+  created() {
+    this.mySessionId = String(this.$store.state.member.sessionId);
+    this.myUserName = String(this.$store.state.member.id);
+    console.log("member", this.$store.state.member);
     this.joinSession();
   },
+
+  // mounted() {},
+
   methods: {
     toggleAudio() {
       this.publisher.properties.publishAudio =
@@ -272,6 +268,7 @@ export default {
             JSON.stringify({
               customSessionId: sessionId,
             }),
+            // (sessionId = this.$store.state.member.sessionId),
             {
               auth: {
                 username: "OPENVIDUAPP",

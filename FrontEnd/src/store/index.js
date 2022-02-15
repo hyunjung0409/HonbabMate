@@ -24,7 +24,7 @@ export default new Vuex.Store({
       //정언
       //---------------
       //현정
-      option: null,
+      // option: null,
       sessionId: null,
     },
 
