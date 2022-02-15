@@ -81,6 +81,10 @@ export default {
     user() {
       return this.$store.state.user;
     },
+
+    member() {
+      return this.$store.state.member;
+    },
   },
 
   methods: {
@@ -132,11 +136,55 @@ export default {
           sessionStorage.setItem("userId", this.id);
           this.$store.commit("memberId", this.id);
           console.log("memberId", this.$store.state.member.id);
+
+          // memberID 저장
+          const temp = sessionStorage.getItem("memberID");
+          this.storeuser(temp);
+
+          // member image 저장
+          console.log("kakao image", kakao_account.profile.profile_image_url);
+          this.$store.commit(
+            "memberimage",
+            kakao_account.profile.profile_image_url
+          );
+          console.log("store", this.$store.state.memberimage);
+          // this.storeuserimg(temp);
         })
         .catch((err) => {
           console.log(err);
         });
     },
+
+    async storeuser(temp) {
+      await rest
+        .axios({
+          method: "get",
+          url: "/profile/" + temp,
+        })
+        .then((res) => {
+          console.log(res);
+          this.$store.commit("member", res.data);
+          console.log("member : ", this.$store.state.member);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+
+    // async storeuserimg(temp) {
+    //   await rest
+    //     .axios({
+    //       method: "get",
+    //       url: "/profile/image/" + temp,
+    //     })
+    //     .then((res) => {
+    //       console.log(res);
+    //       this.$store.commit("memberimage", res.data);
+    //     })
+    //     .catch((err) => {
+    //       console.log(err);
+    //     });
+    // },
 
     kakaologout() {
       // window.Kakao.API.request({
@@ -174,9 +222,7 @@ export default {
           // },
         })
         .then((res) => {
-          // localStorage.removeItem("nickname");
-          // localStorage.removeItem("memberID");
-          localStorage.clear();
+          // sessionStorage.clear();
           console.log(res);
           // 회원정보 가져와서 store에 넣기
           this.id = "";

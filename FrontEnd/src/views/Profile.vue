@@ -3,11 +3,8 @@
     <v-container>
       <v-row>
         <v-col cols="2">
-          <v-avatar size="150">
-            <img
-              src="https://cdn.vuetifyjs.com/images/john.jpg"
-              alt="profile-picture"
-            />
+          <v-avatar size="120">
+            <img :src="memberimage.url" alt="profile-picture" />
           </v-avatar>
         </v-col>
 
@@ -15,10 +12,10 @@
 
         <v-col class="mt-9" cols="3">
           <div>
-            <p>닉네임 : {{ user.profile.nickname }}</p>
+            <p>닉네임 : {{ member.nickName }}</p>
           </div>
           <div>
-            <p>좋아요 받은 수 :</p>
+            <p>좋아요 받은 수 : {{ member.cntOfLikes }}</p>
           </div>
         </v-col>
 
@@ -40,7 +37,7 @@
           </v-btn>
         </v-list-item>
         <div class="px-4">
-          <v-chip v-for="food in foods" :key="food" class="mr-2 mb-2">
+          <v-chip v-for="food in member.foods" :key="food" class="mr-2 mb-2">
             {{ food }}
           </v-chip>
         </div>
@@ -49,7 +46,7 @@
           <v-list-item-title>또 뭐있지?</v-list-item-title>
         </v-list-item>
         <div class="px-4">
-          <v-chip v-for="tag in tags" :key="tag" class="mr-2 mb-2">
+          <v-chip v-for="tag in member.etc" :key="tag" class="mr-2 mb-2">
             {{ tag }}
           </v-chip>
         </div>
@@ -68,33 +65,29 @@ export default {
     menu: false,
     blockDialog: false,
     reportDialog: false,
-    foods: [
-      "평양냉면",
-      "마라로제떡볶이",
-      "파히타",
-      "레인보우샤베트",
-      "마제소바",
-      "평양냉면",
-      "마라로제떡볶이",
-      "파히타",
-      "레인보우샤베트",
-      "마제소바",
-      "평양냉면",
-      "마라로제떡볶이",
-      "파히타",
-      "레인보우샤베트",
-      "마제소바",
-    ],
-    tags: ["ESFP", "쿠킹덤", "여고추리반"],
   }),
 
   computed: {
-    user() {
-      return this.$store.state.user;
+    member() {
+      return this.$store.state.member;
     },
+
+    memberimage() {
+      return this.$store.state.memberimage;
+    },
+
+    // user() {
+    //   return this.$store.state.user;
+    // },
   },
 
-  // created: {},
+  created() {
+    if (this.member.id == null) {
+      this.$router.push({ path: "/" });
+    }
+    console.log("created : ", this.member);
+    console.log("created member image", this.memberimage);
+  },
 
   methods: {
     updateprofile() {
