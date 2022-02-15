@@ -8,22 +8,23 @@
     >
       <v-row
         id="session-header"
-        align="center"
+        outlined
+        justify="center"
         class="grey lighten-3 orange--text"
       >
         <v-col cols="3" align="start">
-          <h3 id="session-title" class="mx-3">
+          <h4 id="session-title" class="mx-3">
             {{ mySessionId }}
-          </h3>
+          </h4>
         </v-col>
         <v-col cols="3" align="start">
-          <h3 class="mx-3">2인👩🏻‍🤝‍🧑🏻 조용히 식사하는 방🍜</h3>
+          <h4 class="mx-3">2인👩🏻‍🤝‍🧑🏻 조용히 식사하는 방🍜</h4>
         </v-col>
         <v-col cols="3" align="start">
           <!-- <span class="mx-3">남은 시간 {{ time }}</span> -->
-          <h3>
+          <h4>
             <timer />
-          </h3>
+          </h4>
         </v-col>
         <v-col cols="3" align="end">
           <v-btn
@@ -32,7 +33,7 @@
             plain
             @click="leaveSession"
           >
-            <h2>나가기</h2>
+            <h3>나가기</h3>
           </v-btn>
         </v-col>
       </v-row>
@@ -328,8 +329,8 @@ a .video-area {
   /* width: 90%;
   margin: 30px auto 30px auto; */
 
-  max-width: 640px;
-  width: 90%;
+  /* max-width: 640px; */
+  /* width: 60%; */
   margin: 0px auto 50px auto;
   border: 1px solid red;
 }

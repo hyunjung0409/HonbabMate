@@ -1,5 +1,5 @@
 <template>
-  <span class="mx-3">
+  <span>
     <p v-if="this.TimeCounter >= 300">남은 시간 {{ TimerStr }}</p>
     <p v-else class="red--text">남은 시간 {{ TimerStr }}</p>
   </span>
