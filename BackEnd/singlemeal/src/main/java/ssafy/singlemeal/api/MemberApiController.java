@@ -18,10 +18,7 @@ import ssafy.singlemeal.service.RoomService;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
-import java.net.URISyntaxException;
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
 
 @Slf4j
 @Api(tags = {"api"})
@@ -60,29 +57,9 @@ public class MemberApiController {
         memberService.logout(id);
     }
 
-    static int cnt;
     @ApiOperation(value = "매치 테스트")
     @PutMapping("/api/members/match")
     public MatchMemberResponse matchMember(@RequestBody @Validated MatchMemberRequest request){
-
-//        Timer timer = new Timer();
-//        cnt = 0;
-//        TimerTask task = new TimerTask() {
-//            @Override
-//            public void run() {
-//                cnt++;
-//                Long roomId = roomService.match(request.getId(), request.getOption());
-//                if(roomId != 1L){
-//                    memberService.updateOption(request.getId(), request.getOption());
-//                    memberService.updateRoomId(request.getId(), roomId);
-//                    timer.cancel();
-//                }else if(cnt == 10){
-//                    // 1인 상태로 반환
-//                    timer.cancel();
-//                }
-//            }
-//        };
-//        timer.schedule(task, 1000, 1000);
 
         Long roomId = roomService.match(request.getId(), request.getOption());
         memberService.updateOption(request.getId(), request.getOption());
@@ -99,6 +76,7 @@ public class MemberApiController {
     @PutMapping("/api/profile")
     public void updateProfile(@ModelAttribute ProfileRequest request, @RequestParam("file") MultipartFile file) throws IOException {
 
+
         UploadFile imageFile = fileStore.storeFile(file);
 
         memberService.updateProfile(request.getId(), request.getNickname(), request.getFoods(), request.getEtc(), imageFile);
@@ -106,7 +84,7 @@ public class MemberApiController {
 
     @ApiOperation(value = "프로필 조회 테스트")
     @GetMapping("/api/profile/{id}")
-    public CreateProfileResponse showProfile(@PathVariable("id") Long id) throws MalformedURLException, URISyntaxException {
+    public CreateProfileResponse showProfile(@PathVariable("id") Long id) {
 
         Member member = memberService.findOne(id);
         String nickName = member.getNickName();
