@@ -110,6 +110,7 @@ export default {
           console.log(res);
           this.$store.commit("memberSession", res.data.id);
           console.log("memberSession", this.$store.state.member.sessionId);
+          console.log("member + ", this.$store.state.member);
         })
         .catch((err) => {
           console.log(err);
