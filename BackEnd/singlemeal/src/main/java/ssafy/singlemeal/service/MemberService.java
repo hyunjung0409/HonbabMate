@@ -57,6 +57,7 @@ public class MemberService {
         if(memberRoom.getId() != 1L){
             // count + status
             memberRoom.setCount(memberRoom.getCount() - 1);
+            member.setMemberOption(null);
             // roomId
             Room initRoom = roomRepository.findOne(1L);
             member.setRoom(initRoom);
