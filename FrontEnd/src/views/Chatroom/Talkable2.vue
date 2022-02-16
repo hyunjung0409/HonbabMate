@@ -321,7 +321,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 a .video-area {
   position: relative;
   overflow: hidden;
@@ -344,5 +344,11 @@ a .video-area .bottom {
 
 a:hover .bottom {
   top: 90%;
+}
+
+video {
+  width: 90%;
+  margin: 0 10px 0 10px;
+  display: block;
 }
 </style>
