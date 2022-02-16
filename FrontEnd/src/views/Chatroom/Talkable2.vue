@@ -1,16 +1,12 @@
 <template>
   <v-main>
-    <v-container
-      v-if="session"
-      id="session"
-      style="border: 1px solid green"
-      fluid
-    >
+    <v-container v-if="session" id="session" fluid>
       <v-row
         id="session-header"
         outlined
         justify="center"
-        class="grey lighten-3 orange--text"
+        class="grey lighten-3"
+        style="color: #616161"
       >
         <v-col cols="3" align="start">
           <h4 id="session-title" class="mx-3">채팅룸 {{ mySessionId }}</h4>
@@ -40,7 +36,7 @@
                 <user-video :stream-manager="mainStreamManager" />
               </div> -->
 
-      <v-row id="video-container" class="grey lighten-3">
+      <v-row id="video-container" class="grey lighten-3" justify="space-around">
         <a style="cursor: default">
           <div class="video-area">
             <div class="bottom">
@@ -101,7 +97,7 @@
 </template>
 
 <script>
-import "@/assets/SCSS/common.scss";
+// import "@/assets/SCSS/common.scss";
 import axios from "axios";
 import { OpenVidu } from "openvidu-browser";
 import UserVideo from "@/components/chat_room/UserVideo";
@@ -332,8 +328,8 @@ a .video-area {
 
   /* max-width: 640px; */
   /* width: 60%; */
-  margin: 0px auto 50px auto;
-  border: 1px solid red;
+  margin: 50px 50px 100px 50px;
+  /* border: 1px solid red; */
 }
 
 a .video-area .bottom {
@@ -346,11 +342,5 @@ a .video-area .bottom {
 
 a:hover .bottom {
   top: 90%;
-}
-
-video {
-  width: 90%;
-  margin: 0 10px 0 10px;
-  display: block;
 }
 </style>
