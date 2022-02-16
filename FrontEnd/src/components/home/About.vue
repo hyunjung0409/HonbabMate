@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <v-row>
-      <v-col cols="6">
+      <v-col cols="7">
         <v-row class="text-h3">
           <v-col cols="12">
             <div class="mt-10">
@@ -39,7 +39,7 @@
           </v-col>
         </v-row>
       </v-col>
-      <v-col cols="6">
+      <v-col cols="5">
         <v-img
           src="@/assets/honbab-mockup.png"
           width="700px"
