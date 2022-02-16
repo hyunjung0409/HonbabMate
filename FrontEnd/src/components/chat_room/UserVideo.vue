@@ -1,5 +1,5 @@
 <template>
-  <div v-if="streamManager" align="center">
+  <div v-if="streamManager" class="box" align="center">
     <!-- <toolbar /> -->
     <div class="toolbar">
       <v-toolbar dense>
@@ -258,8 +258,4 @@ export default {
 };
 </script>
 
-<style>
-div .toolbar {
-  width: 480px;
-}
-</style>
+<style></style>
