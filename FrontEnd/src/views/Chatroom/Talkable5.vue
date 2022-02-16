@@ -16,7 +16,9 @@
           <h4 id="session-title" class="mx-3">채팅룸 {{ mySessionId }}</h4>
         </v-col>
         <v-col cols="3" align="start">
-          <h4 class="mx-3">2인👩🏻‍🤝‍🧑🏻 조용히 식사하는 방🍜</h4>
+          <h4 class="mx-3">
+            5인👩🏻‍🤝‍🧑🏻👩🏻‍🤝‍🧑🏻🧍‍♀️ 즐거운 토크와 함께하는 식사🍜
+          </h4>
         </v-col>
         <v-col cols="3" align="start">
           <!-- <span class="mx-3">남은 시간 {{ time }}</span> -->
@@ -321,7 +323,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 a .video-area {
   position: relative;
   overflow: hidden;
