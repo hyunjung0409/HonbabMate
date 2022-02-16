@@ -44,20 +44,6 @@
         <a style="cursor: default">
           <div class="video-area">
             <div class="bottom">
-              <!-- 마이크 on/off 버튼 -->
-              <v-btn
-                v-if="this.publisher.properties.publishAudio"
-                :value="1"
-                icon
-                class="mx-1"
-                @click="toggleAudio"
-              >
-                <v-icon color="white"> mdi-microphone </v-icon>
-              </v-btn>
-              <v-btn v-else :value="2" icon class="mx-1" @click="toggleAudio">
-                <v-icon color="white"> mdi-microphone-off </v-icon>
-              </v-btn>
-
               <!-- 카메라 on/off 버튼 -->
               <v-btn
                 v-if="this.publisher.properties.publishVideo"
@@ -127,10 +113,8 @@ export default {
       publisher: undefined,
       subscribers: [],
 
-      // mySessionId: "SessionA",
       mySessionId: "", //room number로 설정?
       myUserName: "", //닉네임으로 설정
-      // myUserName: "Participant" + Math.floor(Math.random() * 100),
     };
   },
 
@@ -139,9 +123,8 @@ export default {
     this.myUserName = String(this.$store.state.member.id);
     console.log("member", this.$store.state.member);
     this.joinSession();
+    this.toggleAudio;
   },
-
-  // mounted() {},
 
   methods: {
     toggleAudio() {
@@ -321,7 +304,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 a .video-area {
   position: relative;
   overflow: hidden;

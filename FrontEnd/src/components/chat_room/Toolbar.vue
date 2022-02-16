@@ -1,13 +1,15 @@
 <template>
-  <v-toolbar dense>
-    <template v-if="$vuetify.breakpoint.mdAndUp">
-      <!-- <p amber--text>{{ this.$store.state.member.nickname }}</p> -->
+  <div class="toolbar">
+    <v-toolbar dense>
+      <template>
+        <!-- <p amber--text>{{ this.$store.state.member.nickname }}</p> -->
 
-      <v-spacer />
-      <!-- <div class="mx-5" /> -->
-      <dropdown-menu />
-    </template>
-  </v-toolbar>
+        <v-spacer />
+        <!-- <div class="mx-5" /> -->
+        <dropdown-menu />
+      </template>
+    </v-toolbar>
+  </div>
 </template>
 
 <script>
@@ -21,3 +23,9 @@ export default {
   },
 };
 </script>
+
+<style>
+div .toolbar {
+  width: 480px;
+}
+</style>
