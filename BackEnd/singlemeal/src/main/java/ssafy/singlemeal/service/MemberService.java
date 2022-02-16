@@ -80,12 +80,14 @@ public class MemberService {
     }
 
     @Transactional
-    public void updateProfile(Long id, String nickname, List<String> foods, List<String> etc) {
+    public Member updateProfile(Long id, String nickname, List<String> foods, List<String> etc) {
 
         Member member = memberRepository.findOne(id);
         member.setNickname(nickname);
         member.setFood(foods);
         member.setEtc(etc);
+
+        return member;
 //        member.setImagePath(uploadFile.getFullPath());
     }
 

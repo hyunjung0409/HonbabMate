@@ -6,10 +6,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.core.io.UrlResource;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import ssafy.singlemeal.domain.*;
 import ssafy.singlemeal.file.FileStore;
 import ssafy.singlemeal.file.UploadFile;
@@ -17,7 +16,6 @@ import ssafy.singlemeal.service.MemberService;
 import ssafy.singlemeal.service.RoomService;
 
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.util.List;
 
 @Slf4j
@@ -70,9 +68,11 @@ public class MemberApiController {
 
     @ApiOperation(value="프로필 수정 테스트")
     @PutMapping("/api/profile")
-    public void updateProfile(@ModelAttribute ProfileRequest request) throws IOException {
+    public CreateProfileResponse updateProfile(@ModelAttribute ProfileRequest request) throws IOException {
 
-        memberService.updateProfile(request.getId(), request.getNickname(), request.getFoods(), request.getEtc());
+        Member member = memberService.updateProfile(request.getId(), request.getNickname(), request.getFoods(), request.getEtc());
+
+        return new CreateProfileResponse(member.getId(), member.getNickName(), member.getCntOfLikes(), member.getFood(), member.getEtc());
     }
 
     @ApiOperation(value = "프로필 조회 테스트")
@@ -108,7 +108,6 @@ public class MemberApiController {
     public void likeMember(@PathVariable("id") Long id){
         memberService.likeMmeber(id);
     }
-
 
     @Data
     @AllArgsConstructor
