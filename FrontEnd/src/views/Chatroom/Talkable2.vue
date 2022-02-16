@@ -15,10 +15,10 @@
         <v-col cols="3" align="start">
           <h4 id="session-title" class="mx-3">채팅룸 {{ mySessionId }}</h4>
         </v-col>
-        <v-col cols="3" align="start">
-          <h4 class="mx-3">2인👩🏻‍🤝‍🧑🏻 조용히 식사하는 방🍜</h4>
+        <v-col cols="4" align="start">
+          <h4 class="mx-3">2인👩🏻‍🤝‍🧑🏻 즐거운 토크와 함께하는 식사🍜</h4>
         </v-col>
-        <v-col cols="3" align="start">
+        <v-col cols="2" align="start">
           <!-- <span class="mx-3">남은 시간 {{ time }}</span> -->
           <h4>
             <timer />
@@ -130,13 +130,14 @@ export default {
       // mySessionId: "SessionA",
       mySessionId: "", //room number로 설정?
       myUserName: "", //닉네임으로 설정
-      // myUserName: "Participant" + Math.floor(Math.random() * 100),
+      myUserId: "", //id로 설정
     };
   },
 
   created() {
     this.mySessionId = String(this.$store.state.member.sessionId);
-    this.myUserName = String(this.$store.state.member.id);
+    this.myUserName = String(this.$store.state.member.nickName);
+    this.myUserId = String(this.$store.state.member.id);
     console.log("member", this.$store.state.member);
     this.joinSession();
   },
@@ -188,7 +189,8 @@ export default {
       // 'token' parameter should be retrieved and returned by your own backend
       this.getToken(this.mySessionId).then((token) => {
         this.session
-          .connect(token, { clientData: this.myUserName })
+          // .connect(token, { clientData: this.myUserName })
+          .connect(token, { clientData: this.myUserId })
           .then(() => {
             // --- Get your own camera stream with the desired properties ---
 
