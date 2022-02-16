@@ -130,13 +130,14 @@ export default {
       // mySessionId: "SessionA",
       mySessionId: "", //room number로 설정?
       myUserName: "", //닉네임으로 설정
-      // myUserName: "Participant" + Math.floor(Math.random() * 100),
+      myUserId: "", //id로 설정
     };
   },
 
   created() {
     this.mySessionId = String(this.$store.state.member.sessionId);
-    this.myUserName = String(this.$store.state.member.id);
+    this.myUserName = String(this.$store.state.member.nickName);
+    this.myUserId = String(this.$store.state.member.id);
     console.log("member", this.$store.state.member);
     this.joinSession();
   },
@@ -188,7 +189,8 @@ export default {
       // 'token' parameter should be retrieved and returned by your own backend
       this.getToken(this.mySessionId).then((token) => {
         this.session
-          .connect(token, { clientData: this.myUserName })
+          // .connect(token, { clientData: this.myUserName })
+          .connect(token, { clientData: this.myUserId })
           .then(() => {
             // --- Get your own camera stream with the desired properties ---
 
