@@ -49,11 +49,12 @@ public class Member {
     }
 
     public void setImagePath(String imagePath){
-
-
         this.imagePath = imagePath;
+    }
 
-
+    public Long setCntOfLikes(Long cntOfLikes){
+        this.cntOfLikes = cntOfLikes;
+        return this.cntOfLikes;
     }
 
     public void setOption(String option){
@@ -68,6 +69,4 @@ public class Member {
                 break;
         }
     }
-
-
 }
