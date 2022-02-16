@@ -15,10 +15,10 @@
         <v-col cols="3" align="start">
           <h4 id="session-title" class="mx-3">채팅룸 {{ mySessionId }}</h4>
         </v-col>
-        <v-col cols="3" align="start">
+        <v-col cols="4" align="start">
           <h4 class="mx-3">2인👩🏻‍🤝‍🧑🏻 조용히 식사하는 방🍜</h4>
         </v-col>
-        <v-col cols="3" align="start">
+        <v-col cols="2" align="start">
           <!-- <span class="mx-3">남은 시간 {{ time }}</span> -->
           <h4>
             <timer />
@@ -123,7 +123,7 @@ export default {
     this.myUserName = String(this.$store.state.member.id);
     console.log("member", this.$store.state.member);
     this.joinSession();
-    this.toggleAudio;
+    // this.toggleAudio;
   },
 
   methods: {
@@ -178,7 +178,7 @@ export default {
             let publisher = this.OV.initPublisher(undefined, {
               audioSource: undefined, // The source of audio. If undefined default microphone
               videoSource: undefined, // The source of video. If undefined default webcam
-              publishAudio: true, // Whether you want to start publishing with your audio unmuted or not
+              publishAudio: false, // Whether you want to start publishing with your audio unmuted or not
               publishVideo: true, // Whether you want to start publishing with your video enabled or not
               resolution: "640x480", // The resolution of your video
               frameRate: 30, // The frame rate of your video
