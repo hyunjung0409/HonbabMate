@@ -68,18 +68,11 @@ public class MemberApiController {
         return new MatchMemberResponse(memberService.findOne(request.getId()).getRoom().getId());
     }
 
-    /**
-     * 프로필 수정 : 동일한 파일일 경우에는 새롭게 파일을 추가하지 않도록 설정 하기
-     * */
-
     @ApiOperation(value="프로필 수정 테스트")
     @PutMapping("/api/profile")
-    public void updateProfile(@ModelAttribute ProfileRequest request, @RequestParam("file") MultipartFile file) throws IOException {
+    public void updateProfile(@ModelAttribute ProfileRequest request) throws IOException {
 
-
-        UploadFile imageFile = fileStore.storeFile(file);
-
-        memberService.updateProfile(request.getId(), request.getNickname(), request.getFoods(), request.getEtc(), imageFile);
+        memberService.updateProfile(request.getId(), request.getNickname(), request.getFoods(), request.getEtc());
     }
 
     @ApiOperation(value = "프로필 조회 테스트")
@@ -95,14 +88,14 @@ public class MemberApiController {
         return new CreateProfileResponse(member.getId(),nickName,cntOfLikes,foods,etc);
     }
 
-    @ApiOperation(value = "프로필 이미지 조회 테스트")
-    @GetMapping("/api/profile/image/{id}")
-    public UrlResource getImage(@PathVariable("id") Long id) throws MalformedURLException {
-
-        Member member = memberService.findOne(id);
-        return new UrlResource("file:"+member.getImagePath());
-
-    }
+//    @ApiOperation(value = "프로필 이미지 조회 테스트")
+//    @GetMapping("/api/profile/image/{id}")
+//    public UrlResource getImage(@PathVariable("id") Long id) throws MalformedURLException {
+//
+//        Member member = memberService.findOne(id);
+//        return new UrlResource("file:"+member.getImagePath());
+//
+//    }
 
     @ApiOperation(value = "싫어요 테스트")
     @GetMapping("/api/dislike/{id}")

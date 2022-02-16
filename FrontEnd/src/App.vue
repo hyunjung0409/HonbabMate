@@ -1,6 +1,14 @@
 <template>
   <v-app>
-    <navbar v-if="$route.name !== 'Chatroom'" />
+    <!-- <navbar v-if="$route.name !== 'Chatroom'" /> -->
+    <navbar
+      v-if="
+        $route.name !== 'talkable2' &&
+        $route.name !== 'talkable5' &&
+        $route.name !== 'nontalkable2' &&
+        $route.name !== 'nontalkable5'
+      "
+    />
     <v-main style="background-color: #eeeeee">
       <router-view></router-view>
     </v-main>
