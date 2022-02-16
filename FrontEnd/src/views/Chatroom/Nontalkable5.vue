@@ -314,13 +314,13 @@ a .video-area {
 a .video-area .bottom {
   position: absolute;
   top: 150%;
-  right: 47%;
+  right: 40%;
   z-index: 2;
   transition: all 0.32s;
 }
 
 a:hover .bottom {
-  top: 90%;
+  top: 85%;
 }
 </style>
 >
