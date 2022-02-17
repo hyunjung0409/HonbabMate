@@ -15,7 +15,7 @@
         </v-col>
       </v-row>
 
-      <v-row>
+      <v-row style="margin: 50px 0 50px 0">
         <v-col cols="4" />
         <v-col cols="4">
           <v-progress-linear
@@ -33,7 +33,14 @@
           <span class="pl-3">
             새로고침, 뒤로가기, 재접속을 하시면 대기시간이 더 길어집니다.
           </span>
-          <v-btn class="ml-3" color="grey darken-4" plain> 뒤로가기 </v-btn>
+          <v-btn
+            class="ml-3"
+            color="grey darken-4"
+            plain
+            :to="{ name: 'People' }"
+          >
+            뒤로가기
+          </v-btn>
         </v-col>
       </v-row>
     </v-container>

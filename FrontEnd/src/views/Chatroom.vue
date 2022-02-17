@@ -330,8 +330,8 @@ a .video-area {
 
   /* max-width: 640px; */
   /* width: 60%; */
-  margin: 0px auto 50px auto;
-  border: 1px solid red;
+  /* margin: 0px auto 50px auto; */
+  /* border: 1px solid red; */
 }
 
 a .video-area .bottom {
