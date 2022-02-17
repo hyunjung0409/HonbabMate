@@ -9,26 +9,31 @@
           <!-- <v-file-input @change="uploadimage"></v-file-input> -->
         </v-col>
 
-        <!-- <v-menu> </v-menu> -->
-
-        <v-col class="mt-9" cols="3">
+        <v-col class="mt-2" cols="4">
           <div>
             <v-text-field
-              label="닉네임"
-              v-model="nickname"
-              hint="닉네임 입력은 필수입니다"
-              counter="10"
               id="nickname"
+              v-model="nickname"
+              label="닉네임"
+              hint="닉네임 입력은 필수입니다"
+              :placeholder="member.nickName"
+              counter="10"
               required
-            >
-            </v-text-field>
+              color="amber darken-1"
+            />
           </div>
           <div>
             <p>좋아요 받은 수 : {{ member.cntOfLikes }}</p>
           </div>
         </v-col>
 
-        <v-col cols="6" />
+        <v-col class="mt-11" cols="2" align="end">
+          <v-btn rounded color="primary" dark @click="modify"> 수정하기 </v-btn>
+        </v-col>
+
+        <v-col class="mt-11" cols="4">
+          <v-btn rounded color="secondary" light @click="cancel"> 취소 </v-btn>
+        </v-col>
       </v-row>
 
       <v-divider class="mt-12 mb-5" />
@@ -59,11 +64,11 @@
                 최애음식
               </v-card-title>
               <v-card-text>
-                <v-text-field v-model="food"></v-text-field>
+                <v-text-field v-model="food" />
               </v-card-text>
-              <v-divider></v-divider>
+              <v-divider />
               <v-card-actions>
-                <v-spacer></v-spacer>
+                <v-spacer />
                 <v-btn color="primary" text @click="addfood"> 추가하기 </v-btn>
                 <v-btn color="secondary" text @click="closefood"> 취소 </v-btn>
               </v-card-actions>
@@ -93,20 +98,17 @@
               <v-btn v-bind="attrs" v-on="on">
                 <v-icon> mdi-plus </v-icon>
               </v-btn>
-              <!-- <v-btn color="red lighten-2" dark v-bind="attrs" v-on="on">
-                추가하기
-              </v-btn> -->
             </template>
             <v-card>
               <v-card-title class="text-h5 grey lighten-2">
                 기타사항
               </v-card-title>
               <v-card-text>
-                <v-text-field v-model="oneetc"></v-text-field>
+                <v-text-field v-model="oneetc" />
               </v-card-text>
-              <v-divider></v-divider>
+              <v-divider />
               <v-card-actions>
-                <v-spacer></v-spacer>
+                <v-spacer />
                 <v-btn color="primary" text @click="addetc"> 추가하기 </v-btn>
                 <v-btn color="secondary" text @click="closeetc"> 취소 </v-btn>
               </v-card-actions>
@@ -114,16 +116,6 @@
           </v-dialog>
         </div>
       </v-list>
-
-      <v-row>
-        <v-col class="mt-9" cols="1">
-          <v-btn rounded color="primary" dark @click="modify"> 수정하기 </v-btn>
-        </v-col>
-
-        <v-col class="mt-9" cols="1">
-          <v-btn rounded color="secondary" light @click="cancel"> 취소 </v-btn>
-        </v-col>
-      </v-row>
     </v-container>
   </v-main>
 </template>

@@ -8,9 +8,7 @@
           </v-avatar>
         </v-col>
 
-        <v-menu> </v-menu>
-
-        <v-col class="mt-9" cols="3">
+        <v-col class="mt-9" cols="4">
           <div>
             <p>닉네임 : {{ member.nickName }}</p>
           </div>
@@ -19,12 +17,18 @@
           </div>
         </v-col>
 
-        <v-col class="mt-11" cols="6">
-          <v-btn rounded color="primary" dark @click="updateprofile">
+        <v-col class="mt-11" cols="2">
+          <v-btn
+            rounded
+            color="primary"
+            dark
+            class="ml-8"
+            @click="updateprofile"
+          >
             수정하기
           </v-btn>
         </v-col>
-        <v-col cols="6" />
+        <v-col cols="4" />
       </v-row>
 
       <v-divider class="mt-12 mb-5" />
