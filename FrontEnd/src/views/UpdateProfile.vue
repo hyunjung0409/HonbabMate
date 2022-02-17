@@ -257,7 +257,7 @@ export default {
       for (var i = 0; i < this.member.etc.length; i++) {
         if (this.member.etc[i] == etc) {
           if (i == 0) {
-            this.member.foods.splice(i, 1);
+            this.member.etc.splice(i, 1);
           } else {
             this.member.etc.splice(i, i);
           }
