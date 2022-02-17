@@ -41,7 +41,7 @@
                     <v-list>
                       <v-list-item>
                         <v-list-item-avatar>
-                          <!-- <img :src="memberimage.url" alt="profile-picture" /> -->
+                          <img :src="memberimage.url" alt="profile-picture" />
                         </v-list-item-avatar>
 
                         <v-list-item-content>
@@ -213,9 +213,9 @@ export default {
       const { clientData } = this.getConnectionData();
       return clientData;
     },
-    // memberimage() {
-    //   return this.$store.state.memberimage;
-    // },
+    memberimage() {
+      return this.$store.state.memberimage;
+    },
   },
 
   created() {

@@ -53,6 +53,9 @@ export default new Vuex.Store({
     memberId(state, data) {
       state.member.id = data;
     },
+    memberNickname(state, data) {
+      state.member.nickname = data;
+    },
 
     memberSession(state, data) {
       state.member.sessionId = data;
