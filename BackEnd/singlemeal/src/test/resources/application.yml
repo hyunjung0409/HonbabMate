@@ -5,13 +5,41 @@ spring:
     password:
     driver-class-name: org.h2.Driver
 
+
   jpa:
     hibernate:
       ddl-auto: create
     properties:
       hibernate:
-    #        show_sql: true
+        #        show_sql: true
         format_sql: true
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+  servlet:
+    multipart:
+      file-size-threshold: 1MB
+      location: C:\BOJ\
+      max-file-size: 100MB
+      max-request-size: 100MB
+
+    jpa:
+      hibernate:
+        ddl-auto: create
+      properties:
+        hibernate:
+          #        show_sql: true
+          format_sql: true
+    mvc:
+      pathmatch:
+        matching-strategy: ant_path_matcher
+    servlet:
+      multipart:
+        file-size-threshold: 1MB
+        location: C:\BOJ\
+        max-file-size: 100MB
+        max-request-size: 100MB
+
 
 logging:
   level:
