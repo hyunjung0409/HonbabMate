@@ -88,6 +88,7 @@ import axios from "axios";
 import { OpenVidu } from "openvidu-browser";
 import UserVideo from "@/components/chat_room/UserVideo";
 import Timer from "@/components/Timer";
+import rest from "../../api/index.js";
 
 axios.defaults.headers.post["Content-Type"] = "application/json";
 
@@ -112,6 +113,12 @@ export default {
       mySessionId: "", //room number로 설정?
       myUserName: "", //닉네임으로 설정
     };
+  },
+
+  computed: {
+    member() {
+      return this.$store.state.member;
+    },
   },
 
   created() {
@@ -212,7 +219,24 @@ export default {
       this.OV = undefined;
 
       window.removeEventListener("beforeunload", this.leaveSession);
+
+      console.log("leave room ", this.member.id);
+      this.matchout();
       this.$router.push({ name: "Home" });
+    },
+
+    async matchout() {
+      await rest
+        .axios({
+          method: "get",
+          url: "/member/matchOut/" + this.member.id,
+        })
+        .then((res) => {
+          console.log("matchout :", res);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     },
 
     updateMainVideoStreamManager(stream) {
