@@ -5,7 +5,37 @@
         <h6>C206 | SSAFY 6기 광주 캠퍼스</h6>
 
         <v-spacer />
-        <h6>김규성 | 김채련 | 송상빈 | 이정언 | 이현정</h6>
+        <h6>
+          <a class="git" href="https://github.com/pia2011" style="color: white">
+            김규성
+          </a>
+          |
+          <a
+            class="git"
+            href="https://github.com/chaeryun"
+            style="color: white"
+          >
+            김채련
+          </a>
+          |
+          <a
+            class="git"
+            href="https://github.com/bangtugu"
+            style="color: white"
+          >
+            송상빈
+          </a>
+          |
+          <a class="git" href="" style="color: white"> 이정언 </a>
+          |
+          <a
+            class="git"
+            href="https://github.com/hyunjung0409"
+            style="color: white"
+          >
+            이현정
+          </a>
+        </h6>
         <v-spacer />
         <v-btn class="mx-1" dark icon>
           <v-icon size="20px" @click="moveGitlab"> mdi-gitlab </v-icon>
@@ -19,6 +49,8 @@
 </template>
 
 <script>
+import "@/assets/SCSS/common.scss";
+
 export default {
   name: "Footer",
 
@@ -34,3 +66,9 @@ export default {
   },
 };
 </script>
+
+<style>
+a :visited {
+  color: white;
+}
+</style>
