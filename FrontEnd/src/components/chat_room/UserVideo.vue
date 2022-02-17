@@ -223,6 +223,7 @@ export default {
     console.log("memberId : ", this.memberId);
     const id = this.memberId;
     this.getProfile(id);
+    console.log("memberimg", this.memberimage.url);
   },
 
   methods: {

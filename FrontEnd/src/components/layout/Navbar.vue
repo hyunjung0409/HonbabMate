@@ -147,10 +147,7 @@ export default {
 
           // member image 저장
           console.log("kakao image", kakao_account.profile.profile_image_url);
-          this.$store.commit(
-            "memberimage",
-            kakao_account.profile.profile_image_url
-          );
+          this.$store.commit("memberimage", temp2);
           console.log("store", this.$store.state.memberimage);
           // this.storeuserimg(temp);
         })
