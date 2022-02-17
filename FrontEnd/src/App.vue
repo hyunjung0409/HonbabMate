@@ -12,14 +12,18 @@
     <v-main style="background-color: #eeeeee">
       <router-view></router-view>
     </v-main>
+    <Footer />
   </v-app>
 </template>
 
 <script>
+import Footer from "@/components/layout/Footer";
+
 export default {
   name: "App",
   components: {
     Navbar: () => import("@/components/layout/Navbar"),
+    Footer,
   },
 
   data: () => ({
