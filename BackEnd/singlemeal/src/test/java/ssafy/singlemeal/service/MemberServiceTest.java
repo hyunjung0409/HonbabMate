@@ -65,5 +65,20 @@ class MemberServiceTest {
 
     }
 
+    @Test
+    public void 좋아요() throws Exception{
+        Member member = new Member();
+    }
+
+    @Test
+    public void 프로필_수정() throws Exception{
+        Member member = new Member();
+    }
+
+    @Test
+    public void 프로필_조회() throws Exception{
+        Member member = new Member();
+    }
+
 }
 

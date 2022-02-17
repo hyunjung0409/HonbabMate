@@ -122,4 +122,14 @@ public class MemberService {
         }
         return cnt;
     }
+
+    @Transactional
+    public void matchOutMember(Long id) {
+        Member findMember = memberRepository.findOne(id);
+        Room findRoom = roomRepository.findOne(findMember.getRoom().getId());
+
+        findMember.setMemberOption(null);
+        findMember.setRoom(roomRepository.findOne(1L));
+        findRoom.setCount(findRoom.getCount() - 1);
+    }
 }

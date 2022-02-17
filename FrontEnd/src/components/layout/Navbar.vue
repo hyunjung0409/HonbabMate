@@ -76,6 +76,7 @@ export default {
     ],
     userlogin: false,
     id: "",
+    changeurl: "",
   }),
   computed: {
     user() {
@@ -113,6 +114,8 @@ export default {
     },
 
     async login(kakao_account) {
+      const temp = kakao_account.profile.profile_image_url;
+      const temp2 = temp.replace(/http/g, "https");
       await rest
         .axios({
           method: "post",
@@ -121,14 +124,15 @@ export default {
             email: kakao_account.email,
             nickname: kakao_account.profile.nickname,
             gender: kakao_account.gender,
-            imageURL: kakao_account.profile.profile_image_url,
+            imageURL: temp2,
           },
         })
         .then((res) => {
           sessionStorage.setItem("nickname", kakao_account.profile.nickname);
           sessionStorage.setItem("memberID", res.data);
           console.log(res.data);
-          console.log("sessionStorage", sessionStorage.getItem("memberID"));
+          // console.log("sessionStorage", sessionStorage.getItem("memberID"));
+          console.log("change url", temp2);
           // 회원정보 가져와서 store에 넣기
           this.id = res.data;
           // this.$store.commit("member", res.data);

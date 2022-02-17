@@ -95,6 +95,14 @@ public class MemberApiController {
 //
 //    }
 
+    @ApiOperation(value = "방 나가기 테스트")
+    @GetMapping("/api/member/matchOut/{id}")
+    public void matchOutMember(@PathVariable("id") Long id){
+
+        memberService.matchOutMember(id);
+
+    }
+
     @ApiOperation(value = "싫어요 테스트")
     @GetMapping("/api/dislike/{id}")
     public Long dislikeMember(@PathVariable("id") Long id){
