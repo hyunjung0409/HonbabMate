@@ -32,9 +32,6 @@
       <v-list style="background-color: #eeeeee">
         <v-list-item>
           <v-list-item-title max-width="200px"> 최애음식 </v-list-item-title>
-          <v-btn text>
-            <v-icon> mdi-plus </v-icon>
-          </v-btn>
         </v-list-item>
         <div class="px-4">
           <v-chip v-for="food in member.foods" :key="food" class="mr-2 mb-2">
