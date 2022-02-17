@@ -2,7 +2,6 @@ package ssafy.singlemeal.repository;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
-import ssafy.singlemeal.domain.MemberOption;
 import ssafy.singlemeal.domain.Room;
 import ssafy.singlemeal.domain.RoomOption;
 import ssafy.singlemeal.domain.RoomStatus;

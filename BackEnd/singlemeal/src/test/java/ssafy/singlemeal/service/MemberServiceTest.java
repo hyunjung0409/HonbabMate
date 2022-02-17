@@ -1,9 +1,9 @@
 package ssafy.singlemeal.service;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 import ssafy.singlemeal.domain.*;
 import ssafy.singlemeal.repository.MemberRepository;
@@ -11,7 +11,6 @@ import ssafy.singlemeal.repository.RoomRepository;
 
 import javax.persistence.EntityManager;
 
-import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 @Transactional
@@ -24,21 +23,23 @@ class MemberServiceTest {
     @Autowired EntityManager em;
 
     @Test
-    @Rollback(false)
     public void 회원가입() throws Exception{
         // given
         Room room = new Room();
         em.persist(room);
 
+        Member member = new Member();
+        String testEmail = "testEmail@naver.com";
+        member.setEmail(testEmail);
+
         // when
+        Long memberId = memberService.join(member);
+        Member findmember = memberService.findOne(memberId);
 
         // then
+        Assertions.assertSame(findmember.getEmail(),testEmail);
 
    }
-
-    /**
-     *
-     * */
 
     @Test
     public void 매칭() throws Exception{
@@ -56,11 +57,12 @@ class MemberServiceTest {
 
         Member member1 = new Member();
         member1.setStatus(MemberStatus.ONLINE);
+        member1.setOption("talkable2");
 
         // when
-        memberService.join(member1);
 
         // then
+
     }
 
 }
