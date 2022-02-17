@@ -165,13 +165,17 @@ export default {
     if (this.member.id == null) {
       this.$router.push({ path: "/" });
     }
-    console.log("created : ", this.member);
+    // console.log("created : ", this.member);
   },
 
   methods: {
     modify() {
       if (!this.nickname) {
-        alert("닉네임을 입력해주세요");
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "닉네임을 입력해주세요!",
+        });
       } else {
         this.usermodify();
       }
@@ -193,9 +197,9 @@ export default {
           },
         })
         .then((res) => {
-          console.log("etc : ", this.member.etc);
-          console.log("nickname : ", this.nickname);
-          console.log(res);
+          // console.log("etc : ", this.member.etc);
+          // console.log("nickname : ", this.nickname);
+          // console.log(res);
 
           this.$store.commit("memberNickname", this.nickname);
 
@@ -217,14 +221,14 @@ export default {
     },
 
     addfood() {
-      console.log("입력 food : ", this.food);
+      // console.log("입력 food : ", this.food);
       this.member.foods.push(this.food);
-      console.log("member food", this.member.foods);
+      // console.log("member food", this.member.foods);
     },
 
     deletefood(food) {
-      console.log("deletefood :", food);
-      console.log(this.member.foods.length);
+      // console.log("deletefood :", food);
+      // console.log(this.member.foods.length);
       for (var i = 0; i < this.member.foods.length; i++) {
         if (this.member.foods[i] == food) {
           if (i == 0) {
@@ -233,7 +237,7 @@ export default {
             this.member.foods.splice(i, i);
           }
         }
-        console.log("Array[food] : ", this.member.foods);
+        // console.log("Array[food] : ", this.member.foods);
       }
     },
 
@@ -243,14 +247,14 @@ export default {
 
     addetc() {
       this.dialog = false;
-      console.log("입력 etc : ", this.oneetc);
+      // console.log("입력 etc : ", this.oneetc);
       this.member.etc.push(this.oneetc);
-      console.log("etc : ", this.member.etc);
+      // console.log("etc : ", this.member.etc);
     },
 
     deleteetc(etc) {
-      console.log("deleteetc :", etc);
-      console.log(this.member.etc.length);
+      // console.log("deleteetc :", etc);
+      // console.log(this.member.etc.length);
       for (var i = 0; i < this.member.etc.length; i++) {
         if (this.member.etc[i] == etc) {
           if (i == 0) {
@@ -259,7 +263,7 @@ export default {
             this.member.etc.splice(i, i);
           }
         }
-        console.log("Array[etc] : ", this.member.etc);
+        // console.log("Array[etc] : ", this.member.etc);
       }
     },
 

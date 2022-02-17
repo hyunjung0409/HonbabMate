@@ -97,17 +97,15 @@ export default {
     },
 
     getProfile(authObj) {
-      console.log("프로필 받기");
-      console.log(authObj);
+      // console.log("프로필 받기", authObj);
       window.Kakao.API.request({
         url: "/v2/user/me",
         success: (res) => {
           const kakao_account = res.kakao_account;
-          console.log(kakao_account);
+          // console.log(kakao_account);
           this.login(kakao_account);
           // alert("로그인성공");
 
-          this.userlogin = true;
           this.$store.commit("user", kakao_account);
         },
       });
@@ -130,25 +128,26 @@ export default {
         .then((res) => {
           sessionStorage.setItem("nickname", kakao_account.profile.nickname);
           sessionStorage.setItem("memberID", res.data);
-          console.log(res.data);
+          // console.log(res.data);
           // console.log("sessionStorage", sessionStorage.getItem("memberID"));
-          console.log("change url", temp2);
+          // console.log("change url", temp2);
+
           // 회원정보 가져와서 store에 넣기
           this.id = res.data;
           // this.$store.commit("member", res.data);
           // this.$store.commit("user", kakao_account);
           sessionStorage.setItem("userId", this.id);
           this.$store.commit("memberId", this.id);
-          console.log("memberId", this.$store.state.member.id);
+          // console.log("memberId", this.$store.state.member.id);
 
           // memberID 저장
           const temp = sessionStorage.getItem("memberID");
           this.storeuser(temp);
 
           // member image 저장
-          console.log("kakao image", kakao_account.profile.profile_image_url);
+          // console.log("kakao image", temp2);
           this.$store.commit("memberimage", temp2);
-          console.log("store", this.$store.state.memberimage);
+          // console.log("store", this.$store.state.memberimage);
           // this.storeuserimg(temp);
         })
         .catch((err) => {
@@ -163,9 +162,9 @@ export default {
           url: "/profile/" + temp,
         })
         .then((res) => {
-          console.log(res);
+          // console.log(res);
           this.$store.commit("member", res.data);
-          console.log("member : ", this.$store.state.member);
+          // console.log("member : ", this.$store.state.member);
         })
         .catch((err) => {
           console.log(err);

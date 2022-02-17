@@ -26,7 +26,9 @@
             송상빈
           </a>
           |
-          <a class="git" href="" style="color: white"> 이정언 </a>
+          <a class="git" href="https://github.com/Eooony" style="color: white">
+            이정언
+          </a>
           |
           <a
             class="git"

@@ -52,12 +52,12 @@ export default {
   methods: {
     num2() {
       this.$store.commit("numberopiton", 2);
-      console.log("useroption : ", this.useroption);
+      // console.log("useroption : ", this.useroption);
     },
 
     num5() {
       this.$store.commit("numberopiton", 5);
-      console.log("useroption : ", this.useroption);
+      // console.log("useroption : ", this.useroption);
     },
   },
 };
