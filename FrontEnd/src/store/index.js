@@ -54,7 +54,7 @@ export default new Vuex.Store({
       state.member.id = data;
     },
     memberNickname(state, data) {
-      state.member.nickname = data;
+      state.member.nickName = data;
     },
 
     memberSession(state, data) {

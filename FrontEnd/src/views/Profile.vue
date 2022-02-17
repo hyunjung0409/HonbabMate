@@ -10,7 +10,7 @@
 
         <v-col class="mt-9" cols="4">
           <div>
-            <p>닉네임 : {{ member.nickname }}</p>
+            <p>닉네임 : {{ member.nickName }}</p>
           </div>
           <div>
             <p>좋아요 받은 수 : {{ member.cntOfLikes }}</p>
