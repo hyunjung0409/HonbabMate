@@ -1,26 +1,22 @@
 <template>
   <v-main>
-    <v-container
-      v-if="session"
-      id="session"
-      style="border: 1px solid green"
-      fluid
-    >
+    <v-container v-if="session" id="session" fluid>
       <v-row
         id="session-header"
         outlined
         justify="center"
-        class="grey lighten-3 orange--text"
+        class="grey lighten-3"
+        style="color: #616161"
       >
         <v-col cols="3" align="start">
           <h4 id="session-title" class="mx-3">채팅룸 {{ mySessionId }}</h4>
         </v-col>
-        <v-col cols="3" align="start">
+        <v-col cols="4" align="start">
           <h4 class="mx-3">
             5인👩🏻‍🤝‍🧑🏻👩🏻‍🤝‍🧑🏻🧍‍♀️ 즐거운 토크와 함께하는 식사🍜
           </h4>
         </v-col>
-        <v-col cols="3" align="start">
+        <v-col cols="2" align="start">
           <!-- <span class="mx-3">남은 시간 {{ time }}</span> -->
           <h4>
             <timer />
@@ -42,7 +38,7 @@
                 <user-video :stream-manager="mainStreamManager" />
               </div> -->
 
-      <v-row id="video-container" class="grey lighten-3">
+      <v-row id="video-container" class="grey lighten-3" justify="space-around">
         <a style="cursor: default">
           <div class="video-area">
             <div class="bottom">
@@ -103,7 +99,6 @@
 </template>
 
 <script>
-import "@/assets/SCSS/common.scss";
 import axios from "axios";
 import { OpenVidu } from "openvidu-browser";
 import UserVideo from "@/components/chat_room/UserVideo";
@@ -199,7 +194,7 @@ export default {
               videoSource: undefined, // The source of video. If undefined default webcam
               publishAudio: true, // Whether you want to start publishing with your audio unmuted or not
               publishVideo: true, // Whether you want to start publishing with your video enabled or not
-              resolution: "640x480", // The resolution of your video
+              resolution: "400x300", // The resolution of your video
               frameRate: 30, // The frame rate of your video
               insertMode: "APPEND", // How the video is inserted in the target element 'video-container'
               mirror: false, // Whether to mirror your local video or not
@@ -332,19 +327,18 @@ a .video-area {
 
   /* max-width: 640px; */
   /* width: 60%; */
-  margin: 0px auto 50px auto;
-  border: 1px solid red;
+  margin: 50px 10px 0px 10px;
 }
 
 a .video-area .bottom {
   position: absolute;
   top: 150%;
-  right: 47%;
+  right: 40%;
   z-index: 2;
   transition: all 0.32s;
 }
 
 a:hover .bottom {
-  top: 90%;
+  top: 85%;
 }
 </style>

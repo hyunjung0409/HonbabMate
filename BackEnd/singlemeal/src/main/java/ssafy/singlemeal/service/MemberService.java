@@ -101,16 +101,15 @@ public class MemberService {
     }
 
     @Transactional
-    public void likeMmeber(Long id) {
+    public Long likeMmeber(Long id) {
         Member member = memberRepository.findOne(id);
-        member.setCntOfLikes(member.getCntOfLikes()+1);
+        return member.setCntOfLikes(member.getCntOfLikes()+1);
     }
 
     @Transactional
-    public void disLikeMember(Long id){
+    public Long disLikeMember(Long id){
         Member member = memberRepository.findOne(id);
-        member.setCntOfLikes(member.getCntOfLikes()-1);
-
+        return member.setCntOfLikes(member.getCntOfLikes()-1);
     }
 
     public Long countOnlines() {

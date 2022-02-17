@@ -8,14 +8,11 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import ssafy.singlemeal.domain.*;
 import ssafy.singlemeal.file.FileStore;
 import ssafy.singlemeal.file.UploadFile;
 import ssafy.singlemeal.service.MemberService;
 import ssafy.singlemeal.service.RoomService;
-
-import java.io.IOException;
 import java.util.List;
 
 @Slf4j
@@ -68,12 +65,13 @@ public class MemberApiController {
 
     @ApiOperation(value="프로필 수정 테스트")
     @PutMapping("/api/profile")
-    public CreateProfileResponse updateProfile(@ModelAttribute ProfileRequest request) throws IOException {
+    public CreateProfileResponse updateProfile(@ModelAttribute ProfileRequest request) {
 
         Member member = memberService.updateProfile(request.getId(), request.getNickname(), request.getFoods(), request.getEtc());
 
         return new CreateProfileResponse(member.getId(), member.getNickName(), member.getCntOfLikes(), member.getFood(), member.getEtc());
     }
+
 
     @ApiOperation(value = "프로필 조회 테스트")
     @GetMapping("/api/profile/{id}")
@@ -99,14 +97,16 @@ public class MemberApiController {
 
     @ApiOperation(value = "싫어요 테스트")
     @GetMapping("/api/dislike/{id}")
-    public void dislikeMember(@PathVariable("id") Long id){
-        memberService.disLikeMember(id);
+    public Long dislikeMember(@PathVariable("id") Long id){
+
+        return memberService.disLikeMember(id);
     }
 
     @ApiOperation(value = "좋아요 테스트")
     @GetMapping("/api/like/{id}")
-    public void likeMember(@PathVariable("id") Long id){
-        memberService.likeMmeber(id);
+    public Long likeMember(@PathVariable("id") Long id){
+
+        return memberService.likeMmeber(id);
     }
 
     @Data
@@ -126,7 +126,6 @@ public class MemberApiController {
         private String nickname;
         private List<String> foods;
         private List<String> etc;
-
     }
 
     @Data
