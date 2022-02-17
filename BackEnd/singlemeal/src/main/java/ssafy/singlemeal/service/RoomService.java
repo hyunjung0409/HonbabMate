@@ -19,7 +19,6 @@ public class RoomService {
     }
 
     public Long match(Long id, String option){
-
         return roomRepository.findByOption(option);
     }
 
