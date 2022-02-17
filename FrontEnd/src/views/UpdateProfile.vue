@@ -16,7 +16,7 @@
               v-model="nickname"
               label="닉네임"
               hint="닉네임 입력은 필수입니다"
-              :placeholder="member.nickName"
+              :placeholder="member.nickname"
               counter="10"
               required
               color="amber darken-1"
@@ -41,7 +41,32 @@
       <v-list style="background-color: #eeeeee">
         <v-list-item>
           <v-list-item-title max-width="200px"> 최애음식 </v-list-item-title>
+          <v-dialog v-model="fooddialog" width="500">
+            <template v-slot:activator="{ on, attrs }">
+              <v-btn text v-bind="attrs" v-on="on">
+                <v-icon> mdi-plus </v-icon>
+              </v-btn>
+            </template>
+            <v-card>
+              <v-card-title class="text-h5 grey lighten-2">
+                최애음식
+              </v-card-title>
+              <v-card-text>
+                <v-text-field
+                  v-model="food"
+                  placeholder="좋아하는 음식을 적어주세요"
+                />
+              </v-card-text>
+              <v-divider />
+              <v-card-actions>
+                <v-spacer />
+                <v-btn color="primary" text @click="addfood"> 추가하기 </v-btn>
+                <v-btn color="secondary" text @click="closefood"> 취소 </v-btn>
+              </v-card-actions>
+            </v-card>
+          </v-dialog>
         </v-list-item>
+
         <div class="px-4">
           <v-chip
             v-for="food in member.foods"
@@ -52,50 +77,14 @@
             {{ food }}
           </v-chip>
         </div>
-        <div class="px-4">
-          <v-dialog v-model="fooddialog" width="500">
-            <template v-slot:activator="{ on, attrs }">
-              <v-btn color="red lighten-2" dark v-bind="attrs" v-on="on">
-                추가하기
-              </v-btn>
-            </template>
-            <v-card>
-              <v-card-title class="text-h5 grey lighten-2">
-                최애음식
-              </v-card-title>
-              <v-card-text>
-                <v-text-field v-model="food" />
-              </v-card-text>
-              <v-divider />
-              <v-card-actions>
-                <v-spacer />
-                <v-btn color="primary" text @click="addfood"> 추가하기 </v-btn>
-                <v-btn color="secondary" text @click="closefood"> 취소 </v-btn>
-              </v-card-actions>
-            </v-card>
-          </v-dialog>
-        </div>
 
         <v-divider class="mt-12 mb-5" />
 
         <v-list-item>
-          <v-list-item-title>또 뭐있지?</v-list-item-title>
-        </v-list-item>
-        <div class="px-4">
-          <v-chip
-            v-for="tag in member.etc"
-            :key="tag"
-            class="mr-2 mb-2"
-            @click="deleteetc(tag)"
-          >
-            {{ tag }}
-          </v-chip>
-        </div>
-
-        <div class="px-4">
+          <v-list-item-title max-width="200px"> 또 뭐있지? </v-list-item-title>
           <v-dialog v-model="etcdialog" width="500">
             <template v-slot:activator="{ on, attrs }">
-              <v-btn v-bind="attrs" v-on="on">
+              <v-btn text v-bind="attrs" v-on="on">
                 <v-icon> mdi-plus </v-icon>
               </v-btn>
             </template>
@@ -104,7 +93,10 @@
                 기타사항
               </v-card-title>
               <v-card-text>
-                <v-text-field v-model="oneetc" />
+                <v-text-field
+                  v-model="oneetc"
+                  placeholder="나를 표현할 수 있는 것을 적어주세요"
+                />
               </v-card-text>
               <v-divider />
               <v-card-actions>
@@ -114,6 +106,17 @@
               </v-card-actions>
             </v-card>
           </v-dialog>
+        </v-list-item>
+
+        <div class="px-4">
+          <v-chip
+            v-for="tag in member.etc"
+            :key="tag"
+            class="mr-2 mb-2"
+            @click="deleteetc(tag)"
+          >
+            {{ tag }}
+          </v-chip>
         </div>
       </v-list>
     </v-container>
@@ -194,6 +197,8 @@ export default {
           console.log("nickname : ", this.nickname);
           console.log(res);
 
+          this.$store.commit("memberNickname", this.nickname);
+
           Swal.fire({
             position: "top",
             icon: "success",
@@ -201,7 +206,7 @@ export default {
             showConfirmButton: false,
             timer: 1500,
           });
-          this.$router.push({ path: "/" });
+          this.$router.push({ path: "/profile" });
           sessionStorage.clear();
           // alert("다시 로그인해주세요!");
           // location.reload();
