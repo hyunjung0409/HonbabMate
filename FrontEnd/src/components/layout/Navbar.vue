@@ -98,11 +98,12 @@ export default {
 
     getProfile(authObj) {
       // console.log("프로필 받기", authObj);
+      localStorage.setItem("access_token", authObj.access_token);
       window.Kakao.API.request({
         url: "/v2/user/me",
         success: (res) => {
           const kakao_account = res.kakao_account;
-          // console.log(kakao_account);
+          console.log(kakao_account);
           this.login(kakao_account);
           // alert("로그인성공");
 
@@ -192,31 +193,31 @@ export default {
       //   success: function (response) {
       //     console.log(response);
       //     alert("로그아웃");
-
+      //     this.logout(this.id);
       //     // this.$store.commit("user", {});
-
-      //     this.userlogin = false;
-      //     location.reload();
+      //     this.$router.push({ path: "/" });
       //   },
       //   fail: function (error) {
       //     console.log(error);
       //   },
       // });
+
       // 자체 로그아웃
       window.Kakao.Auth.logout((response) => {
         console.log(response);
+        // this.$store.commit("user", "");
         // alert("로그아웃");
-        this.logout(this.id);
+        this.logout();
         // this.userlogin = false;
         this.$router.push({ path: "/" });
       });
     },
 
-    async logout(id) {
+    async logout() {
       await rest
         .axios({
           method: "get",
-          url: "/members/logout/" + id,
+          url: "/members/logout/" + this.member.id,
           // params: {
           //   id: id,
           // },
@@ -225,9 +226,8 @@ export default {
           // sessionStorage.clear();
           console.log(res);
           // 회원정보 가져와서 store에 넣기
-          this.id = "";
           this.$store.commit("user", "");
-          this.userlogin = false;
+          localStorage.clear();
           location.reload();
           // this.$router.push({ path: "/" });
         })
