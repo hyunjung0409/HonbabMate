@@ -5,13 +5,11 @@
 2. 매칭 대기 중 화면과 사용법, FAQ, 프로필 화면 추가
 3. 수정된 UI에 맞게 Flowchart 수정
 
-
-## 피드백
-1.
-
-## ERD 다이어그램
+## ERD
+![ERD_2nd](/프로젝트 설계/2차 프로젝트 설계/img/ERD diagram.png)
 
 ## Flow chart
+![Flowchart_2nd](/프로젝트 설계/2차 프로젝트 설계/img/Flow chart_2.drawio.png)
 
 ## UI 설계
 ![UI 설계_2nd_1](/프로젝트 설계/2차 프로젝트 설계/img/UI 설계_2nd_1.jpg)
