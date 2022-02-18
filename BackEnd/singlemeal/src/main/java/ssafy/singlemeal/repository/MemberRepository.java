@@ -3,7 +3,6 @@ package ssafy.singlemeal.repository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import ssafy.singlemeal.domain.Member;
-import ssafy.singlemeal.domain.Room;
 
 import javax.persistence.EntityManager;
 import java.util.List;

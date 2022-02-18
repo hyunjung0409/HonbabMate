@@ -6,22 +6,14 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.core.io.UrlResource;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 import ssafy.singlemeal.domain.*;
 import ssafy.singlemeal.file.FileStore;
 import ssafy.singlemeal.file.UploadFile;
 import ssafy.singlemeal.service.MemberService;
 import ssafy.singlemeal.service.RoomService;
-
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URISyntaxException;
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
 
 @Slf4j
 @Api(tags = {"api"})
@@ -60,29 +52,9 @@ public class MemberApiController {
         memberService.logout(id);
     }
 
-    static int cnt;
     @ApiOperation(value = "매치 테스트")
     @PutMapping("/api/members/match")
     public MatchMemberResponse matchMember(@RequestBody @Validated MatchMemberRequest request){
-
-//        Timer timer = new Timer();
-//        cnt = 0;
-//        TimerTask task = new TimerTask() {
-//            @Override
-//            public void run() {
-//                cnt++;
-//                Long roomId = roomService.match(request.getId(), request.getOption());
-//                if(roomId != 1L){
-//                    memberService.updateOption(request.getId(), request.getOption());
-//                    memberService.updateRoomId(request.getId(), roomId);
-//                    timer.cancel();
-//                }else if(cnt == 10){
-//                    // 1인 상태로 반환
-//                    timer.cancel();
-//                }
-//            }
-//        };
-//        timer.schedule(task, 1000, 1000);
 
         Long roomId = roomService.match(request.getId(), request.getOption());
         memberService.updateOption(request.getId(), request.getOption());
@@ -91,22 +63,19 @@ public class MemberApiController {
         return new MatchMemberResponse(memberService.findOne(request.getId()).getRoom().getId());
     }
 
-    /**
-     * 프로필 수정 : 동일한 파일일 경우에는 새롭게 파일을 추가하지 않도록 설정 하기
-     * */
-
     @ApiOperation(value="프로필 수정 테스트")
     @PutMapping("/api/profile")
-    public void updateProfile(@ModelAttribute ProfileRequest request, @RequestParam("file") MultipartFile file) throws IOException {
+    public CreateProfileResponse updateProfile(@ModelAttribute ProfileRequest request) {
 
-        UploadFile imageFile = fileStore.storeFile(file);
+        Member member = memberService.updateProfile(request.getId(), request.getNickname(), request.getFoods(), request.getEtc());
 
-        memberService.updateProfile(request.getId(), request.getNickname(), request.getFoods(), request.getEtc(), imageFile);
+        return new CreateProfileResponse(member.getId(), member.getNickName(), member.getCntOfLikes(), member.getFood(), member.getEtc());
     }
+
 
     @ApiOperation(value = "프로필 조회 테스트")
     @GetMapping("/api/profile/{id}")
-    public CreateProfileResponse showProfile(@PathVariable("id") Long id) throws MalformedURLException, URISyntaxException {
+    public CreateProfileResponse showProfile(@PathVariable("id") Long id) {
 
         Member member = memberService.findOne(id);
         String nickName = member.getNickName();
@@ -117,27 +86,36 @@ public class MemberApiController {
         return new CreateProfileResponse(member.getId(),nickName,cntOfLikes,foods,etc);
     }
 
-    @ApiOperation(value = "프로필 이미지 조회 테스트")
-    @GetMapping("/api/profile/image/{id}")
-    public UrlResource getImage(@PathVariable("id") Long id) throws MalformedURLException {
+//    @ApiOperation(value = "프로필 이미지 조회 테스트")
+//    @GetMapping("/api/profile/image/{id}")
+//    public UrlResource getImage(@PathVariable("id") Long id) throws MalformedURLException {
+//
+//        Member member = memberService.findOne(id);
+//        return new UrlResource("file:"+member.getImagePath());
+//
+//    }
 
-        Member member = memberService.findOne(id);
-        return new UrlResource("file:"+member.getImagePath());
+    @ApiOperation(value = "방 나가기 테스트")
+    @GetMapping("/api/member/matchOut/{id}")
+    public void matchOutMember(@PathVariable("id") Long id){
+
+        memberService.matchOutMember(id);
 
     }
 
     @ApiOperation(value = "싫어요 테스트")
     @GetMapping("/api/dislike/{id}")
-    public void dislikeMember(@PathVariable("id") Long id){
-        memberService.disLikeMember(id);
+    public Long dislikeMember(@PathVariable("id") Long id){
+
+        return memberService.disLikeMember(id);
     }
 
     @ApiOperation(value = "좋아요 테스트")
     @GetMapping("/api/like/{id}")
-    public void likeMember(@PathVariable("id") Long id){
-        memberService.likeMmeber(id);
-    }
+    public Long likeMember(@PathVariable("id") Long id){
 
+        return memberService.likeMmeber(id);
+    }
 
     @Data
     @AllArgsConstructor
@@ -156,7 +134,6 @@ public class MemberApiController {
         private String nickname;
         private List<String> foods;
         private List<String> etc;
-
     }
 
     @Data

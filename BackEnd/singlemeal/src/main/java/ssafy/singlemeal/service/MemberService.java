@@ -53,6 +53,15 @@ public class MemberService {
     public void logout(Long id){
         Member member = memberRepository.findOne(id);
         member.setStatus(MemberStatus.OFFLINE);
+        Room memberRoom = member.getRoom();
+        if(memberRoom.getId() != 1L){
+            // count + status
+            memberRoom.setCount(memberRoom.getCount() - 1);
+            member.setMemberOption(null);
+            // roomId
+            Room initRoom = roomRepository.findOne(1L);
+            member.setRoom(initRoom);
+        }
 
     }
 
@@ -71,14 +80,15 @@ public class MemberService {
     }
 
     @Transactional
-    public void updateProfile(Long id, String nickname, List<String> foods, List<String> etc, UploadFile uploadFile) {
+    public Member updateProfile(Long id, String nickname, List<String> foods, List<String> etc) {
 
         Member member = memberRepository.findOne(id);
         member.setNickname(nickname);
         member.setFood(foods);
         member.setEtc(etc);
-        member.setImagePath(uploadFile.getFullPath());
 
+        return member;
+//        member.setImagePath(uploadFile.getFullPath());
     }
 
 
@@ -91,16 +101,15 @@ public class MemberService {
     }
 
     @Transactional
-    public void likeMmeber(Long id) {
+    public Long likeMmeber(Long id) {
         Member member = memberRepository.findOne(id);
-        member.setCntOfLikes(member.getCntOfLikes()+1);
+        return member.setCntOfLikes(member.getCntOfLikes()+1);
     }
 
     @Transactional
-    public void disLikeMember(Long id){
+    public Long disLikeMember(Long id){
         Member member = memberRepository.findOne(id);
-        member.setCntOfLikes(member.getCntOfLikes()-1);
-
+        return member.setCntOfLikes(member.getCntOfLikes()-1);
     }
 
     public Long countOnlines() {
@@ -112,5 +121,15 @@ public class MemberService {
                 cnt++;
         }
         return cnt;
+    }
+
+    @Transactional
+    public void matchOutMember(Long id) {
+        Member findMember = memberRepository.findOne(id);
+        Room findRoom = roomRepository.findOne(findMember.getRoom().getId());
+
+        findMember.setMemberOption(null);
+        findMember.setRoom(roomRepository.findOne(1L));
+        findRoom.setCount(findRoom.getCount() - 1);
     }
 }

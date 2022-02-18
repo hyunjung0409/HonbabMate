@@ -19,11 +19,6 @@ public class RoomService {
     }
 
     public Long match(Long id, String option){
-
-        /**
-         * 다른 참가자들에게 뿌려줘야 하는데..
-         * */
-
         return roomRepository.findByOption(option);
     }
 

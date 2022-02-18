@@ -21,18 +21,19 @@
                 src="https://cdn.vuetifyjs.com/images/john.jpg"
                 alt="profile-picture"
               /> -->
+              <img :src="memberimage.url" alt="profile-picture" />
             </v-list-item-avatar>
 
             <v-list-item-content>
-              <v-list-item-title>혼밥메이트206</v-list-item-title>
+              <v-list-item-title>{{ profile.nickName }}</v-list-item-title>
               <v-list-item-subtitle>
-                좋아요 :
+                좋아요 : {{ showLikes }}
                 <!-- 좋아요 : {{ countLike }} -->
               </v-list-item-subtitle>
             </v-list-item-content>
 
             <v-list-item-action>
-              <v-btn :class="fav ? 'red--text' : ''" icon @click="fav = !fav">
+              <v-btn :class="like ? 'red--text' : ''" icon @click="clickLike">
                 <v-icon>mdi-heart</v-icon>
               </v-btn>
             </v-list-item-action>
@@ -47,7 +48,7 @@
           </v-list-item>
           <div class="px-4">
             <v-chip-group active-class="primary--text" column>
-              <v-chip v-for="food in foods" :key="food">
+              <v-chip v-for="food in profile.foods" :key="food">
                 {{ food }}
               </v-chip>
             </v-chip-group>
@@ -58,7 +59,7 @@
           </v-list-item>
           <div class="px-4">
             <v-chip-group active-class="primary--text" column>
-              <v-chip v-for="tag in tags" :key="tag">
+              <v-chip v-for="tag in profile.etc" :key="tag">
                 {{ tag }}
               </v-chip>
             </v-chip-group>
@@ -133,21 +134,85 @@
 </template>
 
 <script>
+import rest from "../../api/index.js";
+
 export default {
   name: "DropdownMenu",
+  props: ["memberId"],
   data: () => ({
-    fav: true,
+    like: false,
     menu: false,
     blockDialog: false,
     reportDialog: false,
-    foods: [
-      "평양냉면",
-      "마라로제떡볶이",
-      "파히타",
-      "레인보우샤베트",
-      "마제소바",
-    ],
-    tags: ["ESFP", "쿠킹덤", "여고추리반"],
+    showLikes: this.member.cntOfLikes,
+    profile: null,
+    id: "",
   }),
+  computed: {
+    member() {
+      return this.$store.state.member;
+    },
+    memberimage() {
+      return this.$store.state.memberimage;
+    },
+  },
+
+  methods: {
+    clickLike() {
+      // const id = this.memberId;
+
+      this.toggleLike(id);
+    },
+    async toggleLike(id) {
+      if (this.like) {
+        //like false 인 경우
+        await rest
+          .axios({
+            // params: this.member.id,
+            method: "get",
+            url: "/like/" + id,
+          })
+          .then((res) => {
+            console.log("like: ", id);
+            console.log(res);
+            this.like = !this.like;
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      } else {
+        //like true일 경우
+        await rest
+          .axios({
+            // params: this.member.id,
+            method: "get",
+            url: "/dislike/" + id,
+          })
+          .then((res) => {
+            console.log("dislike: ", id);
+            console.log(res);
+            this.like = !this.like;
+          })
+          .catch((err) => {
+            console.log(err);
+            // console.log("id : ", this.member.id);
+          });
+      }
+    },
+    async getProfile(id) {
+      await rest
+        .axios({
+          method: "get",
+          url: "/profile/" + id,
+        })
+        .then((res) => {
+          this.profile = res;
+          console.log(res);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+  },
 };
 </script>

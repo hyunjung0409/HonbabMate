@@ -1,5 +1,8 @@
 <template>
-  <span class="mx-3">남은 시간 {{ TimerStr }}</span>
+  <span>
+    <p v-if="this.TimeCounter >= 300">남은 시간 {{ TimerStr }}</p>
+    <p v-else class="red--text">남은 시간 {{ TimerStr }}</p>
+  </span>
 </template>
 
 <script>
@@ -19,6 +22,7 @@ export default {
     timerStart: function () {
       // 1초에 한번씩 start 호출
       this.TimeCounter = 3600;
+      // this.TimeCounter = 60;
       var interval = setInterval(() => {
         this.TimeCounter--; //1초씩 감소
         this.TimerStr = this.prettyTime();
@@ -29,6 +33,7 @@ export default {
     timerStop: function (Timer) {
       clearInterval(Timer);
       this.TimeCounter = 0;
+      this.$router.push({ name: "Home" });
     },
     prettyTime: function () {
       // 시간 형식으로 변환 리턴
