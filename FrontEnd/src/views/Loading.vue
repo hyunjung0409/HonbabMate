@@ -85,16 +85,16 @@ export default {
         this.interval = setInterval(() => {
           if (this.value === 100) {
             clearInterval(this.interval);
-            console.log("여기서 넘어가는거?", this.value);
+            // console.log("여기서 넘어가는거?", this.value);
             // this.$router.push({ path: 'Chatroom' });
             // this.$router.replace({ path: "chatroom" });
             this.$router.replace({ path: this.option });
-            console.log("path : ", this.option);
+            // console.log("path : ", this.option);
             // this.show = false;
             // return setTimeout(this.queryAndIndeterminate, 2000);
           }
           this.value += 25;
-          console.log("test", this.value);
+          // console.log("test", this.value);
         }, 1000);
       }, 2500);
     },

@@ -54,7 +54,7 @@ export default {
           url: "/members/online",
         })
         .then((res) => {
-          console.log("res data : ", res.data);
+          // console.log("res data : ", res.data);
           this.online = res.data;
         })
         .catch((err) => {

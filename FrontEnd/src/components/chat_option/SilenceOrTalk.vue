@@ -65,32 +65,30 @@ export default {
   methods: {
     silence() {
       this.$store.commit("soundoption", false);
-      console.log("useroption : ", this.useroption);
-
-      console.log("num : " + this.useroption.number);
+      // console.log("useroption : ", this.useroption);
+      // console.log("num : " + this.useroption.number);
 
       if (this.useroption.number === 2) {
         this.$store.commit("finaloption", "nontalkable2");
-        console.log("2선택 finaloption : ", this.useroption.final);
+        // console.log("2선택 finaloption : ", this.useroption.final);
       } else if (this.useroption.number === 5) {
         this.$store.commit("finaloption", "nontalkable5");
-        console.log("5 선택 finaloption : ", this.useroption.final);
+        // console.log("5 선택 finaloption : ", this.useroption.final);
       }
       this.updateOption();
     },
 
     smalltalk() {
       this.$store.commit("soundoption", true);
-      console.log("useroption : ", this.useroption);
-
-      console.log("num : " + this.useroption.number);
+      // console.log("useroption : ", this.useroption);
+      // console.log("num : " + this.useroption.number);
 
       if (this.useroption.number === 2) {
         this.$store.commit("finaloption", "talkable2");
-        console.log("2선택 finaloption : ", this.useroption.final);
+        // console.log("2선택 finaloption : ", this.useroption.final);
       } else if (this.useroption.number === 5) {
         this.$store.commit("finaloption", "talkable5");
-        console.log("5 선택 finaloption : ", this.useroption.final);
+        // console.log("5 선택 finaloption : ", this.useroption.final);
       }
 
       this.updateOption();
@@ -107,10 +105,10 @@ export default {
           },
         })
         .then((res) => {
-          console.log(res);
+          // console.log(res);
           this.$store.commit("memberSession", res.data.id);
-          console.log("memberSession", this.$store.state.member.sessionId);
-          console.log("member + ", this.$store.state.member);
+          // console.log("memberSession", this.$store.state.member.sessionId);
+          // console.log("member + ", this.$store.state.member);
         })
         .catch((err) => {
           console.log(err);
